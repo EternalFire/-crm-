@@ -90,7 +90,7 @@ const menus = [
   generateAdminMenu()
 ];
 
-console.log(menus);
+// console.log(menus);
 
 function walkMenus(nodes) {
   let kv = {};

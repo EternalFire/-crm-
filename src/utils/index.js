@@ -41,7 +41,7 @@ Date.prototype.format = function (format) {
   return format
 }
 
-const checkResponse = (params) => {
+function checkResponse(params) {
   const { errCode } = params;
 
   if (errCode) {
@@ -53,6 +53,38 @@ const checkResponse = (params) => {
   return false;
 };
 
+function getCookie(c_name) {
+  try {
+    var cookieStr = document.cookie;
+    if (cookieStr.length > 0) {
+      // console.log('cookie: ', cookieStr);
+      var cookieArr = cookieStr.split(';');
+      for (var i = 0; i < cookieArr.length; i++) {
+        var cook = cookieArr[i];
+        var cookArr = cook.split('=');
+        if (cookArr[0].replace(' ', '') == c_name) {
+          return unescape(cookArr[1].replace(' ', ''));
+        }
+      }
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return "";
+}
+
+function delCookie(name) {
+  try {    
+    var exp = new Date();
+    exp.setTime(exp.getTime() + (-1 * 24 * 60 * 60 * 1000));
+    // var cval = getCookie(name);
+    // document.cookie = name + '=' + cval + '; expires=' + exp.toGMTString();
+    document.cookie = name + '= ; expires=' + exp.toGMTString();
+  } catch(e) {
+    console.error(e)
+  }
+}
+
 module.exports = {
   config,
   menu,
@@ -60,5 +92,7 @@ module.exports = {
   request,
   color,
   classnames, 
-  checkResponse
+  checkResponse,
+  getCookie,
+  delCookie
 }

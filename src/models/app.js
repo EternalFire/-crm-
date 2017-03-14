@@ -1,17 +1,16 @@
 // import {login, userInfo, logout} from '../services/app' // todo 
 import {login, queryUserWithId} from '../services/crm'
 import {parse} from 'qs'
-import {checkResponse} from '../utils'
+import {checkResponse, getCookie, delCookie} from '../utils'
+
+const cookie_userid = 'userid'
 
 export default {
   namespace: 'app',
   state: {
     login: false,
-    // login: true,
     loading: false,
-    user: {
-      // name: '吴彦祖'
-    },
+    user: {}, // 登录成功的用户
     loginButtonLoading: false,
     menuPopoverVisible: false,
     // siderFold: localStorage.getItem('antdAdminSiderFold') === 'true',
@@ -19,11 +18,15 @@ export default {
     // darkTheme: localStorage.getItem('antdAdminDarkTheme') !== 'false',
     darkTheme: true,
     isNavbar: document.body.clientWidth < 769,
-    navOpenKeys: JSON.parse(localStorage.getItem('navOpenKeys') || '[]')
+    navOpenKeys: JSON.parse(localStorage.getItem('navOpenKeys') || '[]')    
   },
   subscriptions: {
     setup ({dispatch}) {
-      // dispatch({type: 'queryUser'})
+      let userid = getCookie(cookie_userid)
+      if (userid.length > 0) {
+        dispatch({type: 'queryUser', payload: { userid }})
+      }
+
       window.onresize = function () {
         dispatch({type: 'changeNavbar'})
       }
@@ -35,9 +38,6 @@ export default {
     }, {call, put}) {
       yield put({type: 'showLoginButtonLoading'})
       const data = yield call(login, parse(payload))
-
-      console.log('after login...')
-      console.log(data)
       
       if (checkResponse(data)) {
         yield put({
@@ -58,37 +58,36 @@ export default {
       payload
     }, {call, put}) {
       yield put({type: 'showLoading'})
-      // ############
-      // const data = yield call(userInfo, parse(payload))
-      let data = {
-        success: true, 
-        username: 'Tester'
-      }
-      // ############
-      if (data.success) {
+
+      const data = yield call(queryUserWithId, parse(payload))
+      if (checkResponse(data)) {
         yield put({
           type: 'loginSuccess',
           payload: {
             user: {
-              name: data.username
+              ...data.data
             }
           }
-        })
+        });
       }
 
-      yield put({type: 'hideLoading'})
+      yield put({type: 'hideLoading'})      
     },
     *logout ({
       payload
     }, {call, put}) {
       // const data = yield call(logout, parse(payload))
-      let data = {}
-      if (data.success) {
-        yield put({
-          type: 'logoutSuccess'
-        })
-      }
-    },
+      // if (data.success) {
+      //   yield put({
+      //     type: 'logoutSuccess'
+      //   })
+      // }
+      delCookie(cookie_userid)
+
+      yield put({
+        type: 'logoutSuccess'
+      })
+    },    
     *switchSider ({
       payload
     }, {put}) {

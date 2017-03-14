@@ -7,9 +7,11 @@ import Header from '../components/layout/header'
 import Footer from '../components/layout/footer'
 import Sider from '../components/layout/sider'
 import styles from '../components/layout/main.less'
-import { Spin } from 'antd'
+import { Spin, Modal } from 'antd'
 import { classnames } from '../utils'
 import '../components/layout/common.less'
+
+const confirm = Modal.confirm;
 
 function App ({children, location, dispatch, app}) {
   const {login, loading, loginButtonLoading, user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys} = app
@@ -32,7 +34,13 @@ function App ({children, location, dispatch, app}) {
       dispatch({type: 'app/switchMenuPopver'})
     },
     logout () {
-      dispatch({type: 'app/logout'})
+      confirm({
+        title: '确定退出登陆吗?',
+        onOk() {
+          dispatch({ type: 'app/logout' })
+        },
+        onCancel() {}
+      });
     },
     switchSider () {
       dispatch({type: 'app/switchSider'})
@@ -56,8 +64,6 @@ function App ({children, location, dispatch, app}) {
       dispatch({ type: 'app/handleNavOpenKeys', payload: { navOpenKeys: openKeys } })
     }
   }
-
-  
 
   return (
     <div>
