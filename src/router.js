@@ -33,6 +33,16 @@ export default function ({history, app}) {
       },
       childRoutes: [
         {
+          path: 'admin/adminreport',
+          name: 'admin/adminreport',
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./models/admin'))
+              cb(null, require('./routes/admin'))
+            }, 'adminreport')
+          }
+        },
+        {
           path: 'dashboard',
           name: 'dashboard',
           getComponent (nextState, cb) {
