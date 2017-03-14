@@ -1,62 +1,3 @@
-// module.exports = [
-//   {
-//     key: 'dashboard',
-//     name: '仪表盘',
-//     icon: 'laptop'
-//   },
-//   {
-//     key: 'users',
-//     name: '用户管理',
-//     icon: 'user'
-//   },
-//   {
-//     key: 'ui',
-//     name: 'UI组件',
-//     icon: 'camera-o',
-//     clickable: false,
-//     child: [
-//       {
-//         key: 'ico',
-//         name: 'Ico 图标'
-//       },
-//       {
-//         key: 'search',
-//         name: 'Search 搜索'
-//       }
-//     ]
-//   },
-//   {
-//     key: 'people',
-//     name: 'people test',
-//     icon: 'user'
-//   },
-//   {
-//     key: 'navigation',
-//     name: '测试导航',
-//     icon: 'setting',
-//     child: [
-//       {
-//         key: 'navigation1',
-//         name: '二级导航1'
-//       },
-//       {
-//         key: 'navigation2',
-//         name: '二级导航2',
-//         child: [
-//           {
-//             key: 'navigation21',
-//             name: '三级导航1'
-//           },
-//           {
-//             key: 'navigation22',
-//             name: '三级导航2'
-//           }
-//         ]
-//       }
-//     ]
-//   }
-// ]
-
 import {
   guangzhou,
   chongqing,
@@ -66,6 +7,17 @@ import {
   getCenterName
 } from './center';
 
+/*
+  XX中心
+    社招面试
+      签到
+      分配简历
+    咨询中心
+      今日
+      本月
+      信息总量
+    数据分析
+*/
 function generateCenterMenu(center, name) {
   return {
     key: center,
@@ -115,11 +67,27 @@ function generateCenterMenu(center, name) {
   }
 }
 
+function generateAdminMenu() {
+  return {
+    key: admin,
+    name: getCenterName(admin),
+    icon: 'appstore',
+    child: [
+      {
+        key: admin + 'report',
+        name: '数据分析',
+        icon: 'line-chart'
+      }
+    ]
+  };
+}
+
 const menus = [
   generateCenterMenu(guangzhou, getCenterName(guangzhou)),
   generateCenterMenu(chongqing, getCenterName(chongqing)),
   generateCenterMenu(changsha,  getCenterName(changsha)),
-  generateCenterMenu(nanchang,  getCenterName(nanchang))
+  generateCenterMenu(nanchang,  getCenterName(nanchang)),
+  generateAdminMenu()
 ];
 
 console.log(menus);
@@ -129,7 +97,7 @@ function walkMenus(nodes) {
 
   let _walk = (array) => {
     array.forEach(element => {
-      if (element.child) {
+      if (element.child && Array.isArray) {
         element.child.forEach(e => {
           kv[e.key] = [element.key];
           _walk(element.child);
@@ -145,7 +113,6 @@ function walkMenus(nodes) {
   return kv;
 }
 
-// console.log('after walk', walkMenus(menus));
 const ancestorKeys = walkMenus(menus);
 
 // todo: 菜单按权限显示

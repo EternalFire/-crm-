@@ -41,11 +41,24 @@ Date.prototype.format = function (format) {
   return format
 }
 
+const checkResponse = (params) => {
+  const { errCode } = params;
+
+  if (errCode) {
+    if (errCode === 'ok') {
+      return true;
+    }
+  }
+
+  return false;
+};
+
 module.exports = {
   config,
   menu,
   ancestorKeys,
   request,
   color,
-  classnames
+  classnames, 
+  checkResponse
 }

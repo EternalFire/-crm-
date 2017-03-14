@@ -60,8 +60,9 @@ function App ({children, location, dispatch, app}) {
   
 
   return (
-    <div>{login
-        ? <div className={classnames(styles.layout, {[styles.fold]: isNavbar ? false : siderFold}, {[styles.withnavbar]: isNavbar})}>
+    <div>
+      {login ? 
+        <div className={classnames(styles.layout, {[styles.fold]: isNavbar ? false : siderFold}, {[styles.withnavbar]: isNavbar})}>
           {!isNavbar ? <aside className={classnames(styles.sider, {[styles.light]: !darkTheme})}>
             <Sider {...siderProps} />
           </aside> : ''}
@@ -75,7 +76,13 @@ function App ({children, location, dispatch, app}) {
             <Footer />
           </div>
         </div>
-        : <div className={styles.spin}><Spin tip='加载用户信息...' spinning={loading} size='large'><Login {...loginProps} /></Spin></div>}</div>
+        : <div className={styles.spin}>
+            <Spin tip='加载用户信息...' spinning={loading} size='large'>
+              <Login {...loginProps} />
+            </Spin>
+          </div>
+      }
+    </div>
   )
 }
 

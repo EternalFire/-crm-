@@ -26,7 +26,7 @@ const login = ({
     <div className={styles.form}>
       <div className={styles.logo}>
         <img src={config.logoSrc} />
-        <span>Ant Design</span>
+        <span>{config.name}</span>
       </div>
       <form>
         <FormItem hasFeedback>
@@ -34,13 +34,16 @@ const login = ({
             rules: [
               {
                 required: true,
-                message: '请填写用户名'
+                message: '请填写邮箱'
+              },{
+                type: 'email', 
+                message: '请输入有效的邮箱! '
               }
             ]
           })(<Input size='large' onPressEnter={handleOk} placeholder='用户名' />)}
         </FormItem>
         <FormItem hasFeedback>
-          {getFieldDecorator('password', {
+          {getFieldDecorator('pwd', {
             rules: [
               {
                 required: true,
@@ -54,10 +57,6 @@ const login = ({
             登录
           </Button>
         </Row>
-        <p>
-          <span>账号：guest</span>
-          <span>密码：guest</span>
-        </p>
       </form>
     </div>
   )

@@ -1,14 +1,16 @@
-import {login, userInfo, logout} from '../services/app'
+// import {login, userInfo, logout} from '../services/app' // todo 
+import {login, queryUserWithId} from '../services/crm'
 import {parse} from 'qs'
+import {checkResponse} from '../utils'
 
 export default {
   namespace: 'app',
   state: {
-    // login: false,
-    login: true,
+    login: false,
+    // login: true,
     loading: false,
     user: {
-      name: '吴彦祖'
+      // name: '吴彦祖'
     },
     loginButtonLoading: false,
     menuPopoverVisible: false,
@@ -21,7 +23,7 @@ export default {
   },
   subscriptions: {
     setup ({dispatch}) {
-      dispatch({type: 'queryUser'})
+      // dispatch({type: 'queryUser'})
       window.onresize = function () {
         dispatch({type: 'changeNavbar'})
       }
@@ -33,18 +35,23 @@ export default {
     }, {call, put}) {
       yield put({type: 'showLoginButtonLoading'})
       const data = yield call(login, parse(payload))
-      if (data.success) {
+
+      console.log('after login...')
+      console.log(data)
+      
+      if (checkResponse(data)) {
         yield put({
           type: 'loginSuccess',
           payload: {
             user: {
-              name: payload.username
+              ...data.data
             }
-          }})
+          }
+        });
       } else {
         yield put({
           type: 'loginFail'
-        })
+        });
       }
     },
     *queryUser ({
@@ -74,7 +81,8 @@ export default {
     *logout ({
       payload
     }, {call, put}) {
-      const data = yield call(logout, parse(payload))
+      // const data = yield call(logout, parse(payload))
+      let data = {}
       if (data.success) {
         yield put({
           type: 'logoutSuccess'

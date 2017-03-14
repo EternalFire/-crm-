@@ -17,15 +17,9 @@
     }
   },
   "proxy": {
-    "/api/test": {
-      "target": "http://localhost:53071/",
-      "changeOrigin": true,
-      "pathRewrite": { "/api/test" : "people/hello" }
-    },
-    "/people": {
-      "target": "http://localhost:53071/",
-      "changeOrigin": true,
-      "pathRewrite": { "/people" : "people/hello" }
+    "*": {
+      "target": "http://localhost:9001/",
+      "changeOrigin": true
     }
   }
 }
