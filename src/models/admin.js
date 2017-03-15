@@ -1,3 +1,6 @@
+/*
+ * 总部
+ */
 import {querySuReport} from '../services/crm'
 import {checkResponse} from '../utils'
 
@@ -16,7 +19,7 @@ export default {
     *query({ payload }, { select, call, put }) {
       const date = yield select(({ admin }) => admin.date);
       const data = yield call(querySuReport, { ...payload, date })
-      if (checkResponse(data)) {        
+      if (checkResponse(data)) {
         yield put({
           type: 'querySuccess',
           payload: {

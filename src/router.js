@@ -43,6 +43,16 @@ export default function ({history, app}) {
           }
         },
         {
+          path: 'gz/gzcenter/*',
+          name: 'gz/gzcenter/*',
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./models/center'))
+              cb(null, require('./routes/center'))
+            }, 'center')
+          }
+        },
+        {
           path: 'dashboard',
           name: 'dashboard',
           getComponent (nextState, cb) {

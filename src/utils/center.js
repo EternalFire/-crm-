@@ -1,5 +1,5 @@
 /*
- * 各中心
+ * 各咨询中心常量
  *
  */
 
@@ -33,11 +33,18 @@ const getCenterName = (center) => {
   return result;
 };
 
+// 报表类型
+const day = 'day';
+const month = 'month';
+const all = 'all';
+const type = { day, month, all };
+
 export {
   guangzhou,
   chongqing,
   changsha,
   nanchang,
   admin,
-  getCenterName
+  getCenterName,
+  type
 }

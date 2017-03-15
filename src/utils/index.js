@@ -4,7 +4,11 @@ import { ancestorKeys } from './menu'
 import request from './request'
 import classnames from 'classnames'
 import {color} from './theme'
+import * as center from './center'
+import * as authority from './user-authority'
 // require('./mock.js')
+
+const DateFormat = 'YYYY-MM-DD';
 
 // 连字符转驼峰
 String.prototype.hyphenToHump = function () {
@@ -86,6 +90,7 @@ function delCookie(name) {
 }
 
 module.exports = {
+  DateFormat,
   config,
   menu,
   ancestorKeys,
@@ -94,5 +99,7 @@ module.exports = {
   classnames, 
   checkResponse,
   getCookie,
-  delCookie
+  delCookie,
+  center,
+  authority
 }

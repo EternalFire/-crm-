@@ -1,3 +1,6 @@
+/*
+ * 总部
+ */
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 
