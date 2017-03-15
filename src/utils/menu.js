@@ -25,41 +25,41 @@ function generateCenterMenu(center, name) {
     icon: 'appstore',
     child: [
       {
-        key: center + 'itv',
+        key: center + '-itv',
         name: '社招面试',
         icon: 'team',
         child: [
           {
-            key: center + 'qr',
+            key: center + '-qr',
             name: '签到二维码'
           },
           {
-            key: center + 'align',
+            key: center + '-align',
             name: '分配简历'
           }
         ]
       }, 
       {
-        key: center + 'center',
+        key: center + '-center',
         name: '咨询中心',
         icon: 'customer-service',
         child: [
           {
-            key: center + 'today',
+            key: center + '-day',
             name: '今日'
           },
           {
-            key: center + 'monthmng',
+            key: center + '-month',
             name: '本月'
           },
           {
-            key: center + 'allmng',
+            key: center + '-all',
             name: '信息总量'
           }
         ]
       },
       {
-        key: center + 'report',
+        key: center + '-report',
         name: '数据分析',
         icon: 'line-chart'
       }

@@ -90,6 +90,8 @@ export async function queryMng(params) {
   if (zjFilter) url += '&notnull=zjTime';
   if (jbFilter) url += '&notnull=jbTime';
 
+  // console.log('url is ', url);
+  
   return request(url, {
     method: 'get'
   })

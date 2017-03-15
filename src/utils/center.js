@@ -1,5 +1,5 @@
 /*
- * 各咨询中心常量
+ * 各中心
  *
  */
 
@@ -33,11 +33,26 @@ const getCenterName = (center) => {
   return result;
 };
 
+const getCenters = () => {
+  return [guangzhou, chongqing, changsha, nanchang];
+};
+
 // 报表类型
 const day = 'day';
 const month = 'month';
 const all = 'all';
-const type = { day, month, all };
+const parseMenuKey = (openKey) => {
+  if (typeof openKey === 'string' && openKey.length > 0 )
+  {
+    let keyValue = openKey.split('-');
+    if (keyValue.length > 1) {
+      return { name: keyValue[0], type: keyValue[1] };
+    }
+  }
+  return false;
+};
+const type = { day, month, all, parseMenuKey };
+
 
 export {
   guangzhou,
@@ -46,5 +61,6 @@ export {
   nanchang,
   admin,
   getCenterName,
+  getCenters,
   type
 }

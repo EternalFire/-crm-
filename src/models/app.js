@@ -18,7 +18,8 @@ export default {
     // darkTheme: localStorage.getItem('antdAdminDarkTheme') !== 'false',
     darkTheme: true,
     isNavbar: document.body.clientWidth < 769,
-    navOpenKeys: JSON.parse(localStorage.getItem('navOpenKeys') || '[]')    
+    navOpenKeys: JSON.parse(localStorage.getItem('navOpenKeys') || '[]'),
+    openKey: ''
   },
   subscriptions: {
     setup ({dispatch}) {
@@ -195,6 +196,13 @@ export default {
       return {
         ...state,
         ...action.payload
+      }
+    },
+    handleClickMenu (state, action) {
+      const { openKey } = action.payload
+      return {
+        ...state,
+        openKey
       }
     }
   }

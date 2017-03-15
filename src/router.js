@@ -1,6 +1,7 @@
 import React from 'react'
 import {Router} from 'dva/router'
 import App from './routes/app'
+import {center} from './utils'
 
 const cached = {}
 const registerModel = (app, model) => {
@@ -11,6 +12,20 @@ const registerModel = (app, model) => {
 }
 
 export default function ({history, app}) {
+  
+  const centerRoute = center.getCenters().map((e) => {
+    return {
+      path: `${e}/${e}-center/*`,
+      name: `${e}/${e}-center/*`,
+      getComponent(nextState, cb) {
+        require.ensure([], require => {
+          registerModel(app, require('./models/center'))
+          cb(null, require('./routes/center'))
+        }, 'center')
+      }
+    }
+  });
+
   const routes = [
     {
       path: '/',
@@ -42,60 +57,10 @@ export default function ({history, app}) {
             }, 'adminreport')
           }
         },
+
+        ...centerRoute,
+
         {
-          path: 'gz/gzcenter/*',
-          name: 'gz/gzcenter/*',
-          getComponent(nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./models/center'))
-              cb(null, require('./routes/center'))
-            }, 'center')
-          }
-        },
-        {
-          path: 'dashboard',
-          name: 'dashboard',
-          getComponent (nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./models/dashboard'))
-              cb(null, require('./routes/dashboard'))
-            }, 'dashboard')
-          }
-        }, {
-          path: 'users',
-          name: 'users',
-          getComponent (nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./models/users'))
-              cb(null, require('./routes/users'))
-            }, 'users')
-          }
-        }, {
-          path: 'people',
-          name: 'people',
-          getComponent (nextState, cb) {
-            require.ensure([], require => {
-              registerModel(app, require('./models/people'))
-              cb(null, require('./routes/people'))
-            }, 'people')
-          }
-        }, {
-          path: 'ui/ico',
-          name: 'ui/ico',
-          getComponent (nextState, cb) {
-            require.ensure([], require => {
-              cb(null, require('./routes/ui/ico'))
-            }, 'ui-ico')
-          }
-        }, {
-          path: 'ui/search',
-          name: 'ui/search',
-          getComponent (nextState, cb) {
-            require.ensure([], require => {
-              cb(null, require('./routes/ui/search'))
-            }, 'ui-search')
-          }
-        }, {
           path: '*',
           name: 'error',
           getComponent (nextState, cb) {
