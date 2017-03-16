@@ -45,6 +45,7 @@ Date.prototype.format = function (format) {
   return format
 }
 
+// server response
 function checkResponse(params) {
   const { errCode } = params;
 
@@ -57,6 +58,7 @@ function checkResponse(params) {
   return false;
 };
 
+// cookie
 function getCookie(c_name) {
   try {
     var cookieStr = document.cookie;
@@ -76,7 +78,6 @@ function getCookie(c_name) {
   }
   return "";
 }
-
 function delCookie(name) {
   try {    
     var exp = new Date();
@@ -89,6 +90,7 @@ function delCookie(name) {
   }
 }
 
+// menu
 const dispatchMenu = ({ 
   dispatch, 
   openKey 
@@ -99,8 +101,11 @@ const dispatchMenu = ({
   if (center.isMng(name, type)) {
     // console.log('isMng => ', name, type)
     dispatch({ type: 'center/setCenter', payload: { name, type } })
-
+  } else {
+    // if (center.isInterview(name)) {
+    // }
   }
+
 }
 
 module.exports = {

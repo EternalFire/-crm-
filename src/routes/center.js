@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 
-function Center({location, dispatch, center, openKey}) {
+function Center({location, dispatch, center}) {
   return (
     <div>
 
@@ -17,10 +17,6 @@ function Center({location, dispatch, center, openKey}) {
         <div>allData: </div>
         <pre>{JSON.stringify(center.allData, null, 2)}</pre>
       </div>
-      <div>
-        <div>frontData: </div>
-        <pre>{JSON.stringify(center.frontData, null, 2)}</pre>
-      </div>
     </div>
   )
 }
@@ -30,8 +26,8 @@ Center.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { center, app: { openKey } } = state
-  return { center, openKey }
+  const { center } = state
+  return { center }
 }
 
 export default connect(mapStateToProps)(Center)

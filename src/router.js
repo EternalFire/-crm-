@@ -12,6 +12,19 @@ const registerModel = (app, model) => {
 }
 
 export default function ({history, app}) {
+
+  const interviewRoute = center.getCenters().map((e) => {
+    return {
+      path: `${e}/${e}-interview/*`,
+      name: `${e}/${e}-interview/*`,
+      getComponent(nextState, cb) {
+        require.ensure([], require => {
+          registerModel(app, require('./models/interview'))
+          cb(null, require('./routes/interview'))
+        })
+      }
+    }
+  })
   
   const centerRoute = center.getCenters().map((e) => {
     return {
@@ -25,19 +38,6 @@ export default function ({history, app}) {
       }
     }
   });
-
-  const alignRoute = center.getCenters().map((e) => {
-    return {
-      path: `${e}/${e}-itv/${e}-align`,
-      name: `${e}/${e}-itv/${e}-align`,
-      getComponent(nextState, cb) {
-        require.ensure([], require => {
-          registerModel(app, require('./models/center'))
-          cb(null, require('./routes/center'))
-        })
-      }
-    }
-  })
 
   const routes = [
     {
@@ -60,6 +60,8 @@ export default function ({history, app}) {
         })
       },
       childRoutes: [
+        ...interviewRoute,
+        ...centerRoute,
         {
           path: 'admin/adminreport',
           name: 'admin/adminreport',
@@ -70,10 +72,6 @@ export default function ({history, app}) {
             }, 'adminreport')
           }
         },
-
-        ...alignRoute,
-        ...centerRoute,
-
         {
           path: '*',
           name: 'error',

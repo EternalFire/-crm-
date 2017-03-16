@@ -41,6 +41,13 @@ const getCenters = () => {
 const day = 'day';
 const month = 'month';
 const all = 'all';
+const type = { day, month, all };
+
+// 社招面试类型
+const qr = 'qr';
+const align = 'align';
+const interviewType = { qr, align };
+
 const parseMenuKey = (openKey) => {
   if (typeof openKey === 'string' && openKey.length > 0 )
   {
@@ -51,12 +58,25 @@ const parseMenuKey = (openKey) => {
   }
   return false;
 };
-const type = { day, month, all };
+const parsePath = (pathname) => {
+  if (typeof pathname === 'string' && pathname.length > 0) {
+    let array = pathname.split('/');
+    let last = array[array.length - 1];
+    return parseMenuKey(last);
+  }
+  return false;
+}
 
+// 咨询中心
 const isMng = (name, type) => {  
   let result1 = [guangzhou, chongqing, changsha, nanchang, admin].some(e => e === name);
   let result2 = [day, month, all].some(e => e === type);
   return result1 && result2;
+}
+
+// 社招面试
+const isInterview = (name) => {
+  return getCenters().some(e => e === name);
 }
 
 export {
@@ -68,6 +88,9 @@ export {
   getCenterName,
   getCenters,
   type,
+  interviewType,
   parseMenuKey,
-  isMng
+  parsePath,
+  isMng,
+  isInterview
 }

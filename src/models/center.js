@@ -1,7 +1,7 @@
 /*
  * 各中心
  */
-import {queryMng, queryCustomerFrontDesk} from '../services/crm'
+import {queryMng} from '../services/crm'
 import {checkResponse, center} from '../utils'
 
 function checkCenter(name, type) {
@@ -12,12 +12,11 @@ export default {
   namespace: 'center',
   state: {
     name: null,
-    type: null, // 按 天/月/总 查询
+    type: center.type.day, // 按 天/月/总 查询
     dayData: [],
     monthData: [],
     allData: [],
     current: {}, // 选择的数据条目
-    frontData: [],
 
     // 查询条件
     startDate: '2017-2-28',
@@ -96,21 +95,7 @@ export default {
       
     //   yield put({ type: 'setCenter', payload });
     // },
-    *queryFrontDesk({ payload }, { select, call, put }) {
-      const { name, type, startDate } = yield select(({ center }) => ( center ));
 
-      if (!checkCenter(name, type)) { 
-        return 
-      }
-
-      const data = yield call(queryCustomerFrontDesk, { date: startDate, center: name })
-      if (checkResponse(data)) {
-        yield put({ type: 'clearFrontData' })
-        yield put({ type: 'queryFrontDeskSuccess', payload: { data: data.data.customers }})
-      } else {
-        // 
-      }
-    },
   },
   reducers: {
     queryDaySuccess (state, action) {
@@ -129,13 +114,6 @@ export default {
       const { data } = action.payload;
       return {
         ...state, allData: data
-      }
-    },
-    queryFrontDeskSuccess (state, action) {
-      const { data } = action.payload
-      return {
-        ...state,
-        frontData: data
       }
     },
     setCenter (state, action) {
@@ -157,11 +135,6 @@ export default {
     clearAllData (state, action) {
       return {
         ...state, allData: []
-      }
-    },
-    clearFrontData (state, action) {
-      return {
-        ...state, frontData: []
       }
     }
   }

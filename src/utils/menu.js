@@ -27,7 +27,7 @@ function generateCenterMenu(center, name) {
     icon: 'appstore',
     child: [
       {
-        key: center + '-itv',
+        key: center + '-interview',
         name: '社招面试',
         icon: 'team',
         child: [
