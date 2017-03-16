@@ -51,8 +51,13 @@ const parseMenuKey = (openKey) => {
   }
   return false;
 };
-const type = { day, month, all, parseMenuKey };
+const type = { day, month, all };
 
+const isMng = (name, type) => {  
+  let result1 = [guangzhou, chongqing, changsha, nanchang, admin].some(e => e === name);
+  let result2 = [day, month, all].some(e => e === type);
+  return result1 && result2;
+}
 
 export {
   guangzhou,
@@ -62,5 +67,7 @@ export {
   admin,
   getCenterName,
   getCenters,
-  type
+  type,
+  parseMenuKey,
+  isMng
 }

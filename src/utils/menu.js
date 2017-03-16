@@ -4,7 +4,9 @@ import {
   changsha,
   nanchang,
   admin,
-  getCenterName
+  getCenterName,
+  parseMenuKey,
+  isMng
 } from './center';
 
 /*
@@ -115,6 +117,9 @@ function walkMenus(nodes) {
 
 const ancestorKeys = walkMenus(menus);
 
+
+
 // todo: 菜单按权限显示
+
 export default menus;
 export {ancestorKeys}

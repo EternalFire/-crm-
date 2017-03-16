@@ -17,6 +17,10 @@ function Center({location, dispatch, center, openKey}) {
         <div>allData: </div>
         <pre>{JSON.stringify(center.allData, null, 2)}</pre>
       </div>
+      <div>
+        <div>frontData: </div>
+        <pre>{JSON.stringify(center.frontData, null, 2)}</pre>
+      </div>
     </div>
   )
 }

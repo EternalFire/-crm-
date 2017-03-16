@@ -26,6 +26,19 @@ export default function ({history, app}) {
     }
   });
 
+  const alignRoute = center.getCenters().map((e) => {
+    return {
+      path: `${e}/${e}-itv/${e}-align`,
+      name: `${e}/${e}-itv/${e}-align`,
+      getComponent(nextState, cb) {
+        require.ensure([], require => {
+          registerModel(app, require('./models/center'))
+          cb(null, require('./routes/center'))
+        })
+      }
+    }
+  })
+
   const routes = [
     {
       path: '/',
@@ -58,6 +71,7 @@ export default function ({history, app}) {
           }
         },
 
+        ...alignRoute,
         ...centerRoute,
 
         {

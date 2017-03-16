@@ -89,11 +89,26 @@ function delCookie(name) {
   }
 }
 
+const dispatchMenu = ({ 
+  dispatch, 
+  openKey 
+}) => {
+  dispatch({ type: 'app/handleClickMenu', payload: { openKey } })
+
+  const {name, type} = center.parseMenuKey(openKey);
+  if (center.isMng(name, type)) {
+    // console.log('isMng => ', name, type)
+    dispatch({ type: 'center/setCenter', payload: { name, type } })
+
+  }
+}
+
 module.exports = {
   DateFormat,
   config,
   menu,
   ancestorKeys,
+  dispatchMenu,
   request,
   color,
   classnames, 
