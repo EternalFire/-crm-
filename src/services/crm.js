@@ -44,7 +44,7 @@ export async function queryUserWithCenter(params) {
 
 // 分配简历
 // params: target
-export async function follow(params) {
+export async function alignCustomerFrontDesk(params) {
   return request(`/follow`, {
     method: 'post',
     data: params
@@ -109,7 +109,7 @@ export async function editCustomerMng(params) {
 }
 
 // 中心咨询师报表数据
-export async function queryCenterReport(params) {
+export async function queryCenterUserReport(params) {
   const { date, center } = params;
 
   return request(`/centerreport?center=${center}&date=${date}`, {

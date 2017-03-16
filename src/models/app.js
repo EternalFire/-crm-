@@ -1,5 +1,5 @@
 // import {login, userInfo, logout} from '../services/app' // todo 
-import {login, queryUserWithId} from '../services/crm'
+import {login, queryUserWithId, queryUserWithCenter} from '../services/crm'
 import {parse} from 'qs'
 import {checkResponse, getCookie, delCookie} from '../utils'
 
@@ -11,6 +11,7 @@ export default {
     login: false,
     loading: false,
     user: {}, // 登录成功的用户
+    users: {}, // 用户(顾问)列表
     loginButtonLoading: false,
     menuPopoverVisible: false,
     // siderFold: localStorage.getItem('antdAdminSiderFold') === 'true',
@@ -73,6 +74,13 @@ export default {
       }
 
       yield put({type: 'hideLoading'})      
+    },
+    *queryUsers ({ payload }, { select, call, put }) {
+      const data = yield call(queryUserWithCenter, { ...payload })
+
+      if (checkResponse(data)) {
+        yield put({ type: 'setUsers', payload: { users: data.data } })
+      }
     },
     *logout ({
       payload
@@ -203,6 +211,12 @@ export default {
       return {
         ...state,
         openKey
+      }
+    },
+    setUsers (state, action) {
+      return {
+        ...state,
+        ...action.payload
       }
     }
   }

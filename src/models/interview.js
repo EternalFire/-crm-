@@ -3,7 +3,9 @@
  *
  */
 
-import {queryCustomerFrontDesk} from '../services/crm'
+import {
+  queryCustomerFrontDesk, editCustomerFrontDesk, alignCustomerFrontDesk, deleteCustomerFrontDesk
+} from '../services/crm'
 import {checkResponse, center} from '../utils'
 
 export default {
@@ -50,6 +52,26 @@ export default {
         // 
       }
     },
+    *update({ payload }, { select, call, put }) {
+      const params = yield select((({ interview }) => (interview.current)))
+
+      // todo: check key 'customerId' in params
+      params['customerId'] = params._id
+      console.log('interview check key customerId => ', params['customerId'])
+
+      yield call(editCustomerFrontDesk, params)
+    },
+    *align({ payload }, { select, call, put }) {
+      const params = yield select((({ interview }) => (interview.current)))
+
+      yield call(alignCustomerFrontDesk, params)
+    },
+    *deleteCustomer({ payload }, { select, call, put }) {
+      const params = yield select((({ interview }) => (interview.current)))
+      params['customerId'] = params._id      
+
+      yield call(deleteCustomerFrontDesk, params)
+    }    
   },
   reducers: {
     queryFrontDeskSuccess (state, action) {

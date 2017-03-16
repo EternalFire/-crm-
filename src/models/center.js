@@ -1,7 +1,7 @@
 /*
- * 各中心
+ * 分中心的咨询中心
  */
-import {queryMng} from '../services/crm'
+import {queryMng, editCustomerMng} from '../services/crm'
 import {checkResponse, center} from '../utils'
 
 function checkCenter(name, type) {
@@ -95,7 +95,15 @@ export default {
       
     //   yield put({ type: 'setCenter', payload });
     // },
+    *updateCustomer({ payload }, { select, call, put }) {
+      const params = yield select((({ center }) => (center.current)))
 
+      // todo: check key 'customerId' in params
+      params['customerId'] = params._id
+      console.log('check key customerId => ', params['customerId'])
+
+      yield call(editCustomerMng, params)
+    }
   },
   reducers: {
     queryDaySuccess (state, action) {
