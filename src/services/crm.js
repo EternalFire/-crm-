@@ -1,5 +1,4 @@
-import { request } from '../utils'
-import * as Authority from '../utils/user-authority'
+import { request, authority } from '../utils'
 
 // 登录
 // params: values(表单数据)
@@ -77,10 +76,10 @@ export async function queryMng(params) {
     currentPage, 
     currentPageSize
   } = params;
-  // const { currentPage, currentPageSize } = this.state;
+
   let url = `/itv_customers?center=${center}&startDate=${startDate}&endDate=${endDate}&sortby=createTime&current=${currentPage}&pageSize=${currentPageSize}`;
 
-  if (Authority.isWorker(user.type)) {
+  if (authority.isWorker(user.type)) {
     url += '&followUserId=' + user._id;
   }
 

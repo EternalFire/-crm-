@@ -23,14 +23,11 @@ export default {
       history.listen(location => {
         
         let {name, type} = center.parsePath(location.pathname)
-        console.log('interview => ', name, type);
         
-        if (center.isInterview(name)) {          
-          dispatch({ type: 'setCenter', payload: { name } })
-        }
-
-        if (type === center.interviewType.qr || type === center.interviewType.align) {
-          dispatch({ type: 'setType', payload: { type } })
+        if (center.isInterview(name)) {
+          if (type === center.interviewType.qr || type === center.interviewType.align) {
+            dispatch({ type: 'setCenter', payload: { name, type } })
+          }
         }
 
       });
@@ -87,15 +84,9 @@ export default {
       }
     },
     setCenter (state, action) {
-      const { name } = action.payload
+      const { name, type } = action.payload
       return {
-        ...state, name
-      }
-    },
-    setType (state, action) {
-      const { type } = action.payload
-      return {
-        ...state, type
+        ...state, name, type
       }
     }
   }  

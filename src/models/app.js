@@ -1,4 +1,3 @@
-// import {login, userInfo, logout} from '../services/app' // todo 
 import {login, queryUserWithId, queryUserWithCenter} from '../services/crm'
 import {parse} from 'qs'
 import {checkResponse, getCookie, delCookie} from '../utils'

@@ -5,10 +5,9 @@ import request from './request'
 import classnames from 'classnames'
 import {color} from './theme'
 import * as center from './center'
-import * as authority from './user-authority'
-// require('./mock.js')
+import * as authority from './userAuthority'
 
-const DateFormat = 'YYYY-MM-DD';
+const dateFormat = 'YYYY-MM-DD';
 
 // 连字符转驼峰
 String.prototype.hyphenToHump = function () {
@@ -90,30 +89,11 @@ function delCookie(name) {
   }
 }
 
-// menu
-const dispatchMenu = ({ 
-  dispatch, 
-  openKey 
-}) => {
-  dispatch({ type: 'app/handleClickMenu', payload: { openKey } })
-
-  const {name, type} = center.parseMenuKey(openKey);
-  if (center.isMng(name, type)) {
-    // console.log('isMng => ', name, type)
-    dispatch({ type: 'center/setCenter', payload: { name, type } })
-  } else {
-    // if (center.isInterview(name)) {
-    // }
-  }
-
-}
-
-module.exports = {
-  DateFormat,
+export {
+  dateFormat,
   config,
   menu,
   ancestorKeys,
-  dispatchMenu,
   request,
   color,
   classnames, 

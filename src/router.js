@@ -43,18 +43,7 @@ export default function ({history, app}) {
     {
       path: '/',
       component: App,
-      // getIndexRoute (nextState, cb) {
-      //   require.ensure([], require => {
-      //     registerModel(app, require('./models/dashboard'))
-      //     cb(null, {component: require('./routes/dashboard')})
-      //   }, 'dashboard')
-      // },
       getIndexRoute (nextState, cb) {
-        // require.ensure([], require => {
-        //   // registerModel(app, require('./models/users'))
-        //   // cb(null, {component: require('./routes/users')})
-        //   cb(null, { component: <div>crm?</div> })
-        // })
         require.ensure([], require => {
           cb(null, {component: require('./routes/homePage')})
         })

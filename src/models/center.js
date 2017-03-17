@@ -40,9 +40,12 @@ export default {
   },
   subscriptions: {
     setup ({dispatch, history}) {
-      // dispatch({type: 'query'})
-
-      // dispatch({ type: 'queryFrontDesk' })
+      history.listen(location => {
+        let {name, type} = center.parsePath(location.pathname)
+        if (center.isMng(name, type)) {
+          dispatch({ type: 'setCenter', payload: { name, type } })
+        }
+      });
     }
   },
   effects: {

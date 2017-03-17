@@ -9,6 +9,13 @@ const changsha = 'cs';
 const nanchang = 'nq';
 const admin = 'admin';
 
+// 判断中心
+const isGuangzhou = center => center === guangzhou;
+const isChongqing = center => center === chongqing;
+const isChangsha = center => center === changsha;
+const isNanchang = center => center === nanchang;
+const isAdmin = center => center === admin;
+
 const getCenterName = (center) => {
   let result;
   switch(center) {
@@ -33,9 +40,7 @@ const getCenterName = (center) => {
   return result;
 };
 
-const getCenters = () => {
-  return [guangzhou, chongqing, changsha, nanchang];
-};
+const getCenters = () => [guangzhou, chongqing, changsha, nanchang];
 
 // 报表类型
 const day = 'day';
@@ -85,6 +90,11 @@ export {
   changsha,
   nanchang,
   admin,
+  isGuangzhou,
+  isChongqing,
+  isChangsha,
+  isNanchang,
+  isAdmin,
   getCenterName,
   getCenters,
   type,

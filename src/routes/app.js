@@ -8,7 +8,7 @@ import Footer from '../components/layout/footer'
 import Sider from '../components/layout/sider'
 import styles from '../components/layout/main.less'
 import { Spin, Modal } from 'antd'
-import { classnames, center, dispatchMenu } from '../utils'
+import { classnames, center } from '../utils'
 import '../components/layout/common.less'
 
 const confirm = Modal.confirm;
@@ -58,15 +58,7 @@ function App ({children, location, dispatch, app}) {
     navOpenKeys,
     // 点击菜单回调
     switchMenuPopover (e) {
-      dispatchMenu({
-        dispatch, 
-        openKey: e.key 
-      });
-      // dispatch({ type: 'app/clickMenu', payload: { openKey: e.key } })
-      // dispatch({ type: 'app/handleClickMenu', payload: { openKey: e.key } })
-
-      // dispatch({ type: 'center/setCenter', payload: { ...center.type.parseMenuKey(e.key) } })
-      // dispatch({ type: 'center/query' })
+      dispatch({ type: 'app/handleClickMenu', payload: { openKey: e.key } })
     },
     changeTheme () {
       dispatch({type: 'app/changeTheme'})
