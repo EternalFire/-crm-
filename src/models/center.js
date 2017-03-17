@@ -44,6 +44,7 @@ export default {
         let {name, type} = center.parsePath(location.pathname)
         if (center.isMng(name, type)) {
           dispatch({ type: 'setCenter', payload: { name, type } })
+          dispatch({ type: 'query' })
         }
       });
     }
