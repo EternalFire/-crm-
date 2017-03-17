@@ -21,10 +21,10 @@ export default function ({history, app}) {
         require.ensure([], require => {
           registerModel(app, require('./models/interview'))
           cb(null, require('./routes/interview'))
-        })
+        }, 'interview')
       }
     }
-  })
+  });
   
   const centerRoute = center.getCenters().map((e) => {
     return {
@@ -39,6 +39,19 @@ export default function ({history, app}) {
     }
   });
 
+  const centerReportRoute = center.getCenters().map((e) => {
+    return {
+      path: `${e}/${e}-report`,
+      name: `${e}/${e}-report`,
+      getComponent(nextState, cb) {
+        require.ensure([], require => {
+          registerModel(app, require('./models/centerReport'))
+          cb(null, require('./routes/centerReport'))
+        }, 'centerReport')
+      }
+    }
+  });  
+
   const routes = [
     {
       path: '/',
@@ -51,6 +64,7 @@ export default function ({history, app}) {
       childRoutes: [
         ...interviewRoute,
         ...centerRoute,
+        ...centerReportRoute,
         {
           path: 'admin/adminreport',
           name: 'admin/adminreport',
