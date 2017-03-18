@@ -28,6 +28,9 @@ export default {
           if (type === center.interviewType.qr || type === center.interviewType.align) {
             dispatch({ type: 'setCenter', payload: { name, type } })
           }
+          if (type === center.interviewType.align) {
+            dispatch({ type: 'queryFrontDesk' })
+          }
         }
 
       });
@@ -41,7 +44,7 @@ export default {
         return 
       }
 
-      const data = yield call(queryCustomerFrontDesk, { date, name })
+      const data = yield call(queryCustomerFrontDesk, { date, center: name })
       if (checkResponse(data)) {
         yield put({ type: 'clearFrontData' })
         yield put({ type: 'queryFrontDeskSuccess', payload: { data: data.data.customers }})

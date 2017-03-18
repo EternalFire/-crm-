@@ -53,6 +53,11 @@ const qr = 'qr';
 const align = 'align';
 const interviewType = { qr, align };
 
+// 数据分析类型
+const user = 'user';
+const monthly = 'monthly';
+const analysisType = {user, monthly};
+
 const parseMenuKey = (openKey) => {
   if (typeof openKey === 'string' && openKey.length > 0 )
   {
@@ -75,13 +80,13 @@ const parsePath = (pathname) => {
 // 咨询中心
 const isMng = (name, type) => {  
   let result1 = [guangzhou, chongqing, changsha, nanchang, admin].some(e => e === name);
-  let result2 = [day, month, all].some(e => e === type);
+  let result2 = [day, month, all].some(e => (e === type));
   return result1 && result2;
 }
 
 // 社招面试
 const isInterview = (name) => {
-  return getCenters().some(e => e === name);
+  return getCenters().some(e => (e === name));
 }
 
 export {
@@ -99,6 +104,7 @@ export {
   getCenters,
   type,
   interviewType,
+  analysisType,
   parseMenuKey,
   parsePath,
   isMng,

@@ -7,10 +7,11 @@ function Center({location, dispatch, center}) {
   const { name, type, dayData, monthData, allData } = center
 
   const tableProps = {
-    dataSource: dayData
   }
 
-  const renderDayTable = () => {    
+  const renderDayTable = () => {
+    tableProps.dataSource = dayData
+
     return (
       <div>
         <div>dayData: </div>
@@ -19,18 +20,22 @@ function Center({location, dispatch, center}) {
     )
   };
   const renderMonthTable = () => {
+    tableProps.dataSource = monthData
+
     return (
       <div>
         <div>monthData: </div>
-        <pre>{JSON.stringify(monthData, null, 2)}</pre>
+        <CenterTable {...tableProps} />
       </div>
     )
   };
   const renderAllTable = () => {
+    tableProps.dataSource = allData
+
     return (
       <div> 
         <div>allData: </div>
-        <pre>{JSON.stringify(allData, null, 2)}</pre>
+        <CenterTable {...tableProps} />
       </div>    
     )
   };

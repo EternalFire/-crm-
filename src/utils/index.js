@@ -6,6 +6,8 @@ import classnames from 'classnames'
 import {color} from './theme'
 import * as center from './center'
 import * as authority from './userAuthority'
+import moment from 'moment';
+
 
 const dateFormat = 'YYYY-MM-DD';
 
@@ -89,6 +91,10 @@ function delCookie(name) {
   }
 }
 
+function timestampToString(timeText) {
+  return moment.unix(timeText / 1000).format(dateFormat)
+}
+
 export {
   dateFormat,
   config,
@@ -100,6 +106,7 @@ export {
   checkResponse,
   getCookie,
   delCookie,
+  timestampToString,
   center,
   authority
 }

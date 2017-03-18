@@ -20,7 +20,7 @@ function CenterTable ({dataSource, loading, onPageChange, pagination}) {
         </div>
       ),
       dataIndex: 'createTime',
-      render(text, record, index) {        
+      render(text, record, index) {
         // todo extract this function 
         // const createDate = moment.unix(text / 1000).format('YYYY-MM-DD');
         

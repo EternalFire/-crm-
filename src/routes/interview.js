@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'dva'
 import { center } from '../utils'
 import QR from '../components/interview/qr'
+import InterviewTable from '../components/interview/interviewTable'
 
 function Interview({dispatch, interview}) {
   const {name, type, frontData} = interview
@@ -10,6 +11,10 @@ function Interview({dispatch, interview}) {
     center: name,
     centerName: center.getCenterName(name)
   };
+
+  const tableProps = {
+    dataSource: frontData
+  }
 
   const renderQR = () => {
     if (type === center.interviewType.qr) {
@@ -22,9 +27,7 @@ function Interview({dispatch, interview}) {
     if (type === center.interviewType.align) {
       return (
         <div>
-          <h1>Interview</h1>
-          <div>{type}</div>
-          <pre>{JSON.stringify(frontData)}</pre>  
+          <InterviewTable {...tableProps} />
         </div>
       )
     }
