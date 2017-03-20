@@ -1,3 +1,6 @@
+/*
+ * 咨询中心
+ */
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import CenterTable from '../components/center/centerTable'

@@ -21,7 +21,7 @@ import {
     数据分析
 */
 function generateCenterMenu(center, name) {
-  return {
+  let menu = {
     key: center,
     name: name,
     icon: 'appstore',
@@ -67,6 +67,16 @@ function generateCenterMenu(center, name) {
       }
     ]
   }
+
+  if (center === guangzhou) {
+    menu.child.splice(2, 0, {
+      key: center + '-consult',
+      name: '网络咨询',
+      icon: 'cloud'
+    })
+  }
+
+  return menu;
 }
 
 function generateAdminMenu() {

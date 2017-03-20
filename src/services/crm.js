@@ -133,3 +133,53 @@ export async function querySuReport(params) {
     method: 'get'
   })
 }
+
+// 网络咨询, begin
+export async function queryConsult(params) {
+  const {
+    // center,
+    // startDate,
+    // endDate,
+    // fsFilter,
+    // ybFilter,
+    // fkFilter,
+    // zjFilter,
+    // jbFilter,
+    // user,
+    currentPage, 
+    currentPageSize
+  } = params;
+
+  const memsrc = 'wz';
+  let url = `/itv_customers?sortby=-createTime&memsrc=${memsrc}&current=${currentPage}&pageSize=${currentPageSize}`;
+
+  // if (fsFilter) url += '&notnull=fsTime';
+  // if (ybFilter) url += '&notnull=ybTime';
+  // if (fkFilter) url += '&notnull=fkTime';
+  // if (zjFilter) url += '&notnull=zjTime';
+  // if (jbFilter) url += '&notnull=jbTime';
+
+  // console.log('url is ', url);
+  
+  return request(url, {
+    method: 'get'
+  })
+}
+
+export async function queryConsultMessage(params) {
+  const {guest_id} = params;
+
+  return request(`/messages?guest_id=${guest_id}`, {
+    method: 'get'
+  })
+}
+
+export async function editCustomerConsult(params) {
+  const { customerId } = params;
+
+  return request(`/itv_customers/${customerId}`, {
+    method: 'put',
+    data: params
+  })
+}
+// 网络咨询, end

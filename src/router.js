@@ -41,6 +41,18 @@ export default function ({history, app}) {
     }
   });
 
+  // 网络咨询
+  const concultRoute = [{
+    path: `${center.guangzhou}/${center.guangzhou}-consult`,
+    name: `${center.guangzhou}/${center.guangzhou}-consult`,
+    getComponent(nextState, cb) {
+      require.ensure([], require => {
+        registerModel(app, require('./models/consult'))
+        cb(null, require('./routes/consult'))
+      }, 'consult')
+    }    
+  }]
+
   // 数据分析
   const centerReportRoute = center.getCenters().map((e) => {
     return {
@@ -67,6 +79,7 @@ export default function ({history, app}) {
       childRoutes: [
         ...interviewRoute,
         ...centerRoute,
+        ...concultRoute,
         ...centerReportRoute,
         {
           path: 'admin/adminreport',
