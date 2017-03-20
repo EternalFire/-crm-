@@ -4,6 +4,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import CenterTable from '../components/center/centerTable'
+import ModalWrapper from '../components/common/modalWrapper'
 import {center as CenterUtil} from '../utils'
 
 function Center({location, dispatch, center}) {
