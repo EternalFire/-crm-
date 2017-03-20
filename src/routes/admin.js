@@ -3,13 +3,19 @@
  */
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
+import AdminReport from '../components/report/adminReport'
 
 function Admin({dispatch, admin}) {
+  const {sureportData, date} = admin;
+
+  const adminReportProps = {
+    dataSource: sureportData,
+    date: date
+  }
+
   return (
     <div>
-      <pre>
-      {JSON.stringify(admin.sureportData, null, 2)}
-      </pre>
+      <AdminReport {...adminReportProps} />
     </div>
   )
 }

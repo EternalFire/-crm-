@@ -13,6 +13,7 @@ const registerModel = (app, model) => {
 
 export default function ({history, app}) {
 
+  // 社招面试
   const interviewRoute = center.getCenters().map((e) => {
     return {
       path: `${e}/${e}-interview/*`,
@@ -26,6 +27,7 @@ export default function ({history, app}) {
     }
   });
   
+  // 咨询中心
   const centerRoute = center.getCenters().map((e) => {
     return {
       path: `${e}/${e}-center/*`,
@@ -39,6 +41,7 @@ export default function ({history, app}) {
     }
   });
 
+  // 数据分析
   const centerReportRoute = center.getCenters().map((e) => {
     return {
       path: `${e}/${e}-report`,

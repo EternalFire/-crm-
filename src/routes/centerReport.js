@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'dva'
-import UserReport from '../components/center/userReport'
+import UserReport from '../components/report/userReport'
+import MonthlyReport from '../components/report/monthlyReport'
 
 function CenterReport({dispatch, centerReport}) {
   const {userData, monthlyData} = centerReport
@@ -20,8 +21,8 @@ function CenterReport({dispatch, centerReport}) {
         <UserReport {...userReportProps} />
       </div>
       <div>
-        <h1>monthlyData</h1>    
-        <pre>{JSON.stringify(centerReport.monthlyData, null, 2)}</pre>
+        <h1>monthlyData</h1>
+        <MonthlyReport {...monthlyReportProps} />
       </div>
     </div>
   )
