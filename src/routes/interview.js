@@ -3,6 +3,7 @@ import { connect } from 'dva'
 import { center } from '../utils'
 import QR from '../components/interview/qr'
 import InterviewTable from '../components/interview/interviewTable'
+import InterviewToolbar from '../components/interview/interviewToolbar'
 
 function Interview({dispatch, interview}) {
   const {name, type, frontData} = interview
@@ -27,6 +28,7 @@ function Interview({dispatch, interview}) {
     if (type === center.interviewType.align) {
       return (
         <div>
+          <InterviewToolbar />
           <InterviewTable {...tableProps} />
         </div>
       )

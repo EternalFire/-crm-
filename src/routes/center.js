@@ -4,7 +4,8 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import CenterTable from '../components/center/centerTable'
-import ModalWrapper from '../components/common/modalWrapper'
+import CenterToolbar from '../components/center/centerToolbar'
+// import ModalWrapper from '../components/common/modalWrapper'
 import {center as CenterUtil} from '../utils'
 
 function Center({location, dispatch, center}) {
@@ -17,30 +18,21 @@ function Center({location, dispatch, center}) {
     tableProps.dataSource = dayData
 
     return (
-      <div>
-        <div>dayData: </div>
-        <CenterTable {...tableProps} />
-      </div>
+      <CenterTable {...tableProps} />
     )
   };
   const renderMonthTable = () => {
     tableProps.dataSource = monthData
 
     return (
-      <div>
-        <div>monthData: </div>
-        <CenterTable {...tableProps} />
-      </div>
+      <CenterTable {...tableProps} />
     )
   };
   const renderAllTable = () => {
     tableProps.dataSource = allData
 
     return (
-      <div> 
-        <div>allData: </div>
-        <CenterTable {...tableProps} />
-      </div>    
+      <CenterTable {...tableProps} />
     )
   };
 
@@ -49,8 +41,14 @@ function Center({location, dispatch, center}) {
   renderObject[CenterUtil.type.month] = renderMonthTable
   renderObject[CenterUtil.type.all] = renderAllTable
   
+  const centerToolbarProps = {
+    type: type,
+    current: ['dayAllMenu']
+  }
+
   return (
     <div>
+      <CenterToolbar {...centerToolbarProps} />
       {renderObject[type] ? renderObject[type]() : CenterUtil.getCenterName(name)}
     </div>
   )
