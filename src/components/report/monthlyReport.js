@@ -21,7 +21,7 @@ function MonthlyReport ({dataSource, loading, onPageChange, pagination}) {
 
   let data = dataSource
   if (dataSource.length === 0) {
-    data = Array.from({length: moment().daysInMonth()}).map((e, i) => {
+    data = Array.from({length: 31}).map((e, i) => {
       return {
         date: i + 1 + '',
         sz: 0,
@@ -49,7 +49,6 @@ function MonthlyReport ({dataSource, loading, onPageChange, pagination}) {
     zjRate[`date${no}`] = `${(d.yb != 0) ? (d.zj / d.yb * 100).toFixed(1) * 1 : 0}`;
     fkRate[`date${no}`] = `${(d.sz + d.wz != 0) ? (d.fk / (d.sz + d.wz) * 100).toFixed(1) * 1 : 0}`;
   });
-
 
   let dataSource_ = [szData, wzData, ybData, zjData, fkData, ybRate, zjRate, fkRate].map((d, i) => {
     d._id = i;

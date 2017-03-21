@@ -78,8 +78,6 @@ const DayAmountGraph = React.createClass({
 const MonthAmountGraph = React.createClass({
   render() {
     const { data } = this.props;
-    console.log('what\'s the data ? ');
-    console.log(data);
 
     const config = {
       chart: {
@@ -202,10 +200,11 @@ const RateGraph = React.createClass({
   }
 });
 
-
 export default React.createClass({
   render() {
-    const usersReportData = this.props.data;
+    const {
+      data: usersReportData,
+    } = this.props;
 
     return (
       <div>

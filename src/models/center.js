@@ -148,6 +148,12 @@ export default {
       return {
         ...state, allData: []
       }
+    },
+    setCurrent (state, action) {
+      return {
+        ...state,
+        ...action.payload
+      }
     }
   }
 }

@@ -4,8 +4,9 @@
  */
 import React from 'react'
 import DateStepTool from '../common/dateStepTool'
+import GraphButton from '../common/graphButton'
 
-const UserReportTool = ({title, handlePrev, handleNext}) => {
+const UserReportTool = ({title, handleShowGraph, handlePrev, handleNext}) => {
 
   const dateStepToolProps = {
     handlePrev,
@@ -15,6 +16,7 @@ const UserReportTool = ({title, handlePrev, handleNext}) => {
   return (
     <div>
       <h1>{title}</h1>
+      <GraphButton handleClick={handleShowGraph} />
       <DateStepTool {...dateStepToolProps} />
     </div>
   )

@@ -20,7 +20,20 @@ const getDays = (data, index) => {
     i = index;
   }
 
-  return Object.keys(data[i])
+  let object
+  if (data && data[i]) {
+    object = data[i]
+  } else{
+    object = Array.from({ length: 31 }).map((e, i) => {
+      if ( i < 10 ) {
+        return '0' + i
+      }
+
+      return i + ""
+    })
+  } 
+
+  return Object.keys(object)
     .map((key) => {
       if (key.includes(field)) {
         return key.substr(field.length);

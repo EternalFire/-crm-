@@ -12,6 +12,15 @@ function Center({location, dispatch, center}) {
   const { name, type, dayData, monthData, allData } = center
 
   const tableProps = {
+    onEditItem(record) {
+      console.log(record)
+      dispatch({
+        type: 'center/setCurrent', 
+        payload: {
+          current: record
+        }
+      });
+    }
   }
 
   const renderDayTable = () => {

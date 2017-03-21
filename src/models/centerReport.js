@@ -12,7 +12,9 @@ export default {
     monthlyData: [], // 月度报表数据
     date: '2017-02-28',
     userDate: '',
-    monthDate: ''
+    monthDate: '',
+    userReportGraphVisible: false,
+    monthlyReportGraphVisible: false,
   },
   subscriptions: {
 
@@ -67,5 +69,17 @@ export default {
         ...state, monthlyData: []
       }
     },
+    setUserReportGraphVisible(state, action) {
+      const { visible } = action.payload
+      return {
+        ...state, userReportGraphVisible: visible
+      }
+    },
+    setMonthlyReportGraphVisible(state, action) {
+      const { visible } = action.payload
+      return {
+        ...state, monthlyReportGraphVisible: visible
+      }
+    }
   }
 }

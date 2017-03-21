@@ -3,8 +3,19 @@ import {Modal} from 'antd'
 
 export default class ModalWrapper extends React.Component {
   state = { 
-    visible: true 
+    visible: false 
   }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps', nextProps)
+    this.setState({ visible: nextProps.visible });
+  }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('shouldComponentUpdate', nextProps, nextState)
+    
+  //   return 
+  // }
 
   handleOk = () => {
     this.setState({
@@ -27,6 +38,8 @@ export default class ModalWrapper extends React.Component {
   }
 
   render() {
+    console.log(this.props)
+
     const {visible} = this.state;
 
     const props = {

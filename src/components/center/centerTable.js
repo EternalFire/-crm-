@@ -1,17 +1,20 @@
 import React from 'react'
-import {Table} from 'antd'
+import {Table, Icon} from 'antd'
 import TableBodyWrapper from '../common/TableBodyWrapper'
 
-function CenterTable ({dataSource, loading, onPageChange, pagination}) {
+function CenterTable ({dataSource, loading, onEditItem, onPageChange, pagination}) {
+  const handleOp = (record) => {
+    onEditItem(record)
+  }
 
   const columns = [{
       title: '操作',
       dataIndex: 'op',
-      // render: (text, record, index) => (
-      //   <a href="javascript:void(0)" onClick={() => this.openTarget(index)}>
-      //     <Icon type="edit" />
-      //   </a>
-      // ),
+      render: (text, record, index) => (
+        <a href="javascript:void(0)" onClick={() => handleOp(record)}>
+          <Icon type="edit" />
+        </a>
+      ),
       width: '50px',
     }, {
       title: (
