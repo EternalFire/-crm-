@@ -82,13 +82,13 @@ export default function ({history, app}) {
         ...concultRoute,
         ...centerReportRoute,
         {
-          path: 'admin/adminreport',
-          name: 'admin/adminreport',
+          path: 'admin/admin-report',
+          name: 'admin/admin-report',
           getComponent(nextState, cb) {
             require.ensure([], require => {
               registerModel(app, require('./models/admin'))
-              cb(null, require('./routes/admin'))
-            }, 'adminreport')
+              cb(null, require('./routes/adminReport'))
+            }, 'adminReport')
           }
         },
         {

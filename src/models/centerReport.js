@@ -10,7 +10,9 @@ export default {
     name: null,
     userData: [], // 咨询师报表数据
     monthlyData: [], // 月度报表数据
-    date: '2017-02-28'
+    date: '2017-02-28',
+    userDate: '',
+    monthDate: ''
   },
   subscriptions: {
 

@@ -56,20 +56,6 @@ function AdminReport({dataSource, date}) {
         // onChange={onPageChange}
         // pagination={pagination}
         simple
-        title={() => (
-          <h3>
-            全国各校区每日数据汇总报表{' '}
-            <a href="javascript:void(0)"
-              style={{ padding: '0 5px' }}
-              onClick={() => {
-                // this.graph
-              }}
-            >
-              <Icon type="area-chart" />
-            </a>
-
-          </h3>
-        )} 
       />
     </div>
   );  

@@ -68,6 +68,7 @@ function generateCenterMenu(center, name) {
     ]
   }
 
+  // 广州分中心的网络咨询菜单
   if (center === guangzhou) {
     menu.child.splice(2, 0, {
       key: center + '-consult',
@@ -86,7 +87,7 @@ function generateAdminMenu() {
     icon: 'appstore',
     child: [
       {
-        key: admin + 'report',
+        key: admin + '-report',
         name: '数据分析',
         icon: 'line-chart'
       }
