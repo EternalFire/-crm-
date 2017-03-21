@@ -35,8 +35,8 @@ export default {
       current: 1,
       total: null
     },
-    pageSize: 10
-
+    pageSize: 3,
+    modalVisible: false,
   },
   subscriptions: {
     setup ({dispatch, history}) {
@@ -107,6 +107,20 @@ export default {
       console.log('check key customerId => ', params['customerId'])
 
       yield call(editCustomerMng, params)
+    },
+    *updateLocalDayData({ payload }, { select, call, put }) {
+      const dayData = yield select((({ center }) => (center.dayData)))
+      const {current} = payload
+      let data = [...dayData]
+
+      data = data.map((e) => {
+        if (e._id === current._id) {
+          e = {...current}
+        }
+        return e
+      })
+      
+      yield put({ type: 'queryDaySuccess', payload: { data } })
     }
   },
   reducers: {
@@ -154,6 +168,15 @@ export default {
         ...state,
         ...action.payload
       }
-    }
+    },
+    setModalVisible(state, action) {
+      const { visible } = action.payload
+
+      return {
+        ...state,
+        modalVisible: visible
+      }
+    },
+
   }
 }

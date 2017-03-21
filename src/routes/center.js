@@ -5,21 +5,21 @@ import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import CenterTable from '../components/center/centerTable'
 import CenterToolbar from '../components/center/centerToolbar'
-// import ModalWrapper from '../components/common/modalWrapper'
+import CenterModal from '../components/center/centerModal'
 import {center as CenterUtil} from '../utils'
 
 function Center({location, dispatch, center}) {
-  const { name, type, dayData, monthData, allData } = center
+  const { name, type, dayData, monthData, allData, current, modalVisible } = center
 
   const tableProps = {
     onEditItem(record) {
-      console.log(record)
       dispatch({
         type: 'center/setCurrent', 
         payload: {
           current: record
         }
       });
+      dispatch({ type: 'center/setModalVisible', payload: { visible: true } })
     }
   }
 
@@ -55,10 +55,25 @@ function Center({location, dispatch, center}) {
     current: ['dayAllMenu']
   }
 
+  const centerModalProps = {
+    visible: modalVisible,
+    item: current,
+    onOk(formData) {
+      dispatch({ type: 'center/setModalVisible', payload: { visible: false } })
+      // dispatch({ type: 'center/query' })
+      // dispatch({ type: 'center/setCurrent', payload: { current: formData } })
+      dispatch({ type: 'center/updateLocalDayData', payload: { current: formData } })
+    },
+    onCancel() {
+      dispatch({ type: 'center/setModalVisible', payload: { visible: false } })
+    }
+  }
+
   return (
     <div>
       <CenterToolbar {...centerToolbarProps} />
       {renderObject[type] ? renderObject[type]() : CenterUtil.getCenterName(name)}
+      <CenterModal {...centerModalProps} />
     </div>
   )
 }
