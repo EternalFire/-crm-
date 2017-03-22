@@ -16,7 +16,10 @@ export default {
     frontData: [],
     current: {},
 
-    date: '2017-02-28'
+    date: '2017-02-28',
+
+    editModalVisible: false,
+    usersModalVisible: false
   },
   subscriptions: {
     setup ({dispatch, history}) {
@@ -91,6 +94,23 @@ export default {
       return {
         ...state, name, type
       }
-    }
-  }  
+    },
+    setCurrent (state, action) {
+      return {
+        ...state, ...action.payload
+      }
+    },
+    setEditModalVisible (state, action) {
+      const { visible } = action.payload
+      return {
+        ...state, editModalVisible: visible
+      }
+    },
+    setUsersModalVisible (state, action) {
+      const { visible } = action.payload
+      return {
+        ...state, usersModalVisible: visible
+      }
+    },
+  }
 }

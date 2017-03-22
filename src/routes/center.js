@@ -8,7 +8,11 @@ import CenterToolbar from '../components/center/centerToolbar'
 import CenterModal from '../components/center/centerModal'
 import {center as CenterUtil} from '../utils'
 
-function Center({location, dispatch, center}) {
+const Center = ({
+  location, 
+  dispatch, 
+  center
+}) => {
   const { name, type, dayData, monthData, allData, current, modalVisible } = center
 
   const tableProps = {

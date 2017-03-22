@@ -1,9 +1,18 @@
 import React from 'react'
 import {Table, Icon, Button} from 'antd'
 import TableBodyWrapper from '../common/TableBodyWrapper'
+import ProgressTags from '../common/progressTags'
 import {timestampToString} from '../../utils'
 
-function InterviewTable ({dataSource, loading, onPageChange, pagination}) {
+const InterviewTable = ({
+  dataSource, 
+  loading, 
+  onPageChange, 
+  pagination,
+  onEditItem,
+  onDeleteItem,
+  onFollow, // 分配咨询师
+}) => {
 
   const columns = [{
       title: '操作',
@@ -11,12 +20,20 @@ function InterviewTable ({dataSource, loading, onPageChange, pagination}) {
       render: (text, record, index) => (
         <div>
           <a href="javascript:void(0)" 
-            // onClick={() => this.openEdit(record, index)}
+            onClick={() => {
+              if (onEditItem) {
+                onEditItem(record, index)
+              }
+            }}
           >
             <Icon type="edit" />
           </a>
           <a href="javascript:void(0)" 
-            // onClick={() => this.showConfirm(record, index)} 
+            onClick={() => {
+              if (onDeleteItem) {
+                onDeleteItem(record, index)
+              }
+            }}
             style={{ marginLeft: '20px' }}
           >
             <Icon type="delete" />
@@ -33,7 +50,14 @@ function InterviewTable ({dataSource, loading, onPageChange, pagination}) {
       dataIndex: 'follow',
       render: (text, record, index) => {
         return (
-          <Button size="small" type={(text ? null : 'danger')} icon="setting" onClick={() => this.open(record, index)}>
+          <Button size="small" type={(text ? null : 'danger')} 
+            icon="setting" 
+            onClick={() => {
+              if (onFollow) {
+                onFollow(record, index)
+              }
+            }}
+          >
             {(text ? text : '分配')}
           </Button>
         );
@@ -44,18 +68,11 @@ function InterviewTable ({dataSource, loading, onPageChange, pagination}) {
       dataIndex: 'name',
       render: (text, record, index) => {
         // 分配
-        // const { data } = this.state;
-        // return (
-        //   <div>
-        //     {text}{' '}<Tags customer={data[index]} />
-        //   </div>
-        // );
-
         return (
           <div>
-            {text}
+            {text}{' '}<ProgressTags customer={record} />
           </div>
-        );        
+        );       
       },
       width: '100px',
     }, {
