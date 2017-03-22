@@ -6,14 +6,14 @@ import QR from '../components/interview/qr'
 import InterviewTable from '../components/interview/interviewTable'
 import InterviewToolbar from '../components/interview/interviewToolbar'
 import EditModal from '../components/interview/editModal'
-// import UsersModal from '../components/interview/usersModal'
-import UsersModal from '../components/common/ModalWrapper'
+import UsersModal from '../components/interview/usersModal'
 
 const Confirm = Modal.confirm;
 
 const Interview = ({
   dispatch, 
-  interview
+  interview,
+  app
 }) => {
   const {
     name, 
@@ -23,6 +23,8 @@ const Interview = ({
     editModalVisible,
     usersModalVisible
   } = interview
+
+  const {users} = app
 
   const qrProps = {
     center: name,
@@ -86,6 +88,7 @@ const Interview = ({
   const usersModalProps = {
     title: 'users modal',
     visible: usersModalVisible,
+    users: users,
     onOk(formData) {
       dispatch({ type: 'interview/setUsersModalVisible', payload: { visible: false } })
     },
@@ -99,11 +102,9 @@ const Interview = ({
       {renderQR()}
       {renderInterviewTable()}
       <EditModal {...editModalProps} />
-      <UsersModal {...usersModalProps}>
-        <h1>&lt;H1&gt; UsersModal</h1>
-      </UsersModal>
+      <UsersModal {...usersModalProps} />
     </div>
   )
 }
 
-export default connect(({interview}) => ({interview}))(Interview)
+export default connect(({interview, app}) => ({interview, app}))(Interview)

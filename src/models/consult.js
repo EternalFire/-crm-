@@ -18,7 +18,10 @@ export default {
       current: 1,
       total: null
     },
-    pageSize: 10
+    pageSize: 10,
+
+    editModalVisible: false,
+    messageModalVisible: false
   }, 
   subscriptions: {
     setup ({dispatch, history}) {
@@ -64,6 +67,26 @@ export default {
           ...state.pagination,
           ...pagination
         }
+      }
+    },
+    showEditModal(state, action) {
+      return {
+        ...state, editModalVisible: true
+      }
+    },
+    hideEditModal(state, action) {
+      return {
+        ...state, editModalVisible: false
+      }
+    },
+    showMessageModal(state, action) {
+      return {
+        ...state, messageModalVisible: true
+      }
+    },
+    hideMessageModal(state, action) {
+      return {
+        ...state, messageModalVisible: false
       }
     }
   }

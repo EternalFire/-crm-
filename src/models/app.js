@@ -10,7 +10,7 @@ export default {
     login: false,
     loading: false,
     user: {}, // 登录成功的用户
-    users: {}, // 用户(顾问)列表
+    users: [], // 用户(顾问)列表
     loginButtonLoading: false,
     menuPopoverVisible: false,
     // siderFold: localStorage.getItem('antdAdminSiderFold') === 'true',

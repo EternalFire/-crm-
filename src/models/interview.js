@@ -33,6 +33,7 @@ export default {
           }
           if (type === center.interviewType.align) {
             dispatch({ type: 'queryFrontDesk' })
+            dispatch({ type: 'app/queryUsers', payload: {center: name} })            
           }
         }
 

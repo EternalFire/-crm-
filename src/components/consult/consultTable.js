@@ -2,13 +2,23 @@ import React, { PropTypes } from 'react'
 import {Table, Icon} from 'antd'
 import {timestampToString} from '../../utils'
 
-function ConsultTable ({dataSource, loading, onPageChange, pagination}) {
+function ConsultTable ({
+  dataSource, 
+  loading, 
+  onPageChange, 
+  pagination, 
+  onEditItem,
+  onShowMessage
+}) {
   const columns = [{
       title: '操作',
       dataIndex: 'op',
       render: (text, record, index) => (
         <a href="javascript:void(0)" onClick={() => {
           // this.openTarget(record)
+          if (onEditItem) {
+            onEditItem(record)
+          }
         }}>
           <Icon type="edit" />
         </a>
@@ -55,6 +65,9 @@ function ConsultTable ({dataSource, loading, onPageChange, pagination}) {
             {text}{' '}
             <a href="javascript:void(0)" onClick={() => {
               // this.openMessages(record.guest_id)
+              if (onShowMessage) {
+                onShowMessage(record)
+              }
             }}>
               <Icon type="message" />
             </a>

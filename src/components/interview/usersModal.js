@@ -8,15 +8,22 @@ const modal = ({
   title,
   visible,
   item = {},
+  users = [],
   onOk,
   onCancel,
+  onFollow,
   form: {
     getFieldDecorator,
     validateFields,
     getFieldsValue
-  },
-  children
+  }
 }) => {
+
+  function handleFollow(e) {
+    if (onFollow) {
+      onFollow(e)
+    }
+  }
 
   const modalProps = {
     title,
@@ -28,7 +35,13 @@ const modal = ({
   return (
     <Modal {...modalProps}>
       <Form vertical>
-        {children}
+        {users.map((u, i) => (
+          <div key={`follow${i}`} className="radio">
+            <label>
+              <input type="radio" name="followUserId" value={u._id} onClick={handleFollow} /> {u.name}
+            </label>
+          </div>
+        ))}
       </Form>
     </Modal>
   );
