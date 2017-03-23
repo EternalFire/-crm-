@@ -50,8 +50,61 @@ export default {
 
       const data = yield call(queryCustomerFrontDesk, { date, center: name })
       if (checkResponse(data)) {
+
+        // 分类上午与下午的数据
+        let morningNo = 0;
+        let afternoonNo = 0;
+        let todayObj;
+        
+        if (date) {
+          let arr = date.split('-');
+          todayObj = new Date(arr[0], parseInt(arr[1]) - 1, arr[2]);
+        } else {
+          todayObj = new Date();
+        }
+        todayObj.setHours(12);
+        todayObj.setMinutes(0);
+        todayObj.setSeconds(0);
+        todayObj.setMilliseconds(0);
+        const midday = todayObj.getTime();
+
+        let dataSource = []
+
+        data.data.customers.forEach((d, index) => {
+          const {
+            _id,
+            name,
+            mobile,
+            major,
+            job,
+            memsrc,
+            createTime,
+            followUserName,
+            education,
+            university,
+            jobYears,
+          } = d;
+          const no = createTime < midday ? ++morningNo : ++afternoonNo;
+
+          dataSource.push({
+            _id,
+            key: index,
+            no,
+            follow: followUserName,
+            name,
+            mobile,
+            major,
+            job,
+            memsrc,
+            createTime,
+            education,
+            university,
+            jobYears,
+          });
+        });
+
         yield put({ type: 'clearFrontData' })
-        yield put({ type: 'queryFrontDeskSuccess', payload: { data: data.data.customers }})
+        yield put({ type: 'queryFrontDeskSuccess', payload: { data: dataSource }})
       } else {
         // 
       }

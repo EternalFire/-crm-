@@ -15,7 +15,7 @@ const UserReportTool = ({title, handleShowGraph, handlePrev, handleNext}) => {
 
   return (
     <div>
-      <h1>{title}</h1>
+      <h3>{title}</h3>
       <GraphButton handleClick={handleShowGraph} />
       <DateStepTool {...dateStepToolProps} />
     </div>
