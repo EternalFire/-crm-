@@ -20,7 +20,7 @@ export default {
     date: today(),
 
     editModalVisible: false,
-    usersModalVisible: false
+    usersModalVisible: false,  
   },
   subscriptions: {
     setup ({dispatch, history}) {
@@ -121,10 +121,18 @@ export default {
     },
     *align({ payload }, { select, call, put }) {
       const params = yield select((({ interview }) => (interview.current)))
+      const frontData = yield select((({ interview }) => (interview.frontData)))
 
       const data = yield call(alignCustomerFrontDesk, params)
       if (checkResponse(data)) {
 
+        frontData.forEach(e => {
+          if (e._id === params._id) {
+            e.follow = params.followUserName
+          }
+        });
+
+        yield put({ type: 'queryFrontDeskSuccess', payload: { data: frontData } })
       }
     },
     *deleteCustomer({ payload }, { select, call, put }) {
@@ -177,6 +185,11 @@ export default {
       const { date } = action.payload
       return {
         ...state, date
+      }
+    },
+    setFollowUser (state, action) {
+      return {
+        ...state, ...action.payload
       }
     }
   }

@@ -20,6 +20,7 @@ const Interview = ({
     type, 
     frontData,
     current,
+    followUser,
     editModalVisible,
     usersModalVisible
   } = interview
@@ -34,8 +35,8 @@ const Interview = ({
   const tableProps = {
     dataSource: frontData,
     onEditItem(record) {
-      dispatch({ type: 'interview/setEditModalVisible', payload: { visible: true } })
       dispatch({ type: 'interview/setCurrent', payload: { current: record } })
+      dispatch({ type: 'interview/setEditModalVisible', payload: { visible: true } })
     },
     onDeleteItem(record) {
       Confirm({
@@ -43,13 +44,18 @@ const Interview = ({
         onOk() {
           dispatch({type: 'interview/deleteCustomer', payload: { current: record }})
         },
-        onCancel() {
-        },
+        onCancel() {},
       });
     },
     onFollow(record) {
-      dispatch({ type: 'interview/setUsersModalVisible', payload: { visible: true } })
+      users.forEach(u => {
+        if (record.follow === u.name) {
+          dispatch({ type: 'interview/setFollowUser', payload: { followUser: u } });
+        }
+      });
+
       dispatch({ type: 'interview/setCurrent', payload: { current: record } })
+      dispatch({ type: 'interview/setUsersModalVisible', payload: { visible: true } })
     },
     pagination: false
   };
@@ -61,8 +67,7 @@ const Interview = ({
         dispatch({ type: 'interview/queryFrontDesk' })
       })
     },
-    // handleSearch() {
-    // }
+    // handleSearch() {}
   }
 
   const renderQR = () => {
@@ -99,9 +104,10 @@ const Interview = ({
     title: '分配',
     visible: usersModalVisible,
     users: users,
+    item: current,
+    followUser: followUser,
     onOk(formData) {
       dispatch({ type: 'interview/align' })
-
       dispatch({ type: 'interview/setUsersModalVisible', payload: { visible: false } })
     },
     onCancel() {
@@ -109,24 +115,19 @@ const Interview = ({
     },
     onFollow(e) {      
       let followUserId = e.target.value,
-        followUser, followUserName
+        followUserName
 
       users.forEach((u => {
         if (u._id === followUserId) {
-          followUser = u;
           followUserName = u.name;
+
+          dispatch({ type: 'interview/setCurrent', payload: { 
+            current: {...current, followUserId, followUserName} 
+          } });
+
+          dispatch({ type: 'interview/setFollowUser', payload: { followUser: u } });
         }
       }));
-
-      console.log('===>>>', followUser)
-
-      if (followUser) {
-        dispatch({ type: 'interview/setCurrent', payload: { 
-          current: {...current, followUserId, followUserName} 
-        } })
-      }
-
-      dispatch({ type: 'interview/setUsersModalVisible', payload: { visible: false } })
     }
   }
 
