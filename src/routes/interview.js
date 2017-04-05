@@ -94,9 +94,20 @@ const Interview = ({
     item: current,
     onOk(formData) {
       dispatch({ type: 'interview/setEditModalVisible', payload: { visible: false } })
+      dispatch({ type: 'interview/update' })
     },
     onCancel() {
       dispatch({ type: 'interview/setEditModalVisible', payload: { visible: false } })
+    },
+    onChangeCustomerStatTYB(value) {
+      dispatch({ type: 'interview/setCurrent', payload: { 
+        current: {...current, tybTime: value} 
+      } });      
+    },
+    onChangeCustomerStatTFK(value) {
+      dispatch({ type: 'interview/setCurrent', payload: { 
+        current: {...current, tfkTime: value} 
+      } });      
     }
   }
 

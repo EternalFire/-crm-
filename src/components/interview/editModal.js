@@ -9,6 +9,8 @@ const EditModal = ({
   item = {},
   onOk,
   onCancel,
+  onChangeCustomerStatTYB,
+  onChangeCustomerStatTFK,
   form: {
     getFieldDecorator,
     validateFields,
@@ -30,20 +32,30 @@ const EditModal = ({
     })
   }
 
-  // todo add hook
   function handleChangeCustomerStatTYB(e) {    
-    if (e.target.checked) {
-      item.tybTime = new Date().getTime();
-    } else {
-      delete item.tybTime;
+    let value = e.target.checked ? new Date().getTime() : false;
+
+    if (onChangeCustomerStatTYB) {
+      onChangeCustomerStatTYB(value)
     }
+    // if (e.target.checked) {
+    //   item.tybTime = new Date().getTime();
+    // } else {
+    //   delete item.tybTime;
+    // }
   }
   function handleChangeCustomerStatTFK(e) {    
-    if (e.target.checked) {
-      item.tfkTime = new Date().getTime();
-    } else {
-      delete item.tfkTime;
+    let value = e.target.checked ? new Date().getTime() : false;
+
+    if (onChangeCustomerStatTFK) {
+      onChangeCustomerStatTFK(value)
     }
+    
+    // if (e.target.checked) {
+    //   item.tfkTime = new Date().getTime();
+    // } else {
+    //   delete item.tfkTime;
+    // }
   }
 
   const modalProps = {

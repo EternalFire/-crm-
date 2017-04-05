@@ -111,13 +111,25 @@ export default {
       }
     },
     *update({ payload }, { select, call, put }) {
+      const frontData = yield select((({ interview }) => (interview.frontData)))
       const params = yield select((({ interview }) => (interview.current)))
-
-      // todo: check key 'customerId' in params
       params['customerId'] = params._id
-      console.log('interview check key customerId => ', params['customerId'])
 
-      yield call(editCustomerFrontDesk, params)
+      const data = yield call(editCustomerFrontDesk, params)
+      console.log('update ==> ', data, params);
+
+      if (checkResponse(data)) {
+        let newFrontData = [];
+
+        newFrontData = frontData.map(e => {
+          if (e._id === params._id) {
+            return {...params};
+          }
+          return e;
+        })
+
+        yield put({ type: 'queryFrontDeskSuccess', payload: { data: newFrontData } })
+      }
     },
     *align({ payload }, { select, call, put }) {
       const params = yield select((({ interview }) => (interview.current)))
