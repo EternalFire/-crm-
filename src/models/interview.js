@@ -15,6 +15,7 @@ export default {
     type: null,
     frontData: [],
     current: {},
+    followUser: {},
 
     date: today(),
 
@@ -121,13 +122,19 @@ export default {
     *align({ payload }, { select, call, put }) {
       const params = yield select((({ interview }) => (interview.current)))
 
-      yield call(alignCustomerFrontDesk, params)
+      const data = yield call(alignCustomerFrontDesk, params)
+      if (checkResponse(data)) {
+
+      }
     },
     *deleteCustomer({ payload }, { select, call, put }) {
-      const params = yield select((({ interview }) => (interview.current)))
+      const params = payload.current
       params['customerId'] = params._id      
 
-      yield call(deleteCustomerFrontDesk, params)
+      const data = yield call(deleteCustomerFrontDesk, params);
+      if (checkResponse(data)) {
+        yield put({ type: 'queryFrontDesk' })
+      }
     }    
   },
   reducers: {

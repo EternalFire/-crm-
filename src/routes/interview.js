@@ -41,17 +41,15 @@ const Interview = ({
       Confirm({
         title: `确定要删除 ${record.name} ?`,
         onOk() {
-          console.log('delete ok')
-
-          // dispatch({type: 'interview/deleteCustomer'})
+          dispatch({type: 'interview/deleteCustomer', payload: { current: record }})
         },
         onCancel() {
-          console.log('delete cancel')        
         },
       });
     },
     onFollow(record) {
       dispatch({ type: 'interview/setUsersModalVisible', payload: { visible: true } })
+      dispatch({ type: 'interview/setCurrent', payload: { current: record } })
     },
     pagination: false
   };
@@ -98,13 +96,36 @@ const Interview = ({
   }
 
   const usersModalProps = {
-    title: 'users modal',
+    title: '分配',
     visible: usersModalVisible,
     users: users,
     onOk(formData) {
+      dispatch({ type: 'interview/align' })
+
       dispatch({ type: 'interview/setUsersModalVisible', payload: { visible: false } })
     },
     onCancel() {
+      dispatch({ type: 'interview/setUsersModalVisible', payload: { visible: false } })
+    },
+    onFollow(e) {      
+      let followUserId = e.target.value,
+        followUser, followUserName
+
+      users.forEach((u => {
+        if (u._id === followUserId) {
+          followUser = u;
+          followUserName = u.name;
+        }
+      }));
+
+      console.log('===>>>', followUser)
+
+      if (followUser) {
+        dispatch({ type: 'interview/setCurrent', payload: { 
+          current: {...current, followUserId, followUserName} 
+        } })
+      }
+
       dispatch({ type: 'interview/setUsersModalVisible', payload: { visible: false } })
     }
   }

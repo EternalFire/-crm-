@@ -101,7 +101,7 @@ function today() {
 }
 
 /**
- * [checkDate 时间如果是过去或者现在, 则调用回调; 用于DatePicker的onChange]
+ * [时间如果是过去或者现在, 则调用回调; 用于DatePicker的onChange属性]
  * @param  {[type]}   date       [description]
  * @param  {[type]}   dateString [description]
  * @param  {Function} cb         [description]
