@@ -6,7 +6,7 @@
 import {
   queryCustomerFrontDesk, editCustomerFrontDesk, alignCustomerFrontDesk, deleteCustomerFrontDesk
 } from '../services/crm'
-import {checkResponse, center} from '../utils'
+import {checkResponse, center, today} from '../utils'
 
 export default {
   namespace: 'interview',
@@ -16,7 +16,7 @@ export default {
     frontData: [],
     current: {},
 
-    date: '2017-02-28',
+    date: today(),
 
     editModalVisible: false,
     usersModalVisible: false
@@ -166,5 +166,11 @@ export default {
         ...state, usersModalVisible: visible
       }
     },
+    setDate (state, action) {
+      const { date } = action.payload
+      return {
+        ...state, date
+      }
+    }
   }
 }

@@ -12,14 +12,16 @@ function Consult({dispatch, consult}) {
   const {
     data,
     editModalVisible,
-    messageModalVisible
-  } = consult  
+    messageModalVisible,
+    pagination
+  } = consult; 
 
   const consultTableProps = {
-    dataSource: data,
+    dataSource: data, 
+    pagination: pagination, 
     onEditItem(record) {
       dispatch({type: 'consult/showEditModal'})
-    },
+    }, 
     onShowMessage(record) {
       dispatch({type: 'consult/showMessageModal'})
 

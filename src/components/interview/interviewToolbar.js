@@ -7,9 +7,9 @@ function InterviewToolbar({handleDateChange, handleSearch}) {
     <div>
       <DatePicker onChange={handleDateChange} defaultValue={moment()} />
       {' '}
-      <Button icon="search" onClick={handleSearch}>查询</Button>
     </div>
   )
 }
+      // <Button icon="search" onClick={handleSearch}>查询</Button>
 
 export default InterviewToolbar

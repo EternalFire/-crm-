@@ -120,7 +120,7 @@ const InterviewTable = ({
         dataSource={dataSource}
         // loading={loading}
         // onChange={onPageChange}
-        // pagination={pagination}
+        pagination={pagination}
         simple
         rowKey={record => record._id}
       />

@@ -10,6 +10,7 @@ import moment from 'moment';
 
 
 const dateFormat = 'YYYY-MM-DD';
+const timeFormat = 'YYYY-MM-DD HH:mm'
 
 // 连字符转驼峰
 String.prototype.hyphenToHump = function () {
@@ -92,7 +93,24 @@ function delCookie(name) {
 }
 
 function timestampToString(timeText) {
-  return moment.unix(timeText / 1000).format(dateFormat)
+  return moment.unix(timeText / 1000).format(timeFormat)
+}
+
+function today() {
+  return moment().format(dateFormat)
+}
+
+/**
+ * [checkDate 时间如果是过去或者现在, 则调用回调; 用于DatePicker的onChange]
+ * @param  {[type]}   date       [description]
+ * @param  {[type]}   dateString [description]
+ * @param  {Function} cb         [description]
+ * @return {[type]}              [description]
+ */
+function checkDate(date, dateString, cb) {
+  if (dateString.length > 0 && date.unix() <= moment().unix()) {
+    cb();
+  }
 }
 
 export {
@@ -108,5 +126,7 @@ export {
   delCookie,
   timestampToString,
   center,
-  authority
+  authority,
+  today,
+  checkDate
 }

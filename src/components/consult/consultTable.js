@@ -14,7 +14,7 @@ function ConsultTable ({
       title: '操作',
       dataIndex: 'op',
       render: (text, record, index) => (
-        <a href="javascript:void(0)" onClick={() => {
+        <a href="javascript:void(0 )" onClick={() => {
           // this.openTarget(record)
           if (onEditItem) {
             onEditItem(record)
@@ -102,7 +102,7 @@ function ConsultTable ({
         dataSource={dataSource}
         // loading={loading}
         // onChange={onPageChange}
-        // pagination={pagination}
+        pagination={pagination}
         simple
         rowKey={record => record._id}
       />

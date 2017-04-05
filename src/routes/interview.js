@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'dva'
 import {Modal} from 'antd'
-import { center } from '../utils'
+import { center, checkDate } from '../utils'
 import QR from '../components/interview/qr'
 import InterviewTable from '../components/interview/interviewTable'
 import InterviewToolbar from '../components/interview/interviewToolbar'
@@ -53,6 +53,18 @@ const Interview = ({
     onFollow(record) {
       dispatch({ type: 'interview/setUsersModalVisible', payload: { visible: true } })
     },
+    pagination: false
+  };
+
+  const toolProps = {
+    handleDateChange(date, dateString) {
+      checkDate(date, dateString, () => {
+        dispatch({ type: 'interview/setDate', payload: { date: dateString } })
+        dispatch({ type: 'interview/queryFrontDesk' })
+      })
+    },
+    // handleSearch() {
+    // }
   }
 
   const renderQR = () => {
@@ -66,7 +78,7 @@ const Interview = ({
     if (type === center.interviewType.align) {
       return (
         <div>
-          <InterviewToolbar />
+          <InterviewToolbar {...toolProps} />
           <InterviewTable {...tableProps} />
         </div>
       )
