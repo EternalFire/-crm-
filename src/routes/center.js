@@ -17,13 +17,8 @@ const Center = ({
 
   const tableProps = {
     onEditItem(record) {
-      dispatch({
-        type: 'center/setCurrent', 
-        payload: {
-          current: record
-        }
-      });
-      dispatch({ type: 'center/setModalVisible', payload: { visible: true } })
+      dispatch({ type: 'center/setCurrent', payload: { current: record } });
+      dispatch({ type: 'center/setModalVisible', payload: { visible: true } });
     }, 
     onPageChange(pagination, filters, sorter) {
       dispatch({ type: 'center/setPagination', payload: {pagination} })
@@ -65,18 +60,18 @@ const Center = ({
     onDayAllMenu(e) {
       dispatch({ type: 'center/setybFilter', payload: { ybFilter: false }});
       dispatch({ type: 'center/setjbFilter', payload: { jbFilter: false }});
-      dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
-      dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
+      // dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
+      // dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
     },
     onDayYBMenu(e) {
       dispatch({ type: 'center/setybFilter', payload: { ybFilter: true }});      
-      dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
-      dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
+      // dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
+      // dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
     },
     onDayJBMenu(e) {
       dispatch({ type: 'center/setjbFilter', payload: { jbFilter: true }});
-      dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
-      dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});      
+      // dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
+      // dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
     },
 
     onMonthAllMenu(e) {
@@ -97,17 +92,19 @@ const Center = ({
     },
 
     onChangeDayMenu(e) {
-      dispatch({ type: 'center/setCurrentMenuKey', payload: { currentMenuKey: [e.key] }});      
-      dispatch({ type: 'center/query' })
+      dispatch({ type: 'center/setCurrentMenuKey', payload: { currentMenuKey: [e.key] }});
+      dispatch({ type: 'center/resetPagination' });      
+      dispatch({ type: 'center/query' });
     },    
     onChangeMonthMenu(e) {
       dispatch({ type: 'center/setCurrentMenuKey', payload: { currentMenuKey: [e.key] }});
-      dispatch({ type: 'center/query' })
+      dispatch({ type: 'center/resetPagination' });      
+      dispatch({ type: 'center/query' });
     },
     onChangeSearchDate(date, dateStr) {
       dispatch({ type: 'center/setStartDate', payload: { startDate: dateStr[0] }});
       dispatch({ type: 'center/setEndDate', payload: { endDate: dateStr[1] }});
-      dispatch({ type: 'center/query' })
+      dispatch({ type: 'center/query' });
     }
   }
 
@@ -115,8 +112,8 @@ const Center = ({
     visible: modalVisible,
     item: current,
     onOk(formData) {
+      dispatch({ type: 'center/updateCustomer', payload: { current: formData } })
       dispatch({ type: 'center/setModalVisible', payload: { visible: false } })
-      dispatch({ type: 'center/updateLocalDayData', payload: { current: formData } })
     },
     onCancel() {
       dispatch({ type: 'center/setModalVisible', payload: { visible: false } })

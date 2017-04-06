@@ -1,6 +1,8 @@
 import React from 'react'
 import {Table, Icon} from 'antd'
-import TableBodyWrapper from '../common/TableBodyWrapper'
+// import TableBodyWrapper from '../common/TableBodyWrapper'
+import {timestampToString} from '../../utils'
+import ProgressTags from '../common/progressTags'
 
 function CenterTable ({dataSource, loading, onEditItem, onPageChange, pagination}) {
   const handleOp = (record) => {
@@ -23,12 +25,8 @@ function CenterTable ({dataSource, loading, onEditItem, onPageChange, pagination
         </div>
       ),
       dataIndex: 'createTime',
-      render(text, record, index) {
-        // todo extract this function 
-        // const createDate = moment.unix(text / 1000).format('YYYY-MM-DD');
-        
-        const createDate = text
-
+      render(text, record, index) {        
+        const createDate = timestampToString(text)
         return (
           <div>
             {createDate}<br />
@@ -46,10 +44,10 @@ function CenterTable ({dataSource, loading, onEditItem, onPageChange, pagination
       dataIndex: 'name',
       width: '120px',
       render(text, record, index) {
-            // <Tags customer={record} />
         return (
           <div>
             <div>{text}</div>
+            <ProgressTags customer={record} />
           </div>
         );
       }

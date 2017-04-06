@@ -26,16 +26,18 @@ const CenterModal = ({
         return
       }
       const data = {
+        ...item,
         ...getFieldsValue(),
-        // key: item.key,
-        _id: item._id
+        
+        // _id: item._id
       }
+
       onOk(data)
     })
   }
 
   function handleChangeStat(checkedValue) {
-    checkedValue.map((v) => {
+    checkedValue.map(v => {
       if (v == 'fs' && !item.fsTime) {
         item.fsTime = new Date().getTime();
       } else if (v == 'yb' && !item.ybTime) {
@@ -120,7 +122,7 @@ const CenterModal = ({
                 initialValue: item.sex,
                 rules: [{
                   required: true,
-                  message: '性别未选择'                  
+                  message: '性别未选择'
                 }]
               })(
                 <RadioGroup>
