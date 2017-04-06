@@ -103,8 +103,8 @@ function CenterTable ({dataSource, loading, onEditItem, onPageChange, pagination
         columns={columns}
         dataSource={dataSource}
         // loading={loading}
-        // onChange={onPageChange}
-        // pagination={pagination}
+        onChange={onPageChange}
+        pagination={pagination}
         simple
         rowKey={record => record._id}
       />

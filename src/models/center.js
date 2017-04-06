@@ -2,7 +2,7 @@
  * 分中心的咨询中心
  */
 import {queryMng, editCustomerMng} from '../services/crm'
-import {checkResponse, center} from '../utils'
+import {checkResponse, center, today} from '../utils'
 
 function checkCenter(name, type) {
   return name && type;
@@ -29,14 +29,15 @@ export default {
 
     // antd Table 分页
     pagination: {
-      showSizeChanger: true,
+      // showSizeChanger: true,
       showQuickJumper: true,
       showTotal: total => `共 ${total} 条`,
       current: 1,
+      pageSize: 20,
       total: null
     },
-    pageSize: 3,
     modalVisible: false,
+    currentMenuKey: ['dayAllMenu']
   },
   subscriptions: {
     setup ({dispatch, history}) {
@@ -45,6 +46,15 @@ export default {
         if (center.isMng(name, type)) {
           dispatch({ type: 'setCenter', payload: { name, type } })
           dispatch({ type: 'query' })
+
+          let menuKey = '';
+          if (type === center.type.day) {
+            menuKey = 'dayAllMenu'
+          } else if (type === center.type.month) {
+            menuKey = 'monthAllMenu'
+          }
+
+          dispatch({ type: 'setCurrentMenuKey', payload: { currentMenuKey: [menuKey] }});
         }
       });
     }
@@ -54,10 +64,10 @@ export default {
       const params = yield select(({ 
         app: { user },
         center: { 
-          name, startDate, endDate, fsFilter, ybFilter, fkFilter, zjFilter, jbFilter, pagination: { current }, pageSize
+          name, startDate, endDate, fsFilter, ybFilter, fkFilter, zjFilter, jbFilter, pagination: { current } 
         }
       }) => ({ 
-        user, center: name, startDate, endDate, fsFilter, ybFilter, fkFilter, zjFilter, jbFilter, currentPage: current, currentPageSize: pageSize 
+        user, center: name, startDate, endDate, fsFilter, ybFilter, fkFilter, zjFilter, jbFilter, currentPage: current, currentPageSize: current.pageSize 
       }));
 
       const currentType = yield select(({ center }) => ( center.type ));
@@ -67,20 +77,23 @@ export default {
       }
 
       const data = yield call(queryMng, params);
-      // console.log('data = ', data);
+      // console.log('data => ', data);
       if (checkResponse(data)) {
         switch(currentType) {
           case center.type.day: 
             yield put({ type: 'clearDayData' })
             yield put({ type: 'queryDaySuccess', payload: { data: data.data.customers } })
+            yield put({ type: 'setTotal', payload: { total: data.data.total }})
             break;
           case center.type.month:
             yield put({ type: 'clearMonthData' })
             yield put({ type: 'queryMonthSuccess', payload: { data: data.data.customers } })
+            yield put({ type: 'setTotal', payload: { total: data.data.total }})
             break;
           case center.type.all:
             yield put({ type: 'clearAllData' })
             yield put({ type: 'queryAllSuccess', payload: { data: data.data.customers } })
+            yield put({ type: 'setTotal', payload: { total: data.data.total }})
             break;
           default:
             console.error(new Error(`currentType = ${currentType}`))
@@ -141,7 +154,7 @@ export default {
       return {
         ...state, allData: data
       }
-    },
+    },    
     setCenter (state, action) {
       const { name, type } = action.payload;
       return {
@@ -169,14 +182,47 @@ export default {
         ...action.payload
       }
     },
-    setModalVisible(state, action) {
-      const { visible } = action.payload
-
+    setModalVisible (state, action) {
+      const { visible } = action.payload;
       return {
         ...state,
         modalVisible: visible
       }
     },
-
+    setTotal (state, action) {
+      return {
+        ...state, pagination: {...state.pagination, ...action.payload}
+      }
+    },
+    setPagination (state, action) {
+      return {
+        ...state, ...action.payload
+      }
+    },
+    setCurrentMenuKey (state, action) {
+      return {
+        ...state, ...action.payload
+      }
+    },
+    setStartDate (state, action) {
+      return {
+        ...state, ...action.payload
+      }
+    },
+    setEndDate (state, action) {
+      return {
+        ...state, ...action.payload
+      }
+    },
+    setybFilter (state, action) {
+      return {
+        ...state, ...action.payload
+      }
+    },
+    setjbFilter (state, action) {
+      return {
+        ...state, ...action.payload
+      }      
+    }
   }
 }

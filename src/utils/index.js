@@ -100,6 +100,18 @@ function today() {
   return moment().format(dateFormat)
 }
 
+function tomorrow() {
+  return moment().add(1, 'days').format(dateFormat)
+}
+
+function startOfMonth() {
+  return moment().set('date', 1).format(dateFormat);
+}
+
+function endOfMonth() {
+  return moment().add(1, 'month').set('date', 0).format(dateFormat)
+}
+
 /**
  * [时间如果是过去或者现在, 则调用回调; 用于DatePicker的onChange属性]
  * @param  {[type]}   date       [description]
@@ -128,5 +140,8 @@ export {
   center,
   authority,
   today,
+  tomorrow,
+  startOfMonth,
+  endOfMonth,
   checkDate
 }
