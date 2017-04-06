@@ -19,8 +19,8 @@ export default {
     current: {}, // 选择的数据条目
 
     // 查询条件
-    startDate: '2017-3-1',
-    endDate: '2017-3-1',
+    startDate: today(), // '2017-3-1', 
+    endDate: today(), // '2017-3-1', 
     fsFilter: null,
     ybFilter: null,
     fkFilter: null,
@@ -196,8 +196,7 @@ export default {
     },
     setCurrent (state, action) {
       return {
-        ...state,
-        ...action.payload
+        ...state, ...action.payload
       }
     },
     setModalVisible (state, action) {

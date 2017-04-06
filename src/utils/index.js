@@ -112,6 +112,14 @@ function endOfMonth() {
   return moment().add(1, 'month').set('date', 0).format(dateFormat)
 }
 
+function getYear(dateText) {
+  return moment(dateText).year();
+}
+
+function getMonth(dateText) {
+  return moment(dateText).month() + 1;
+}
+
 /**
  * [时间如果是过去或者现在, 则调用回调; 用于DatePicker的onChange属性]
  * @param  {[type]}   date       [description]
@@ -143,5 +151,7 @@ export {
   tomorrow,
   startOfMonth,
   endOfMonth,
+  getYear,
+  getMonth,
   checkDate
 }

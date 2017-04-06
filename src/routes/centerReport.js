@@ -115,7 +115,4 @@ function CenterReport({dispatch, centerReport}) {
   )
 };
 
-
-
-
 export default connect(({centerReport}) => ({centerReport}))(CenterReport)
