@@ -8,7 +8,7 @@ const FormItem = Form.Item
 const RadioGroup = Radio.Group
 const CheckboxGroup = Checkbox.Group
 
-const editModal = ({
+const EditModal = ({
   title,
   visible,
   item = {},
@@ -20,16 +20,18 @@ const editModal = ({
     getFieldsValue    
   }
 }) => {
-  
+  console.log('item > ', item)
+
   function handleOk () {
     validateFields((errors) => {
       if (errors) {
         return
       }
       const data = {
+        ...item, 
         ...getFieldsValue(),
         // key: item.key,
-        _id: item._id
+        // _id: item._id
       }
       onOk(data)
     })
@@ -144,4 +146,4 @@ const editModal = ({
   )
 }
 
-export default Form.create()(editModal)
+export default Form.create()(EditModal)

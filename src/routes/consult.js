@@ -5,35 +5,44 @@ import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import ConsultTable from '../components/consult/consultTable'
 import EditModal from '../components/consult/editModal'
-// import MessageModal from '../components/consult/messageModal'
 import {Modal} from 'antd'
 
 function Consult({dispatch, consult}) {
   const {
-    data,
-    editModalVisible,
-    messageModalVisible,
+    data, 
+    current, 
+    currentMessage,
+    editModalVisible, 
+    messageModalVisible, 
     pagination
   } = consult; 
 
   const consultTableProps = {
     dataSource: data, 
-    pagination: pagination, 
     onEditItem(record) {
-      dispatch({type: 'consult/showEditModal'})
+      dispatch({ type: 'consult/setCurrent', payload: { current: record } });
+      dispatch({ type: 'consult/showEditModal' });
     }, 
     onShowMessage(record) {
-      dispatch({type: 'consult/showMessageModal'})
+      dispatch({ type: 'consult/queryMessage', payload: { guest_id: record.guest_id } });
 
       Modal.info({
         title: '聊天记录',
         content: (
-          <div>121212
+          <div>
           {
-            // rs.data.map((d) => {
-            //   if (d.content.msg_type == 'p') return (<p style={{ textAlign: 'right', paddingLeft: '40px' }}>{d.content.msg}</p>);
-            //   else return (<p>{d.content.msg}</p>);
-            // })
+            currentMessage.map((d, i) => {
+              if (d.content.msg_type == 'p') {
+                return (
+                  <p key={i} style={{ textAlign: 'right', paddingLeft: '40px' }}>
+                    {d.content.msg}
+                  </p>
+                );
+              }
+              else {
+                return (<p key={i}>{d.content.msg}</p>);
+              }
+            })
           }
           </div>
         ),
@@ -41,28 +50,26 @@ function Consult({dispatch, consult}) {
         maskClosable: true,
         onOk() {},
       });
+    }, 
+    onPageChange(pagination, filters, sorter) {
+      dispatch({ type: 'consult/setPagination', payload: { pagination } });
+      dispatch({ type: 'consult/query' });
     }
   }
 
   const editModalProps = {
     title: '编辑',
     visible: editModalVisible,
-    onOk() {
-      dispatch({type: 'consult/hideEditModal'})
-    },
+    item: current, 
+    onOk(formData) {
+      dispatch({type: 'consult/update', payload: { current: formData }});
+      dispatch({type: 'consult/hideEditModal'});
+      dispatch({ type: 'consult/setCurrent', payload: { current: {} } });          
+    }, 
     onCancel() {
-      dispatch({type: 'consult/hideEditModal'})      
-    }
-  }  
-  const messageModalProps = {
-    title: '聊天信息',
-    visible: messageModalVisible,    
-    onOk() {
-      dispatch({type: 'consult/hideMessageModal'})
-    },
-    onCancel() {
-      dispatch({type: 'consult/hideMessageModal'})      
-    }
+      dispatch({type: 'consult/hideEditModal'});
+      dispatch({ type: 'consult/setCurrent', payload: { current: {} } });    
+    }, 
   }
 
   return (
@@ -72,6 +79,5 @@ function Consult({dispatch, consult}) {
     </div>
   );
 }
-      // <MessageModal {...messageModalProps} />
 
 export default connect(({consult}) => ({consult}))(Consult)
