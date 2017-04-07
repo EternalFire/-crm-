@@ -20,19 +20,17 @@ const EditModal = ({
     getFieldsValue    
   }
 }) => {
-  console.log('item > ', item)
-
   function handleOk () {
     validateFields((errors) => {
       if (errors) {
         return
       }
+
       const data = {
         ...item, 
         ...getFieldsValue(),
-        // key: item.key,
-        // _id: item._id
       }
+
       onOk(data)
     })
   }

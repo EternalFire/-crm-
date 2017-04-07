@@ -19,7 +19,7 @@ export default {
     current: {}, // 选择的数据条目
 
     // 查询条件
-    startDate: today(), // '2017-3-1', 
+    startDate: '2017-3-1', //today(), // '2017-3-1', 
     endDate: today(), // '2017-3-1', 
     fsFilter: null,
     ybFilter: null,
@@ -115,10 +115,10 @@ export default {
     *updateCustomer({ payload }, { select, call, put }) {
       const params = payload.current;
       params['customerId'] = params._id
-      console.log('check key customerId => ', params)
+      // console.log('check key customerId => ', params)
 
       const data = yield call(editCustomerMng, params)
-      console.log('updateCustomer => ', data)
+      // console.log('updateCustomer => ', data)
       if (checkResponse(data)) {
         yield put({ type: 'updateLocalData', payload: { current: params } })
       }
@@ -151,7 +151,7 @@ export default {
         return e;
       });
 
-      yield put({ type: 'queryDaySuccess', payload: { data } })
+      yield put({ type: 'queryDaySuccess', payload: { data } });
     }
   },
   reducers: {

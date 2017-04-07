@@ -60,18 +60,18 @@ const Center = ({
     onDayAllMenu(e) {
       dispatch({ type: 'center/setybFilter', payload: { ybFilter: false }});
       dispatch({ type: 'center/setjbFilter', payload: { jbFilter: false }});
-      // dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
-      // dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
+      dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
+      dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
     },
     onDayYBMenu(e) {
       dispatch({ type: 'center/setybFilter', payload: { ybFilter: true }});      
-      // dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
-      // dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
+      dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
+      dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
     },
     onDayJBMenu(e) {
       dispatch({ type: 'center/setjbFilter', payload: { jbFilter: true }});
-      // dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
-      // dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
+      dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
+      dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
     },
 
     onMonthAllMenu(e) {
@@ -120,11 +120,14 @@ const Center = ({
     }
   }
 
+  // https://github.com/dvajs/dva/issues/668
+  const ModalGen = () => <CenterModal {...centerModalProps} />
+
   return (
     <div>
       <CenterToolbar {...centerToolbarProps} />
       {renderObject[type] ? renderObject[type]() : CenterUtil.getCenterName(name)}
-      <CenterModal {...centerModalProps} />
+      <ModalGen />
     </div>
   )
 }

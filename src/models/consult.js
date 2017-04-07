@@ -21,7 +21,8 @@ export default {
       total: null
     },
 
-    editModalVisible: false
+    editModalVisible: false,
+    messageModalVisible: false
   }, 
   subscriptions: {
     setup ({dispatch, history}) {
@@ -40,7 +41,6 @@ export default {
       const data = yield call(queryConsult, params)
 
       if (checkResponse(data)) {
-
         yield put({ 
           type: 'querySuccess', 
           payload: { 
@@ -53,30 +53,13 @@ export default {
       }
     }, 
     *update({ payload }, { select, call, put }) {
-      const consultData = yield select((({ consult }) => (consult.data)))
-
       const params = payload.current;
       params['customerId'] = params._id      
       
       const data = yield call(editCustomerConsult, params)
       
       if (checkResponse(data)) {
-        // consultData.map((e, i) => {
-        //   if (e._id === params._id) {
-        //     e = {...params};
-        //   }
-        // });
-        // 
-        // yield put({ type: 'updateLocalData', payload: { data: consultData } });
-
-        let newData = consultData.map((e, i) => {
-          if (e._id === params._id) {
-            return {...params};
-          }
-          return e;
-        });
-
-        yield put({ type: 'updateLocalData', payload: { data: newData } });
+        yield put({ type: 'updateLocalData', payload: { params } });
       }
     },
     *queryMessage({ payload }, { select, call, put }) {
@@ -88,6 +71,20 @@ export default {
       if (checkResponse(data)) {
         yield put({ type: 'queryMessageSuccess', payload: { currentMessage: data.data } });
       }
+    },
+    *updateLocalData({ payload }, { select, call, put }) {
+      const consultData = yield select((({ consult }) => (consult.data)))
+      const { params } = payload;
+
+      let newData = [];
+      newData = consultData.map((e, i) => {
+        if (e._id === params._id) {
+          return {...params};
+        }
+        return e;
+      });
+
+      yield put({ type: 'updateLocalDataSuccess', payload: { data: newData } });
     }
   }, 
   reducers: {
@@ -102,26 +99,26 @@ export default {
         }
       }
     },
-    queryMessageSuccess(state, action) {
+    queryMessageSuccess (state, action) {
       return { ...state, ...action.payload }
     }, 
-    updateLocalData (state, action) {
+    updateLocalDataSuccess (state, action) {
       return { ...state, ...action.payload }
     },
-    showEditModal(state, action) {
+    showEditModal (state, action) {
       return {
         ...state, editModalVisible: true
       }
     },
-    hideEditModal(state, action) {
+    hideEditModal (state, action) {
       return {
         ...state, editModalVisible: false
       }
     },
-    setPagination(state, action) {
+    setPagination (state, action) {
       return { ...state, ...action.payload }
     },
-    setCurrent(state, action) {
+    setCurrent (state, action) {
       return { ...state, ...action.payload }
     },
   }

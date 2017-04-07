@@ -42,7 +42,7 @@ export default function ({history, app}) {
   });
 
   // 网络咨询
-  const concultRoute = [{
+  const consultRoute = [{
     path: `${center.guangzhou}/${center.guangzhou}-consult`,
     name: `${center.guangzhou}/${center.guangzhou}-consult`,
     getComponent(nextState, cb) {
@@ -79,7 +79,7 @@ export default function ({history, app}) {
       childRoutes: [
         ...interviewRoute,
         ...centerRoute,
-        ...concultRoute,
+        ...consultRoute,
         ...centerReportRoute,
         {
           path: 'admin/admin-report',

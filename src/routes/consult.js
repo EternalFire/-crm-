@@ -18,43 +18,46 @@ function Consult({dispatch, consult}) {
   } = consult; 
 
   const consultTableProps = {
-    dataSource: data, 
+    dataSource: data,
     onEditItem(record) {
       dispatch({ type: 'consult/setCurrent', payload: { current: record } });
       dispatch({ type: 'consult/showEditModal' });
     }, 
     onShowMessage(record) {
-      dispatch({ type: 'consult/queryMessage', payload: { guest_id: record.guest_id } });
+      if (record.guest_id) {
+        dispatch({ type: 'consult/queryMessage', payload: { guest_id: record.guest_id } });
 
-      Modal.info({
-        title: '聊天记录',
-        content: (
-          <div>
-          {
-            currentMessage.map((d, i) => {
-              if (d.content.msg_type == 'p') {
-                return (
-                  <p key={i} style={{ textAlign: 'right', paddingLeft: '40px' }}>
-                    {d.content.msg}
-                  </p>
-                );
-              }
-              else {
-                return (<p key={i}>{d.content.msg}</p>);
-              }
-            })
-          }
-          </div>
-        ),
-        width: '600px',
-        maskClosable: true,
-        onOk() {},
-      });
+        Modal.info({
+          title: '聊天记录',
+          content: (
+            <div>
+            {
+              currentMessage.map((d, i) => {
+                if (d.content.msg_type == 'p') {
+                  return (
+                    <p key={i} style={{ textAlign: 'right', paddingLeft: '40px' }}>
+                      {d.content.msg}
+                    </p>
+                  );
+                }
+                else {
+                  return (<p key={i}>{d.content.msg}</p>);
+                }
+              })
+            }
+            </div>
+          ),
+          width: '600px',
+          maskClosable: true,
+          onOk() {},
+        });
+      }
     }, 
     onPageChange(pagination, filters, sorter) {
       dispatch({ type: 'consult/setPagination', payload: { pagination } });
       dispatch({ type: 'consult/query' });
-    }
+    }, 
+    pagination, 
   }
 
   const editModalProps = {
@@ -64,18 +67,18 @@ function Consult({dispatch, consult}) {
     onOk(formData) {
       dispatch({type: 'consult/update', payload: { current: formData }});
       dispatch({type: 'consult/hideEditModal'});
-      dispatch({ type: 'consult/setCurrent', payload: { current: {} } });          
     }, 
     onCancel() {
       dispatch({type: 'consult/hideEditModal'});
-      dispatch({ type: 'consult/setCurrent', payload: { current: {} } });    
     }, 
   }
+
+  const ModalGen = () => <EditModal {...editModalProps} />
 
   return (
     <div>
       <ConsultTable {...consultTableProps} />
-      <EditModal {...editModalProps} />
+      <ModalGen />
     </div>
   );
 }
