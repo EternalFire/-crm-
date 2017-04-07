@@ -74,16 +74,21 @@ function UserReport ({dataSource, loading, onPageChange, pagination}) {
     },
   }];
 
+  let dataSource_ = dataSource.map((e, i) => {
+    e._id = i;
+    return e;
+  });
+
   return (
     <div>
       <Table
         bordered
         // scroll={{ x: 1200 }}
         columns={columns}
-        dataSource={dataSource}
+        dataSource={dataSource_}
         // loading={loading}
         // onChange={onPageChange}
-        // pagination={pagination}
+        pagination={pagination}
         simple
         rowKey={record => record._id}
       />

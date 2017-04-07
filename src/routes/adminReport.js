@@ -3,7 +3,7 @@
  */
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
-import AdminReportCom from '../components/report/adminReport'
+import AdminReportComponent from '../components/report/adminReport'
 import AdminReportTool from '../components/report/adminReportTool'
 
 function AdminReport({dispatch, admin}) {
@@ -11,7 +11,8 @@ function AdminReport({dispatch, admin}) {
 
   const adminReportProps = {
     dataSource: sureportData,
-    date: date
+    date: date,
+    pagination: false
   }
 
   const adminReportToolProps = {
@@ -19,15 +20,16 @@ function AdminReport({dispatch, admin}) {
     handleShowGraph() {
 
     },
-    handleDateChange() {
-
+    handleDateChange(date, dateString) {
+      dispatch({ type: 'admin/setDate', payload: { date: dateString } });
+      dispatch({ type: 'admin/query' });
     }
   }
 
   return (
     <div>
       <AdminReportTool {...adminReportToolProps} />
-      <AdminReportCom {...adminReportProps} />
+      <AdminReportComponent {...adminReportProps} />
     </div>
   )
 }

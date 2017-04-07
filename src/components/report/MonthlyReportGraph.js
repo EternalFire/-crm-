@@ -188,7 +188,7 @@ const RateGraph = React.createClass({
 
 export default React.createClass({
   render() {
-    const momthReportData = this.props.data;
+    const { data: momthReportData } = this.props;    
 
     return (
       <div>

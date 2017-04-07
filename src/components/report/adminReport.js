@@ -8,27 +8,12 @@ import {Table, Icon, DatePicker} from 'antd'
 import {center} from '../../utils'
 const {getCenterName} = center;
 
-function AdminReport({dataSource, date}) {
-
-    let tdata = [...dataSource];
-
-    let allCount = 0;
-    let allYb = 0;
-    tdata.forEach((d, index) => {
-      d.key = index;
-      allCount += d.count;
-      allYb += d.yb;
-    });
-    tdata.push({
-      center: '总计',
-      yb: allYb,
-      count: allCount,
-    });  
-
+function AdminReportComponent({dataSource, date, pagination}) {
   const columns = [{
       title: '校区名称',
       dataIndex: 'center',
       render: (text, record, index) => text == '总计' ? text : getCenterName(text),
+      width: '80px',
     }, {
       title: '预报量',
       dataIndex: 'yb',
@@ -51,16 +36,15 @@ function AdminReport({dataSource, date}) {
         bordered
         // scroll={{ x: 1200 }}
         columns={columns}
-        dataSource={tdata}
+        dataSource={dataSource}
         // loading={loading}
         // onChange={onPageChange}
-        // pagination={pagination}
+        pagination={pagination}
         simple
       />
     </div>
   );  
 }
 
-           
 
-export default AdminReport
+export default AdminReportComponent

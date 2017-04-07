@@ -10,7 +10,8 @@ import moment from 'moment';
 
 
 const dateFormat = 'YYYY-MM-DD';
-const timeFormat = 'YYYY-MM-DD HH:mm'
+const monthFormat = 'YYYY-MM';
+const timeFormat = 'YYYY-MM-DD HH:mm';
 
 // 连字符转驼峰
 String.prototype.hyphenToHump = function () {
@@ -135,6 +136,7 @@ function checkDate(date, dateString, cb) {
 
 export {
   dateFormat,
+  monthFormat,
   config,
   menu,
   ancestorKeys,

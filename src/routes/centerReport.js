@@ -17,31 +17,19 @@ function CenterReport({dispatch, centerReport}) {
   const userModalProps = {
     visible: userReportGraphVisible,
     onOk() {
-      dispatch({ 
-        type: 'centerReport/setUserReportGraphVisible', 
-        payload: { visible: false } 
-      })
+      dispatch({ type: 'centerReport/setUserReportGraphVisible', payload: { visible: false } });
     },
     onCancel() {
-      dispatch({ 
-        type: 'centerReport/setUserReportGraphVisible', 
-        payload: { visible: false } 
-      })
+      dispatch({ type: 'centerReport/setUserReportGraphVisible', payload: { visible: false } });
     }
   }
   const monthlyModalProps = {
     visible: monthlyReportGraphVisible,
     onOk() {
-      dispatch({ 
-        type: 'centerReport/setMonthlyReportGraphVisible', 
-        payload: { visible: false } 
-      })
+      dispatch({ type: 'centerReport/setMonthlyReportGraphVisible', payload: { visible: false } });
     },
     onCancel() {
-      dispatch({ 
-        type: 'centerReport/setMonthlyReportGraphVisible', 
-        payload: { visible: false } 
-      })
+      dispatch({ type: 'centerReport/setMonthlyReportGraphVisible', payload: { visible: false } });
     }
   }
 
@@ -53,42 +41,42 @@ function CenterReport({dispatch, centerReport}) {
   }
 
   const userReportProps = {
-    dataSource: userData
+    dataSource: userData,
+    pagination: false
   }
 
   const monthlyReportProps = {
-    dataSource: monthlyData
+    dataSource: monthlyData,
+    pagination: false
   }
 
   const userReportToolProps = {
     title: '中心咨询师分析表',
     handleShowGraph: () => {
-      dispatch({ 
-        type: 'centerReport/setUserReportGraphVisible', 
-        payload: { visible: true } 
-      })
+      dispatch({ type: 'centerReport/setUserReportGraphVisible', payload: { visible: true } });
     },
     handlePrev: (dateStr) => {
-
+      dispatch({ type: 'centerReport/setUserDate', payload: { userDate: dateStr } });
+      dispatch({ type: 'centerReport/queryUserReport' });
     },
     handleNext: (dateStr) => {
-
+      dispatch({ type: 'centerReport/setUserDate', payload: { userDate: dateStr } });
+      dispatch({ type: 'centerReport/queryUserReport' });
     }
   }
 
   const monthlyReportToolProps = {
     title: '月度数据汇总',
     handleShowGraph: () => {
-      dispatch({ 
-        type: 'centerReport/setMonthlyReportGraphVisible', 
-        payload: { visible: true } 
-      })
+      dispatch({ type: 'centerReport/setMonthlyReportGraphVisible', payload: { visible: true } });
     },
     handlePrev: (dateStr) => {
-
+      dispatch({ type: 'centerReport/setMonthDate', payload: { monthDate: dateStr } });
+      dispatch({ type: 'centerReport/queryMonthlyReport' });
     }, 
     handleNext: (dateStr) => {
-
+      dispatch({ type: 'centerReport/setMonthDate', payload: { monthDate: dateStr } });
+      dispatch({ type: 'centerReport/queryMonthlyReport' });
     }
   }
 

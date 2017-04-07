@@ -12,7 +12,7 @@ const AdminReportTool = ({title, handleShowGraph, handleDateChange}) => {
       <h3>
         {title}
         <GraphButton handleClick={handleShowGraph} />
-        <DatePicker onChange={handleDateChange} defaultValue={moment()} />        
+        <DatePicker onChange={handleDateChange} defaultValue={moment()} />
       </h3>
     </div>
   )
