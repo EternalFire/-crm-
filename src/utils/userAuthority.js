@@ -1,7 +1,7 @@
 /*
  * 权限管理
  */
-import {isGuangzhou,isChongqing,isChangsha,isNanchang} from './center'
+import {isGuangzhou,isChongqing,isChangsha,isNanchang,isAdmin} from './center'
 
 // 职位
 // 咨询顾问

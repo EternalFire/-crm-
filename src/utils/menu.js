@@ -6,8 +6,15 @@ import {
   admin,
   getCenterName,
   parseMenuKey,
-  isMng
+  isMng,
+  isGuangzhou,
+  isChongqing,
+  isChangsha,
+  isNanchang,
+  isAdmin,
 } from './center';
+
+import * as Authority from './userAuthority'
 
 /*
   XX中心
@@ -95,15 +102,13 @@ function generateAdminMenu() {
   };
 }
 
-const menus = [
-  generateCenterMenu(guangzhou, getCenterName(guangzhou)),
-  generateCenterMenu(chongqing, getCenterName(chongqing)),
-  generateCenterMenu(changsha,  getCenterName(changsha)),
-  generateCenterMenu(nanchang,  getCenterName(nanchang)),
-  generateAdminMenu()
-];
-
-// console.log(menus);
+// const menus = [
+//   generateCenterMenu(guangzhou, getCenterName(guangzhou)),
+//   generateCenterMenu(chongqing, getCenterName(chongqing)),
+//   generateCenterMenu(changsha,  getCenterName(changsha)),
+//   generateCenterMenu(nanchang,  getCenterName(nanchang)),
+//   generateAdminMenu()
+// ];
 
 function walkMenus(nodes) {
   let kv = {};
@@ -126,11 +131,37 @@ function walkMenus(nodes) {
   return kv;
 }
 
-const ancestorKeys = walkMenus(menus);
+// const ancestorKeys = walkMenus(menus);
 
+// 菜单按权限显示
+function generateMenus(user) {
+  let isAdmin_ = Authority.isAdministrator(user.center, user.type);
+  let menus = []
 
+  if (isAdmin_ || isGuangzhou(user.center)) {
+    menus.push(generateCenterMenu(guangzhou, getCenterName(guangzhou)));
+  }
 
-// todo: 菜单按权限显示
+  if (isAdmin_ || isChongqing(user.center)) {
+    menus.push(generateCenterMenu(chongqing, getCenterName(chongqing)));
+  }
 
-export default menus;
-export {ancestorKeys}
+  if (isAdmin_ || isChangsha(user.center)) {
+    menus.push(generateCenterMenu(changsha,  getCenterName(changsha)));
+  }
+
+  if (isAdmin_ || isNanchang(user.center)) {
+    menus.push(generateCenterMenu(nanchang,  getCenterName(nanchang)));
+  }
+
+  if (isAdmin_) {
+    menus.push(generateAdminMenu());
+  }
+  return menus;
+};
+
+function generateAncestorKeys(nodes) {
+  return walkMenus(nodes);
+};
+
+export { generateMenus, generateAncestorKeys }

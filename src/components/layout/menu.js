@@ -1,9 +1,20 @@
 import React, { PropTypes } from 'react'
 import { Menu, Icon } from 'antd'
 import { Link } from 'dva/router'
-import { menu, ancestorKeys } from '../../utils'
+import { MenuConfig } from '../../utils'
 
-const topMenus = menu.map(item => item.key)
+let menu = [];
+let topMenus = [];
+let ancestorKeys = {};
+
+function initMenu(user) {
+  if (user) {    
+    menu = MenuConfig.generateMenus(user)    
+    ancestorKeys = MenuConfig.generateAncestorKeys(menu);    
+    topMenus = menu.map(item => item.key);
+  }
+}
+
 const getMenus = function (menuArray, siderFold, parentPath) {
   parentPath = parentPath || '/'
   return menuArray.map(item => {
@@ -26,7 +37,9 @@ const getMenus = function (menuArray, siderFold, parentPath) {
   })
 }
 
-function Menus ({ siderFold, darkTheme, location, isNavbar, handleClickNavMenu, navOpenKeys, changeOpenKeys }) {
+function Menus ({ user, siderFold, darkTheme, location, isNavbar, handleClickNavMenu, navOpenKeys, changeOpenKeys }) {  
+  initMenu(user);
+  
   const menuItems = getMenus(menu, siderFold)
 
   const onOpenChange = (openKeys) => {

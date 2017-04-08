@@ -48,10 +48,14 @@ function App ({children, location, dispatch, app}) {
     changeOpenKeys (openKeys) {
       localStorage.setItem('navOpenKeys', JSON.stringify(openKeys))
       dispatch({ type: 'app/handleNavOpenKeys', payload: { navOpenKeys: openKeys } })
+    },
+    getUser () {
+      return user
     }
   }
 
   const siderProps = {
+    user,
     siderFold,
     darkTheme,
     location,

@@ -1,6 +1,5 @@
 import config from './config'
-import menu from './menu'
-import { ancestorKeys } from './menu'
+import * as MenuConfig from './menu'
 import request from './request'
 import classnames from 'classnames'
 import {color} from './theme'
@@ -138,8 +137,7 @@ export {
   dateFormat,
   monthFormat,
   config,
-  menu,
-  ancestorKeys,
+  MenuConfig,
   request,
   color,
   classnames, 
