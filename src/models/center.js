@@ -19,7 +19,7 @@ export default {
     current: {}, // 选择的数据条目
 
     // 查询条件
-    startDate: '2017-3-1', //today(), // '2017-3-1', 
+    startDate: today(), // '2017-3-1', //'2017-3-1', 
     endDate: today(), // '2017-3-1', 
     fsFilter: null,
     ybFilter: null,

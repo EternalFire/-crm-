@@ -8,7 +8,7 @@ import {Table, Icon, DatePicker} from 'antd'
 import {center} from '../../utils'
 const {getCenterName} = center;
 
-function AdminReportComponent({dataSource, date, pagination}) {
+function AdminReportComponent({dataSource, date, pagination, loading}) {
   const columns = [{
       title: '校区名称',
       dataIndex: 'center',
@@ -27,7 +27,7 @@ function AdminReportComponent({dataSource, date, pagination}) {
       dataIndex: 'ybRate',
       render: (text, record, index) => record.count != 0 ? (record.yb / record.count  * 100).toFixed(1) * 1 : 0,
       width: '80px',
-    }    
+    }
   ];
   
   return (
@@ -37,7 +37,7 @@ function AdminReportComponent({dataSource, date, pagination}) {
         // scroll={{ x: 1200 }}
         columns={columns}
         dataSource={dataSource}
-        // loading={loading}
+        loading={loading}
         // onChange={onPageChange}
         pagination={pagination}
         simple

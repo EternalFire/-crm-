@@ -10,11 +10,7 @@ import UsersModal from '../components/interview/usersModal'
 
 const Confirm = Modal.confirm;
 
-const Interview = ({
-  dispatch, 
-  interview,
-  app
-}) => {
+const Interview = ({ dispatch, interview, app, loading }) => {
   const {
     name, 
     type, 
@@ -57,7 +53,8 @@ const Interview = ({
       dispatch({ type: 'interview/setCurrent', payload: { current: record } })
       dispatch({ type: 'interview/setUsersModalVisible', payload: { visible: true } })
     },
-    pagination: false
+    pagination: false,
+    loading
   };
 
   const toolProps = {
@@ -152,4 +149,6 @@ const Interview = ({
   )
 }
 
-export default connect(({interview, app}) => ({interview, app}))(Interview)
+export default connect(({interview, app, loading}) => ({
+  interview, app, loading: loading.global
+}))(Interview)

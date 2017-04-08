@@ -8,11 +8,7 @@ import CenterToolbar from '../components/center/centerToolbar'
 import CenterModal from '../components/center/centerModal'
 import {center as CenterUtil, today, tomorrow, startOfMonth, endOfMonth } from '../utils'
 
-const Center = ({
-  location, 
-  dispatch, 
-  center
-}) => {
+const Center = ({ location, dispatch, center, loading }) => {
   const { name, type, dayData, monthData, allData, current, modalVisible, currentMenuKey, pagination } = center
 
   const tableProps = {
@@ -24,7 +20,8 @@ const Center = ({
       dispatch({ type: 'center/setPagination', payload: {pagination} })
       dispatch({ type: 'center/query' })
     },
-    pagination
+    pagination,
+    loading
   }
 
   const renderDayTable = () => {
@@ -137,8 +134,8 @@ Center.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { center } = state
-  return { center }
+  const { center, loading } = state
+  return { center, loading: loading.global }
 }
 
 export default connect(mapStateToProps)(Center)

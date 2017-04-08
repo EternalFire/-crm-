@@ -10,8 +10,8 @@ export default {
     name: null,
     userData: [], // 咨询师报表数据
     monthlyData: [], // 月度报表数据
-    userDate: '2017-3-1',
-    monthDate: '2017-4',
+    userDate: today(), //'2017-3-1',
+    monthDate: today(), //'2017-4',
     userReportGraphVisible: false,
     monthlyReportGraphVisible: false,
   },

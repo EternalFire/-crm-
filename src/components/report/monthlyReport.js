@@ -30,7 +30,7 @@ function MonthlyReport ({dataSource, loading, onPageChange, pagination}) {
         // scroll={{ x: 1200 }}
         columns={columns}
         dataSource={dataSource}
-        // loading={loading}
+        loading={loading}
         // onChange={onPageChange}
         pagination={pagination}
         simple

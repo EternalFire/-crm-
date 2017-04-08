@@ -100,7 +100,7 @@ function CenterTable ({dataSource, loading, onEditItem, onPageChange, pagination
         // scroll={{ x: 1200 }}
         columns={columns}
         dataSource={dataSource}
-        // loading={loading}
+        loading={loading}
         onChange={onPageChange}
         pagination={pagination}
         simple

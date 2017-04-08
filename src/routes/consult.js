@@ -8,7 +8,7 @@ import EditModal from '../components/consult/editModal'
 import MessageModal from '../components/consult/messageModal'
 import {Modal} from 'antd'
 
-function Consult({dispatch, consult}) {
+function Consult({dispatch, consult, loading}) {
   const {
     data, 
     current, 
@@ -20,6 +20,8 @@ function Consult({dispatch, consult}) {
 
   const consultTableProps = {
     dataSource: data,
+    loading,
+    pagination, 
     onEditItem(record) {
       dispatch({ type: 'consult/setCurrent', payload: { current: record } });
       dispatch({ type: 'consult/showEditModal' });
@@ -28,14 +30,13 @@ function Consult({dispatch, consult}) {
       if (record.guest_id) {
         dispatch({ type: 'consult/queryMessage', payload: { guest_id: record.guest_id } });
       }
-      
+
       dispatch({ type: 'consult/showMessageModal' });
     }, 
     onPageChange(pagination, filters, sorter) {
       dispatch({ type: 'consult/setPagination', payload: { pagination } });
       dispatch({ type: 'consult/query' });
-    }, 
-    pagination, 
+    }
   }
 
   const editModalProps = {
@@ -55,6 +56,7 @@ function Consult({dispatch, consult}) {
     title: '聊天信息',
     visible: messageModalVisible,
     messages: currentMessage,
+    loading,
     onOk() {
       dispatch({type: 'consult/hideMessageModal'});
     },
@@ -64,7 +66,6 @@ function Consult({dispatch, consult}) {
   }
 
   const EditModalGen = () => <EditModal {...editModalProps} />
-  // const MessageModalGen = () => <MessageModal {...messageModalProps} />
 
   return (
     <div>
@@ -75,4 +76,7 @@ function Consult({dispatch, consult}) {
   );
 }
 
-export default connect(({consult}) => ({consult}))(Consult)
+export default connect(({consult, loading}) => ({
+  consult,
+  loading: loading.global
+}))(Consult)

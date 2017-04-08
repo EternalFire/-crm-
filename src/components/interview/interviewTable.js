@@ -13,7 +13,6 @@ const InterviewTable = ({
   onDeleteItem,
   onFollow, // 分配咨询师
 }) => {
-
   const columns = [{
       title: '操作',
       dataIndex: 'op',
@@ -118,7 +117,7 @@ const InterviewTable = ({
         // scroll={{ x: 1200 }}
         columns={columns}
         dataSource={dataSource}
-        // loading={loading}
+        loading={loading}
         // onChange={onPageChange}
         pagination={pagination}
         simple

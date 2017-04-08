@@ -11,7 +11,7 @@ import MonthlyReportTool from '../components/report/monthlyReportTool'
 import UserReportGraph from '../components/report/UserReportGraph'
 import MonthlyReportGraph from '../components/report/MonthlyReportGraph'
 
-function CenterReport({dispatch, centerReport}) {
+function CenterReport({ dispatch, centerReport, loading }) {
   const {userData, monthlyData, userReportGraphVisible, monthlyReportGraphVisible } = centerReport
 
   const userModalProps = {
@@ -42,12 +42,14 @@ function CenterReport({dispatch, centerReport}) {
 
   const userReportProps = {
     dataSource: userData,
-    pagination: false
+    pagination: false,
+    loading
   }
 
   const monthlyReportProps = {
     dataSource: monthlyData,
-    pagination: false
+    pagination: false,
+    loading
   }
 
   const userReportToolProps = {
@@ -103,4 +105,7 @@ function CenterReport({dispatch, centerReport}) {
   )
 };
 
-export default connect(({centerReport}) => ({centerReport}))(CenterReport)
+export default connect(({centerReport, loading}) => ({
+  centerReport,
+  loading: loading.global
+}))(CenterReport)

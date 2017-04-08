@@ -6,13 +6,14 @@ import { connect } from 'dva'
 import AdminReportComponent from '../components/report/adminReport'
 import AdminReportTool from '../components/report/adminReportTool'
 
-function AdminReport({dispatch, admin}) {
+function AdminReport({dispatch, admin, loading}) {
   const {sureportData, date} = admin;
 
   const adminReportProps = {
     dataSource: sureportData,
     date: date,
-    pagination: false
+    pagination: false,
+    loading: loading
   }
 
   const adminReportToolProps = {
@@ -38,4 +39,6 @@ AdminReport.propTypes = {
   admin: PropTypes.object
 }
 
-export default connect(({admin}) => ({admin}))(AdminReport)
+export default connect(
+  ({ admin, loading }) => ({ admin, loading: loading.global })
+)(AdminReport)

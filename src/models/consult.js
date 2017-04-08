@@ -124,14 +124,16 @@ export default {
     },
     hideMessageModal (state, action) {
       return {
-        ...state, messageModalVisible: false
+        ...state, 
+        messageModalVisible: false, 
+        currentMessage: []
       }
-    },    
+    }, 
     setPagination (state, action) {
       return { ...state, ...action.payload }
     },
     setCurrent (state, action) {
       return { ...state, ...action.payload }
-    },
+    }
   }
 }

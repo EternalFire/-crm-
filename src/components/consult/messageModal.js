@@ -3,15 +3,16 @@
  */
 import React, { PropTypes } from 'react'
 import {Modal, Form} from 'antd'
+import SpinWrapper from '../common/spinWrapper'
 
 const MessageModal = ({
-  title,
-  visible,
-  messages = [],
-  onOk,
+  title, 
+  visible, 
+  loading, 
+  messages = [], 
+  onOk, 
   onCancel
 }) => {
-
   const modalProps = {
     title,
     visible,
@@ -36,7 +37,9 @@ const MessageModal = ({
 
   return (
     <Modal {...modalProps}>
-      {messages.length === 0 ? '暂无聊天信息' : renderMessages()}
+      <SpinWrapper loading={loading}>
+        {messages.length === 0 ? '暂无聊天信息' : renderMessages()}
+      </SpinWrapper>
     </Modal>
   )
 }
