@@ -17,7 +17,8 @@ const MessageModal = ({
     title,
     visible,
     onOk,
-    onCancel
+    onCancel,
+    width: 600
   };
 
   function renderMessages() {

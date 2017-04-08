@@ -81,7 +81,8 @@ const CenterModal = ({
     title: "编辑",
     visible,
     onOk: handleOk,
-    onCancel    
+    onCancel,
+    width: 800
   }
 
   return (

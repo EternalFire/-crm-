@@ -80,7 +80,8 @@ const EditModal = ({
     title,
     visible,
     onOk: handleOk,
-    onCancel
+    onCancel,
+    width: 600
   }
 
   return (
