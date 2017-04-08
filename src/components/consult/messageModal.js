@@ -4,16 +4,12 @@
 import React, { PropTypes } from 'react'
 import {Modal, Form} from 'antd'
 
-const messageModal = ({
+const MessageModal = ({
   title,
   visible,
+  messages = [],
   onOk,
-  onCancel,
-  form: {
-    getFieldDecorator,
-    validateFields,
-    getFieldsValue    
-  }
+  onCancel
 }) => {
 
   const modalProps = {
@@ -21,13 +17,28 @@ const messageModal = ({
     visible,
     onOk,
     onCancel
+  };
+
+  function renderMessages() {
+    return messages.map((d, i) => {
+      if (d.content.msg_type == 'p') {
+        return (
+          <p key={i} style={{ textAlign: 'right', paddingLeft: '40px' }}>
+            {d.content.msg}
+          </p>
+        );
+      }
+      else {
+        return (<p key={i}>{d.content.msg}</p>);
+      }
+    })
   }
 
   return (
     <Modal {...modalProps}>
-      message
+      {messages.length === 0 ? '暂无聊天信息' : renderMessages()}
     </Modal>
   )
 }
 
-export default Form.create()(messageModal)
+export default MessageModal

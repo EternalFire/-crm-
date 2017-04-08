@@ -5,6 +5,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import ConsultTable from '../components/consult/consultTable'
 import EditModal from '../components/consult/editModal'
+import MessageModal from '../components/consult/messageModal'
 import {Modal} from 'antd'
 
 function Consult({dispatch, consult}) {
@@ -26,32 +27,9 @@ function Consult({dispatch, consult}) {
     onShowMessage(record) {
       if (record.guest_id) {
         dispatch({ type: 'consult/queryMessage', payload: { guest_id: record.guest_id } });
-
-        Modal.info({
-          title: '聊天记录',
-          content: (
-            <div>
-            {
-              currentMessage.map((d, i) => {
-                if (d.content.msg_type == 'p') {
-                  return (
-                    <p key={i} style={{ textAlign: 'right', paddingLeft: '40px' }}>
-                      {d.content.msg}
-                    </p>
-                  );
-                }
-                else {
-                  return (<p key={i}>{d.content.msg}</p>);
-                }
-              })
-            }
-            </div>
-          ),
-          width: '600px',
-          maskClosable: true,
-          onOk() {},
-        });
       }
+      
+      dispatch({ type: 'consult/showMessageModal' });
     }, 
     onPageChange(pagination, filters, sorter) {
       dispatch({ type: 'consult/setPagination', payload: { pagination } });
@@ -73,12 +51,26 @@ function Consult({dispatch, consult}) {
     }, 
   }
 
-  const ModalGen = () => <EditModal {...editModalProps} />
+  const messageModalProps = {
+    title: '聊天信息',
+    visible: messageModalVisible,
+    messages: currentMessage,
+    onOk() {
+      dispatch({type: 'consult/hideMessageModal'});
+    },
+    onCancel() {
+      dispatch({type: 'consult/hideMessageModal'});
+    }
+  }
+
+  const EditModalGen = () => <EditModal {...editModalProps} />
+  // const MessageModalGen = () => <MessageModal {...messageModalProps} />
 
   return (
     <div>
       <ConsultTable {...consultTableProps} />
-      <ModalGen />
+      <EditModalGen />
+      <MessageModal {...messageModalProps} />
     </div>
   );
 }

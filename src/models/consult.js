@@ -65,8 +65,10 @@ export default {
     *queryMessage({ payload }, { select, call, put }) {
       const params = { guest_id: payload.guest_id };
 
-      let data = yield call(queryConsultMessage, params)
-      data = JSON.parse(data);      
+      let data = yield call(queryConsultMessage, params);
+      if (typeof(data) == 'string') {
+        data = JSON.parse(data);
+      }
 
       if (checkResponse(data)) {
         yield put({ type: 'queryMessageSuccess', payload: { currentMessage: data.data } });
@@ -115,6 +117,16 @@ export default {
         ...state, editModalVisible: false
       }
     },
+    showMessageModal (state, action) {
+      return {
+        ...state, messageModalVisible: true
+      }
+    },
+    hideMessageModal (state, action) {
+      return {
+        ...state, messageModalVisible: false
+      }
+    },    
     setPagination (state, action) {
       return { ...state, ...action.payload }
     },
