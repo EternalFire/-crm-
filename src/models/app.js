@@ -22,7 +22,7 @@ export default {
     openKey: ''
   },
   subscriptions: {
-    setup ({dispatch}) {
+    setup ({history, dispatch}) {
       let userid = getCookie(cookie_userid)
       if (userid.length > 0) {
         dispatch({type: 'queryUser', payload: { userid }})
@@ -31,6 +31,10 @@ export default {
       window.onresize = function () {
         dispatch({type: 'changeNavbar'})
       }
+
+      history.listen(location => {
+        console.log('app history listen!!!');
+      })
     }
   },
   effects: {
