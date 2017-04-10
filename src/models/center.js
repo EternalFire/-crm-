@@ -4,8 +4,11 @@
 import {queryMng, editCustomerMng} from '../services/crm'
 import {checkResponse, center, today} from '../utils'
 
-function checkCenter(name, type) {
-  return name && type;
+function checkCenter(name, type, user) {
+  return name && type && 
+    user && 
+    (user.center === name || center.isAdmin(user.center))
+  ;
 }
 
 export default {
@@ -72,7 +75,7 @@ export default {
 
       const currentType = yield select(({ center }) => ( center.type ));
 
-      if (!checkCenter(params.center, currentType)) {
+      if (!checkCenter(params.center, currentType, params.user)) {
         return
       }
 

@@ -9,6 +9,7 @@ export default {
   state: {
     login: false,
     loading: false,
+    isLoginFail: false,
     user: {}, // 登录成功的用户
     users: [], // 用户(顾问)列表
     loginButtonLoading: false,
@@ -31,16 +32,10 @@ export default {
       window.onresize = function () {
         dispatch({type: 'changeNavbar'})
       }
-
-      history.listen(location => {
-        console.log('app history listen!!!');
-      })
     }
   },
   effects: {
-    *login ({
-      payload
-    }, {call, put}) {
+    *login ({ payload }, {call, put}) {
       yield put({type: 'showLoginButtonLoading'})
       const data = yield call(login, parse(payload))
       
@@ -59,9 +54,7 @@ export default {
         });
       }
     },
-    *queryUser ({
-      payload
-    }, {call, put}) {
+    *queryUser ({ payload }, {call, put}) {
       yield put({type: 'showLoading'})
 
       const data = yield call(queryUserWithId, parse(payload))
@@ -85,9 +78,7 @@ export default {
         yield put({ type: 'setUsers', payload: { users: data.data } })
       }
     },
-    *logout ({
-      payload
-    }, {call, put}) {
+    *logout ({ payload }, {call, put}) {
       // const data = yield call(logout, parse(payload))
       // if (data.success) {
       //   yield put({
@@ -100,32 +91,24 @@ export default {
         type: 'logoutSuccess'
       })
     },    
-    *switchSider ({
-      payload
-    }, {put}) {
+    *switchSider ({ payload }, {put}) {
       yield put({
         type: 'handleSwitchSider'
       })
     },
-    *changeTheme ({
-      payload
-    }, {put}) {
+    *changeTheme ({ payload }, {put}) {
       yield put({
         type: 'handleChangeTheme'
       })
     },
-    *changeNavbar ({
-      payload
-    }, {put}) {
+    *changeNavbar ({ payload }, {put}) {
       if (document.body.clientWidth < 769) {
         yield put({type: 'showNavbar'})
       } else {
         yield put({type: 'hideNavbar'})
       }
     },
-    *switchMenuPopver ({
-      payload
-    }, {put}) {
+    *switchMenuPopver ({ payload }, {put}) {
       yield put({
         type: 'handleSwitchMenuPopver'
       })
@@ -137,20 +120,27 @@ export default {
         ...state,
         ...action.payload,
         login: true,
-        loginButtonLoading: false
+        loginButtonLoading: false,
+        isLoginFail: false
       }
     },
     logoutSuccess (state) {
       return {
         ...state,
-        login: false
+        login: false        
       }
     },
     loginFail (state) {
       return {
         ...state,
         login: false,
-        loginButtonLoading: false
+        loginButtonLoading: false,
+        isLoginFail: true
+      }
+    },
+    clearLoginFail (state) {
+      return {
+        ...state, isLoginFail: false
       }
     },
     showLoginButtonLoading (state) {

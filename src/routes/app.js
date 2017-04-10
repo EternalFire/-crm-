@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
+import { routerRedux } from 'dva/router';
 import Login from './login'
 import Header from '../components/layout/header'
 // import Bread from '../components/layout/bread'
@@ -14,7 +15,7 @@ import '../components/layout/common.less'
 const confirm = Modal.confirm;
 
 function App ({children, location, dispatch, app}) {
-  const {login, loading, loginButtonLoading, user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys} = app
+  const {login, loading, isLoginFail, loginButtonLoading, user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys} = app
   const loginProps = {
     loading,
     loginButtonLoading,
@@ -37,6 +38,7 @@ function App ({children, location, dispatch, app}) {
       confirm({
         title: '确定退出登陆吗?',
         onOk() {
+          dispatch(routerRedux.push({ pathname: '/' })); // 修改URL
           dispatch({ type: 'app/logout' })
         },
         onCancel() {}
@@ -48,10 +50,11 @@ function App ({children, location, dispatch, app}) {
     changeOpenKeys (openKeys) {
       localStorage.setItem('navOpenKeys', JSON.stringify(openKeys))
       dispatch({ type: 'app/handleNavOpenKeys', payload: { navOpenKeys: openKeys } })
-    },
-    getUser () {
-      return user
     }
+  }
+
+  function clearLoginFail() {
+    dispatch({ type: 'app/clearLoginFail' });
   }
 
   const siderProps = {
@@ -95,7 +98,18 @@ function App ({children, location, dispatch, app}) {
               <Login {...loginProps} />
             </Spin>
           </div>
-      }
+      }      
+      <Modal title="提示" 
+        onOk={() => {
+          clearLoginFail()
+        }} 
+        onCancel={() => {
+          clearLoginFail()
+        }}
+        visible={isLoginFail}
+      >
+        登录失败
+      </Modal>
     </div>
   )
 }

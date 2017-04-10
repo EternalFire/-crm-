@@ -8,8 +8,8 @@ import CenterToolbar from '../components/center/centerToolbar'
 import CenterModal from '../components/center/centerModal'
 import {center as CenterUtil, today, tomorrow, startOfMonth, endOfMonth } from '../utils'
 
-const Center = ({ location, dispatch, center, loading }) => {
-  const { name, type, dayData, monthData, allData, current, modalVisible, currentMenuKey, pagination } = center
+const Center = ({ location, dispatch, center, loading, user }) => {
+  const { name, type, dayData, monthData, allData, current, modalVisible, currentMenuKey, pagination } = center  
 
   const tableProps = {
     onEditItem(record) {
@@ -134,8 +134,12 @@ Center.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { center, loading } = state
-  return { center, loading: loading.global }
+  const { center, loading, app } = state  
+  return { 
+    center, 
+    loading: loading.global,
+    user: app.user
+  }
 }
 
 export default connect(mapStateToProps)(Center)
