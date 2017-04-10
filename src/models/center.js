@@ -3,6 +3,7 @@
  */
 import {queryMng, editCustomerMng} from '../services/crm'
 import {checkResponse, center, today} from '../utils'
+import { routerRedux } from 'dva/router';
 
 function checkCenter(name, type, user) {
   return name && type && 
@@ -76,6 +77,7 @@ export default {
       const currentType = yield select(({ center }) => ( center.type ));
 
       if (!checkCenter(params.center, currentType, params.user)) {
+        yield put(routerRedux.push({ pathname: '/' }));
         return
       }
 
