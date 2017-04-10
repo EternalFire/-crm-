@@ -16,6 +16,7 @@ function CenterReport({ dispatch, centerReport, loading }) {
 
   const userModalProps = {
     visible: userReportGraphVisible,
+    width: 800,
     onOk() {
       dispatch({ type: 'centerReport/setUserReportGraphVisible', payload: { visible: false } });
     },
@@ -25,12 +26,13 @@ function CenterReport({ dispatch, centerReport, loading }) {
   }
   const monthlyModalProps = {
     visible: monthlyReportGraphVisible,
+    width: 800,
     onOk() {
       dispatch({ type: 'centerReport/setMonthlyReportGraphVisible', payload: { visible: false } });
     },
     onCancel() {
       dispatch({ type: 'centerReport/setMonthlyReportGraphVisible', payload: { visible: false } });
-    }
+    },
   }
 
   const userReportGraphProps = {
