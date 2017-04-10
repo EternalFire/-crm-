@@ -10,8 +10,8 @@ const app = dva({
   // history: browserHistory,
   history: useRouterHistory(createHashHistory)({ queryKey: false }),  
   onError (error) {
-    console.error('app onError -- ', error)
-    message.error(e.message, ERROR_MSG_DURATION);    
+    console.error('dva onError: ', error);
+    message.error(`错误码: ${error.status}, 错误信息: ${error.statusText}`, 4);
   }
 })
 
