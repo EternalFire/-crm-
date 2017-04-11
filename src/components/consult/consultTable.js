@@ -95,7 +95,7 @@ function ConsultTable ({
     <div>
       <Table
         bordered
-        // scroll={{ x: 1200 }}
+        scroll={{ y: 600 }}
         columns={columns}
         dataSource={dataSource}
         loading={loading}

@@ -114,7 +114,7 @@ const InterviewTable = ({
     <div>
       <Table
         bordered
-        // scroll={{ x: 1200 }}
+        scroll={{ y: 580 }}
         columns={columns}
         dataSource={dataSource}
         loading={loading}

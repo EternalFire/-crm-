@@ -97,7 +97,7 @@ function CenterTable ({dataSource, loading, onEditItem, onPageChange, pagination
     <div>
       <Table
         bordered
-        // scroll={{ x: 1200 }}
+        scroll={{ x: true, y: 480 }}
         columns={columns}
         dataSource={dataSource}
         loading={loading}
