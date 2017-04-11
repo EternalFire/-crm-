@@ -74,13 +74,16 @@ export async function queryMng(params) {
     jbFilter,
     user,
     currentPage, 
-    currentPageSize
+    currentPageSize,
+    userFilterID,
   } = params;
 
   let url = `/itv_customers?center=${center}&startDate=${startDate}&endDate=${endDate}&sortby=createTime&current=${currentPage}&pageSize=${currentPageSize}`;
 
   if (authority.isWorker(user.type)) {
     url += '&followUserId=' + user._id;
+  } else if(userFilterID) {
+    url += '&followUserId=' + userFilterID;
   }
 
   if (fsFilter) url += '&notnull=fsTime';

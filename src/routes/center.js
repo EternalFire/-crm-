@@ -8,20 +8,26 @@ import CenterToolbar from '../components/center/centerToolbar'
 import CenterModal from '../components/center/centerModal'
 import {center as CenterUtil, today, tomorrow, startOfMonth, endOfMonth } from '../utils'
 
-const Center = ({ location, dispatch, center, loading, user }) => {
+const Center = ({ location, dispatch, center, loading, user, users }) => {
   const { name, type, dayData, monthData, allData, current, modalVisible, currentMenuKey, pagination } = center  
 
   const tableProps = {
+    users, 
     onEditItem(record) {
       dispatch({ type: 'center/setCurrent', payload: { current: record } });
       dispatch({ type: 'center/setModalVisible', payload: { visible: true } });
     }, 
     onPageChange(pagination, filters, sorter) {
+      
+      console.log('filters: ', filters);
+
       dispatch({ type: 'center/setPagination', payload: {pagination} })
-      dispatch({ type: 'center/query' })
-    },
-    pagination,
-    loading
+      dispatch({ type: 'center/query', payload: { 
+        ...filters
+      } })
+    }, 
+    pagination, 
+    loading, 
   }
 
   const renderDayTable = () => {
@@ -138,7 +144,8 @@ function mapStateToProps(state) {
   return { 
     center, 
     loading: loading.global,
-    user: app.user
+    user: app.user,
+    users: app.users
   }
 }
 
