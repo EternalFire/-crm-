@@ -59,12 +59,15 @@ export default {
           }
 
           dispatch({ type: 'setCurrentMenuKey', payload: { currentMenuKey: [menuKey] }});
+
+          // 获取咨询师
+          dispatch({ type: 'app/queryUsers', payload: { center: name } });
         }
       });
     }
   },
   effects: {
-    *query({ payload }, { select, call, put }) {
+    *query({ payload = {} }, { select, call, put }) {
       const params = yield select(({ 
         app: { user },
         center: { 
@@ -75,6 +78,10 @@ export default {
       }));
 
       const currentType = yield select(({ center }) => ( center.type ));
+      const { followUserName } = payload      
+      if (followUserName && followUserName.length > 0) {
+        params.userFilterID = followUserName[0]
+      }
 
       if (!checkCenter(params.center, currentType, params.user)) {
         yield put(routerRedux.push({ pathname: '/' }));

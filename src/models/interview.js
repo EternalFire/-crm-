@@ -12,15 +12,15 @@ export default {
   namespace: 'interview',
   state: {
     name: null, // 分中心名字
-    type: null,
-    frontData: [],
-    current: {},
-    followUser: {},
+    type: null, 
+    frontData: [], 
+    current: {}, 
+    followUser: {}, 
 
-    date: today(),
+    date: today(), 
 
-    editModalVisible: false,
-    usersModalVisible: false,  
+    editModalVisible: false, 
+    usersModalVisible: false, 
   },
   subscriptions: {
     setup ({dispatch, history}) {
@@ -34,7 +34,7 @@ export default {
           }
           if (type === center.interviewType.align) {
             dispatch({ type: 'queryFrontDesk' })
-            dispatch({ type: 'app/queryUsers', payload: {center: name} })            
+            dispatch({ type: 'app/queryUsers', payload: {center: name} })
           }
         }
 
@@ -116,7 +116,7 @@ export default {
       params['customerId'] = params._id
 
       const data = yield call(editCustomerFrontDesk, params)
-      console.log('update ==> ', data, params);
+      // console.log('update ==> ', data, params);
 
       if (checkResponse(data)) {
         let newFrontData = [];

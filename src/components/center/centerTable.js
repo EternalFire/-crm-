@@ -4,9 +4,19 @@ import {Table, Icon} from 'antd'
 import {timestampToString} from '../../utils'
 import ProgressTags from '../common/progressTags'
 
-function CenterTable ({dataSource, loading, onEditItem, onPageChange, pagination}) {
+function CenterTable ({users, dataSource, loading, onEditItem, onPageChange, pagination}) {
   const handleOp = (record) => {
     onEditItem(record)
+  }
+
+  let usersFilters = [];
+  if (users) {
+    usersFilters = users.map(e => {
+      return {
+        text: e.name,
+        value: e._id
+      };
+    });
   }
 
   const columns = [{
@@ -21,21 +31,28 @@ function CenterTable ({dataSource, loading, onEditItem, onPageChange, pagination
     }, {
       title: (
         <div>
-          <strong>分配情况</strong>
+          <strong>分配时间</strong>
         </div>
       ),
       dataIndex: 'createTime',
-      render(text, record, index) {        
-        const createDate = timestampToString(text)
-        return (
-          <div>
-            {createDate}<br />
-            {record.followUserName}
-          </div>
-        );
+      render(text, record, index) {
+        const createDate = timestampToString(text);
+        return (<span>{createDate}</span>);
+        // return (
+        //   <div>
+        //     {createDate}<br />
+        //     {record.followUserName}
+        //   </div>
+        // );
       },
       width: '90px',
     }, {
+      title: '咨询师',
+      dataIndex: 'followUserName',
+      width: '80px',
+      filters: usersFilters, 
+      filterMultiple: false
+    },{
       title: '岗位',
       dataIndex: 'job',
       width: '100px',
