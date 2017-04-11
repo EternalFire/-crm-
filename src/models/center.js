@@ -156,7 +156,19 @@ export default {
         return e;
       });
 
-      yield put({ type: 'queryDaySuccess', payload: { data } });
+      switch(currentType) {
+        case center.type.day: 
+          yield put({ type: 'queryDaySuccess', payload: { data } });
+          break;
+        case center.type.month:
+          yield put({ type: 'queryMonthSuccess', payload: { data } });
+          break;
+        case center.type.all:
+          yield put({ type: 'queryAllSuccess', payload: { data } });
+          break;
+        default:
+          break;
+      }
     }
   },
   reducers: {
