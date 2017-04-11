@@ -18,6 +18,9 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
       dispatch({ type: 'center/setModalVisible', payload: { visible: true } });
     }, 
     onPageChange(pagination, filters, sorter) {
+      
+      console.log('filters: ', filters);
+
       dispatch({ type: 'center/setPagination', payload: {pagination} })
       dispatch({ type: 'center/query', payload: { 
         ...filters
