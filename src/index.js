@@ -11,7 +11,11 @@ const app = dva({
   history: useRouterHistory(createHashHistory)({ queryKey: false }),  
   onError (error) {
     console.error('dva onError: ', error);
-    message.error(`错误码: ${error.status}, 错误信息: ${error.statusText}`, 4);
+    if (error.status && error.statusText) {
+      message.error(`错误码: ${error.status}, 错误信息: ${error.statusText}`, 5);
+    } else if (error.message) {
+      message.error(`错误信息: ${error.message}`, 5);
+    }
   }
 })
 

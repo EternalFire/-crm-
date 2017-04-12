@@ -76,6 +76,7 @@ export async function queryMng(params) {
     currentPage, 
     currentPageSize,
     userFilterID,
+    mobileText
   } = params;
 
   let url = `/itv_customers?center=${center}&startDate=${startDate}&endDate=${endDate}&sortby=createTime&current=${currentPage}&pageSize=${currentPageSize}`;
@@ -91,6 +92,10 @@ export async function queryMng(params) {
   if (fkFilter) url += '&notnull=fkTime';
   if (zjFilter) url += '&notnull=zjTime';
   if (jbFilter) url += '&notnull=jbTime';
+
+  if (mobileText) {
+    url += `&mobile=${mobileText}`
+  }
 
   // console.log('url is ', url);
   

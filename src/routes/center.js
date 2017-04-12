@@ -9,7 +9,7 @@ import CenterModal from '../components/center/centerModal'
 import {center as CenterUtil, today, tomorrow, startOfMonth, endOfMonth } from '../utils'
 
 const Center = ({ location, dispatch, center, loading, user, users }) => {
-  const { name, type, dayData, monthData, allData, current, modalVisible, currentMenuKey, pagination } = center  
+  const { name, type, dayData, monthData, allData, current, modalVisible, currentMenuKey, pagination, mobileFilterVisible, mobileText } = center;
 
   const tableProps = {
     users, 
@@ -18,19 +18,32 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
       dispatch({ type: 'center/setModalVisible', payload: { visible: true } });
     }, 
     onPageChange(pagination, filters, sorter) {
-      
-      console.log('filters: ', filters);
-
-      dispatch({ type: 'center/setPagination', payload: {pagination} })
-      dispatch({ type: 'center/query', payload: { 
-        ...filters
-      } })
+      const { followUserName } = filters;
+      dispatch({ type: 'center/clearFilters' });
+      dispatch({ type: 'center/setUsersFilters', payload: { usersFilters: followUserName } });
+      dispatch({ type: 'center/setPagination', payload: { pagination } });
+      dispatch({ type: 'center/query' });
     }, 
     pagination, 
     loading, 
+    mobileFilterVisible, 
+    mobileText, 
+    onInputChange(e) {
+      dispatch({ type: 'center/clearFilters' });      
+      dispatch({ type: 'center/setMobileText', payload: { mobileText: e.target.value } });
+    },
+    onSearchMobile(e) {
+      if (mobileText && mobileText.length > 0) {
+        dispatch({ type: 'center/query' })        
+      }
+    },
+    onMobileFilterVisibleChange(visible) {
+      dispatch({ type: 'center/setMobileFilterVisible', payload: { mobileFilterVisible: visible } });
+    }
   }
 
   const renderDayTable = () => {
+    // console.log('renderDayTable')
     tableProps.dataSource = dayData
 
     return (
@@ -38,6 +51,7 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
     )
   };
   const renderMonthTable = () => {
+    // console.log('renderMonthTable')
     tableProps.dataSource = monthData
 
     return (
@@ -45,6 +59,7 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
     )
   };
   const renderAllTable = () => {
+    // console.log('renderAllTable')
     tableProps.dataSource = allData
 
     return (

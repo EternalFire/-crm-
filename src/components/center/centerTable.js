@@ -1,10 +1,23 @@
 import React from 'react'
-import {Table, Icon} from 'antd'
+import {Table, Icon, Input, Button} from 'antd'
 // import TableBodyWrapper from '../common/TableBodyWrapper'
 import {timestampToString} from '../../utils'
 import ProgressTags from '../common/progressTags'
 
-function CenterTable ({users, dataSource, loading, onEditItem, onPageChange, pagination}) {
+function CenterTable ({
+  users, 
+  dataSource, 
+  loading, 
+  onEditItem, 
+  onPageChange, 
+  pagination, 
+
+  mobileFilterVisible, 
+  onInputChange, 
+  onSearchMobile, 
+  mobileText,
+  onMobileFilterVisibleChange
+}) {
   const handleOp = (record) => {
     onEditItem(record)
   }
@@ -76,6 +89,31 @@ function CenterTable ({users, dataSource, loading, onEditItem, onPageChange, pag
       title: '手机号码',
       dataIndex: 'mobile',
       width: '100px',
+      filterDropdown: (
+        <div style={{
+          padding: '8px',
+          borderRadius: '6px',
+          background: '#fff',
+          boxShadow: '0 1px 6px rgba(0, 0, 0, .2)'
+        }}>
+          <Input 
+            placeholder="输入手机号"
+            value={mobileText}
+            onChange={onInputChange}
+            onPressEnter={onSearchMobile}
+            style={{
+              width: 130
+            }}
+          />
+          <Button type="primary" onClick={onSearchMobile}>搜索</Button>
+        </div>
+      ),
+      filterIcon: <Icon type="smile-o" 
+        // style={{ color: this.state.filtered ? '#108ee9' : '#aaa' }} 
+      />,
+      filterDropdownVisible: mobileFilterVisible,
+      onFilterDropdownVisibleChange: onMobileFilterVisibleChange
+      // visible => this.setState({ filterDropdownVisible: visible }, () => this.searchInput.focus()),
     }, {
       title: '初试备注',
       dataIndex: 'remark',

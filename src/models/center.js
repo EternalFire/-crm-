@@ -1,8 +1,8 @@
 /*
  * 分中心的咨询中心
  */
-import {queryMng, editCustomerMng} from '../services/crm'
-import {checkResponse, center, today} from '../utils'
+import { queryMng, editCustomerMng } from '../services/crm';
+import { checkResponse, center, today, tomorrow, startOfMonth, endOfMonth } from '../utils';
 import { routerRedux } from 'dva/router';
 
 function checkCenter(name, type, user) {
@@ -23,13 +23,18 @@ export default {
     current: {}, // 选择的数据条目
 
     // 查询条件
-    startDate: today(), // '2017-3-1', //'2017-3-1', 
-    endDate: today(), // '2017-3-1', 
+    startDate: today(), 
+    endDate: today(), 
     fsFilter: null,
     ybFilter: null,
     fkFilter: null,
     zjFilter: null,
     jbFilter: null,
+
+    mobileFilterVisible: false,
+    mobileText: '',
+
+    usersFilters: [],
 
     // antd Table 分页
     pagination: {
@@ -41,24 +46,31 @@ export default {
       total: null
     },
     modalVisible: false,
-    currentMenuKey: ['dayAllMenu']
+    currentMenuKey: ['dayAllMenu'],    
   },
   subscriptions: {
     setup ({dispatch, history}) {
       history.listen(location => {
-        let {name, type} = center.parsePath(location.pathname)
+        let {name, type} = center.parsePath(location.pathname);
+
         if (center.isMng(name, type)) {
           dispatch({ type: 'setCenter', payload: { name, type } })
-          dispatch({ type: 'query' })
 
           let menuKey = '';
           if (type === center.type.day) {
-            menuKey = 'dayAllMenu'
+            menuKey = 'dayAllMenu';
+
+            dispatch({ type: 'setStartDate', payload: { startDate: today() } });
+            dispatch({ type: 'setEndDate', payload: { endDate: tomorrow() } });
           } else if (type === center.type.month) {
-            menuKey = 'monthAllMenu'
+            menuKey = 'monthAllMenu';
+            
+            dispatch({ type: 'setStartDate', payload: { startDate: startOfMonth() } });
+            dispatch({ type: 'setEndDate', payload: { endDate: endOfMonth() } });
           }
 
           dispatch({ type: 'setCurrentMenuKey', payload: { currentMenuKey: [menuKey] }});
+          dispatch({ type: 'query' });
 
           // 获取咨询师
           dispatch({ type: 'app/queryUsers', payload: { center: name } });
@@ -71,21 +83,23 @@ export default {
       const params = yield select(({ 
         app: { user },
         center: { 
-          name, startDate, endDate, fsFilter, ybFilter, fkFilter, zjFilter, jbFilter, pagination: { current, pageSize } 
+          name, startDate, endDate, fsFilter, ybFilter, fkFilter, zjFilter, jbFilter, pagination: { current, pageSize }, mobileText, usersFilters 
         }
       }) => ({ 
-        user, center: name, startDate, endDate, fsFilter, ybFilter, fkFilter, zjFilter, jbFilter, currentPage: current, currentPageSize: pageSize 
+        user, center: name, startDate, endDate, fsFilter, ybFilter, fkFilter, zjFilter, jbFilter, currentPage: current, currentPageSize: pageSize, mobileText, usersFilters 
       }));
 
       const currentType = yield select(({ center }) => ( center.type ));
-      const { followUserName } = payload      
-      if (followUserName && followUserName.length > 0) {
-        params.userFilterID = followUserName[0]
-      }
 
       if (!checkCenter(params.center, currentType, params.user)) {
         yield put(routerRedux.push({ pathname: '/' }));
         return
+      }
+
+      // 咨询师 id 筛选
+      let usersFilters = params.usersFilters;
+      if (usersFilters && usersFilters.length > 0) {
+        params.userFilterID = usersFilters[0];
       }
 
       const data = yield call(queryMng, params);
@@ -94,22 +108,22 @@ export default {
         switch(currentType) {
           case center.type.day: 
             // yield put({ type: 'clearDayData' })
-            yield put({ type: 'queryDaySuccess', payload: { data: data.data.customers } })
-            yield put({ type: 'setTotal', payload: { total: data.data.total }})
+            yield put({ type: 'queryDaySuccess', payload: { data: data.data.customers } });
+            yield put({ type: 'setTotal', payload: { total: data.data.total }});
             break;
           case center.type.month:
             // yield put({ type: 'clearMonthData' })
-            yield put({ type: 'queryMonthSuccess', payload: { data: data.data.customers } })
-            yield put({ type: 'setTotal', payload: { total: data.data.total }})
+            yield put({ type: 'queryMonthSuccess', payload: { data: data.data.customers } });
+            yield put({ type: 'setTotal', payload: { total: data.data.total }});
             break;
           case center.type.all:
             // yield put({ type: 'clearAllData' })
-            yield put({ type: 'queryAllSuccess', payload: { data: data.data.customers } })
-            yield put({ type: 'setTotal', payload: { total: data.data.total }})
+            yield put({ type: 'queryAllSuccess', payload: { data: data.data.customers } });
+            yield put({ type: 'setTotal', payload: { total: data.data.total }});
             break;
           default:
             console.error(new Error(`currentType = ${currentType}`))
-            break
+            break;
         }
       } else {
         // 
@@ -152,7 +166,7 @@ export default {
           break;
         default:
           console.error(new Error(`currentType = ${currentType}`))
-          break
+          break;
       }
 
       let data = [];
@@ -176,6 +190,10 @@ export default {
         default:
           break;
       }
+    },
+    *clearFilters({ payload }, { select, call, put }) {
+      yield put({ type: 'setMobileText', payload: { mobileText: '' } });
+      yield put({ type: 'setUsersFilters', payload: { usersFilters: [] } })
     }
   },
   reducers: {
@@ -269,6 +287,15 @@ export default {
       return {
         ...state, ...action.payload
       }      
+    },
+    setMobileText (state, action) {
+      return { ...state, ...action.payload }
+    },
+    setMobileFilterVisible (state, action) {
+      return { ...state, ...action.payload }
+    },
+    setUsersFilters (state, action) {
+      return { ...state, ...action.payload }
     }
   }
 }
