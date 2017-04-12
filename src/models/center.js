@@ -23,13 +23,18 @@ export default {
     current: {}, // 选择的数据条目
 
     // 查询条件
-    startDate: today(), // '2017-3-1', //'2017-3-1', 
-    endDate: today(), // '2017-3-1', 
+    startDate: today(), 
+    endDate: today(), 
     fsFilter: null,
     ybFilter: null,
     fkFilter: null,
     zjFilter: null,
     jbFilter: null,
+
+    mobileFilterVisible: false,
+    mobileText: '',
+
+    usersFilters: [],
 
     // antd Table 分页
     pagination: {
@@ -41,12 +46,13 @@ export default {
       total: null
     },
     modalVisible: false,
-    currentMenuKey: ['dayAllMenu']
+    currentMenuKey: ['dayAllMenu'],    
   },
   subscriptions: {
     setup ({dispatch, history}) {
       history.listen(location => {
-        let {name, type} = center.parsePath(location.pathname)
+        let {name, type} = center.parsePath(location.pathname);
+
         if (center.isMng(name, type)) {
           dispatch({ type: 'setCenter', payload: { name, type } })
           dispatch({ type: 'query' })
@@ -71,21 +77,23 @@ export default {
       const params = yield select(({ 
         app: { user },
         center: { 
-          name, startDate, endDate, fsFilter, ybFilter, fkFilter, zjFilter, jbFilter, pagination: { current, pageSize } 
+          name, startDate, endDate, fsFilter, ybFilter, fkFilter, zjFilter, jbFilter, pagination: { current, pageSize }, mobileText, usersFilters 
         }
       }) => ({ 
-        user, center: name, startDate, endDate, fsFilter, ybFilter, fkFilter, zjFilter, jbFilter, currentPage: current, currentPageSize: pageSize 
+        user, center: name, startDate, endDate, fsFilter, ybFilter, fkFilter, zjFilter, jbFilter, currentPage: current, currentPageSize: pageSize, mobileText, usersFilters 
       }));
 
       const currentType = yield select(({ center }) => ( center.type ));
-      const { followUserName } = payload      
-      if (followUserName && followUserName.length > 0) {
-        params.userFilterID = followUserName[0]
-      }
 
       if (!checkCenter(params.center, currentType, params.user)) {
         yield put(routerRedux.push({ pathname: '/' }));
         return
+      }
+
+      // 咨询师 id 筛选
+      let usersFilters = params.usersFilters;
+      if (usersFilters && usersFilters.length > 0) {
+        params.userFilterID = usersFilters[0];
       }
 
       const data = yield call(queryMng, params);
@@ -176,6 +184,10 @@ export default {
         default:
           break;
       }
+    },
+    *clearFilters({ payload }, { select, call, put }) {
+      yield put({ type: 'setMobileText', payload: { mobileText: '' } });
+      yield put({ type: 'setUsersFilters', payload: { usersFilters: [] } })
     }
   },
   reducers: {
@@ -269,6 +281,15 @@ export default {
       return {
         ...state, ...action.payload
       }      
+    },
+    setMobileText (state, action) {
+      return { ...state, ...action.payload }
+    },
+    setMobileFilterVisible (state, action) {
+      return { ...state, ...action.payload }
+    },
+    setUsersFilters (state, action) {
+      return { ...state, ...action.payload }
     }
   }
 }
