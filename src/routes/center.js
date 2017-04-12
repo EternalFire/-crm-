@@ -43,6 +43,7 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
   }
 
   const renderDayTable = () => {
+    // console.log('renderDayTable')
     tableProps.dataSource = dayData
 
     return (
@@ -50,6 +51,7 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
     )
   };
   const renderMonthTable = () => {
+    // console.log('renderMonthTable')
     tableProps.dataSource = monthData
 
     return (
@@ -57,6 +59,7 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
     )
   };
   const renderAllTable = () => {
+    // console.log('renderAllTable')
     tableProps.dataSource = allData
 
     return (
