@@ -2,13 +2,13 @@
  * 总部
  */
 import {querySuReport} from '../services/crm'
-import {checkResponse} from '../utils'
+import {checkResponse, today} from '../utils'
 
 export default {
   namespace: 'admin',
   state: {
-    sureportData: [],
-    date: '2017-2-28'
+    sureportData: [], 
+    date: today() //'2017-2-28'
   },
   subscriptions: {
     setup ({dispatch}) {
