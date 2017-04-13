@@ -2,7 +2,7 @@ import React from 'react'
 import {Table, Icon, Button} from 'antd'
 import TableBodyWrapper from '../common/TableBodyWrapper'
 import ProgressTags from '../common/progressTags'
-import {timestampToString} from '../../utils'
+import {timestampToString, getTableScrollY} from '../../utils'
 
 const InterviewTable = ({
   dataSource, 
@@ -43,7 +43,12 @@ const InterviewTable = ({
     }, {
       title: '序号',
       dataIndex: 'no',
-      width: '50px',
+      width: '40px',
+    }, {
+      title: '创建时间',
+      dataIndex: 'createTime',
+      render: text => timestampToString(text),
+      width: '90px',
     }, {
       title: '咨询师',
       dataIndex: 'follow',
@@ -102,19 +107,14 @@ const InterviewTable = ({
       title: '渠道来源',
       dataIndex: 'memsrc',
       width: '80px',
-    }, {
-      title: '创建时间',
-      dataIndex: 'createTime',
-      render: text => timestampToString(text),
-      width: '100px',
-    }
+    }, 
   ];
 
   return (
-    <div>
+    // <div>
       <Table
         bordered
-        scroll={{ y: 580 }}
+        scroll={{ y: getTableScrollY(580) }}
         columns={columns}
         dataSource={dataSource}
         loading={loading}
@@ -123,7 +123,7 @@ const InterviewTable = ({
         simple
         rowKey={record => record._id}
       />
-    </div>
+    // </div>
   )
 }
 

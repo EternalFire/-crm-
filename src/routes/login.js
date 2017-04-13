@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react'
 import { Button, Row, Form, Input } from 'antd'
-import { config } from '../utils'
+import { config, maxNormalLen, maxNormalMessage } from '../utils'
 import styles from './login.less'
 
 const FormItem = Form.Item
@@ -38,6 +38,9 @@ const login = ({
               },{
                 type: 'email', 
                 message: '请输入有效的邮箱! '
+              }, {
+                max: maxNormalLen,
+                message: maxNormalMessage
               }
             ]
           })(<Input size='large' onPressEnter={handleOk} placeholder='用户名' />)}
@@ -48,6 +51,10 @@ const login = ({
               {
                 required: true,
                 message: '请填写密码'
+              },
+              {
+                max: maxNormalLen,
+                message: maxNormalMessage                
               }
             ]
           })(<Input size='large' type='password' onPressEnter={handleOk} placeholder='密码' />)}

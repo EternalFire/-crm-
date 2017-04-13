@@ -53,6 +53,10 @@
           }
         }
       }
+
+      .foot {
+        display: none;        
+      }
     }
 
     .main {
@@ -85,7 +89,7 @@
       text-align: center;
       height: 40px;
       line-height: 40px;
-      cursor: pointer;
+      // cursor: pointer;
       margin: 28px 0;
       transition: @transition-ease-out;
       overflow: hidden;
@@ -166,6 +170,10 @@
         }
       }
     }
+
+    .foot {
+      text-align: center;
+    }
   }
 
   .header {
@@ -209,17 +217,22 @@
     transition: @transition-ease-out;
 
     .container {
-      margin: 24px;
+      margin: 0 24px;
 
       .content {
-        min-height: e("calc(100vh - 184px)");
+        min-height: e("calc(100% - 184px)");
         position: relative;
 
         :global .content-inner {
           background: #fff;
           padding: 24px;
           box-shadow: @shadow-1;
-          min-height: e("calc(100vh - 184px)");
+          min-height: e("calc(100% - 184px)");
+        }
+        
+        // 分页显示在左侧
+        :global .ant-table-pagination {
+          margin: 2em 0 2em 2em !important;
         }
       }
     }
