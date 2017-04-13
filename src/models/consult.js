@@ -2,7 +2,7 @@
  * 咨询中心
  */
 import {queryConsult, queryConsultMessage, editCustomerConsult} from '../services/crm'
-import {checkResponse, center} from '../utils'
+import {checkResponse, center, today} from '../utils'
 
 export default {
   namespace: 'consult', 
@@ -22,7 +22,17 @@ export default {
     },
 
     editModalVisible: false,
-    messageModalVisible: false
+    messageModalVisible: false,
+
+    // 查询条件
+    nameText: '',
+    nameFilterVisible: false,
+
+    startDate: today(),
+    endDate: today(),
+
+    mobileText: '',
+    mobileFilterVisible: false
   }, 
   subscriptions: {
     setup ({dispatch, history}) {
@@ -35,7 +45,11 @@ export default {
     *query({ payload }, { select, call, put }) {
       const params = yield select(({ consult }) => ({
         currentPage: consult.pagination.current,
-        currentPageSize: consult.pagination.pageSize
+        currentPageSize: consult.pagination.pageSize,
+        startDate: consult.startDate,
+        endDate: consult.endDate,
+        nameText: consult.nameText,
+        mobileText: consult.mobileText,
       }));
 
       const data = yield call(queryConsult, params)
@@ -87,6 +101,10 @@ export default {
       });
 
       yield put({ type: 'updateLocalDataSuccess', payload: { data: newData } });
+    }, 
+    *clearFilters({ payload }, { select, call, put }) {
+      yield put({ type: 'setMobileText', payload: { mobileText: '' } });
+      yield put({ type: 'setNameText', payload: { nameText: '' } });
     }
   }, 
   reducers: {
@@ -134,6 +152,24 @@ export default {
     },
     setCurrent (state, action) {
       return { ...state, ...action.payload }
-    }
+    },
+    setNameText (state, action) {
+      return { ...state, ...action.payload }
+    },
+    setNameFilterVisible (state, action) {
+      return { ...state, ...action.payload }
+    },
+    setStartDate (state, action) {
+      return { ...state, ...action.payload }
+    },
+    setEndDate (state, action) {
+      return { ...state, ...action.payload }
+    }, 
+    setMobileText (state, action) {
+      return { ...state, ...action.payload }
+    },
+    setMobileFilterVisible (state, action) {
+      return { ...state, ...action.payload }
+    }, 
   }
 }

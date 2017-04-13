@@ -3,6 +3,7 @@
  */
 import React, { PropTypes } from 'react'
 import {Table, Icon} from 'antd'
+import TableColumnFilter from '../common/tableColumnFilter'
 import {timestampToString, getTableScrollY} from '../../utils'
 
 function ConsultTable ({
@@ -11,7 +12,18 @@ function ConsultTable ({
   onPageChange, 
   pagination, 
   onEditItem,
-  onShowMessage
+  onShowMessage,
+
+  mobileText,
+  onInputMobileChange,
+  mobileFilterVisible,
+  onMobileFilterVisibleChange,
+  onSearch,
+
+  nameText,
+  onInputNameChange, 
+  nameFilterVisible,
+  onNameFilterVisibleChange,
 }) {
   const columns = [{
       title: '操作',
@@ -37,10 +49,32 @@ function ConsultTable ({
       title: '姓名',
       dataIndex: 'name',
       width: '80px',
+      filterDropdown: (
+        <TableColumnFilter 
+          value={nameText}
+          placeholder="输入姓名"
+          onChange={onInputNameChange}
+          onPressEnter={onSearch}
+          onOk={onSearch}
+        />
+      ),
+      filterDropdownVisible: nameFilterVisible,
+      onFilterDropdownVisibleChange: onNameFilterVisibleChange
     }, {
       title: '手机号码',
       dataIndex: 'mobile',
       width: '110px',
+      filterDropdown: (
+        <TableColumnFilter 
+          value={mobileText}
+          placeholder="输入手机号"
+          onChange={onInputMobileChange}
+          onPressEnter={onSearch}
+          onOk={onSearch}
+        />
+      ),
+      filterDropdownVisible: mobileFilterVisible,
+      onFilterDropdownVisibleChange: onMobileFilterVisibleChange      
     }, {
       title: '所在地区',
       dataIndex: 'area',
