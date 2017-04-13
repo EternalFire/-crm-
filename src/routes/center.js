@@ -33,9 +33,9 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
       dispatch({ type: 'center/setMobileText', payload: { mobileText: e.target.value } });
     },
     onSearchMobile(e) {
-      if (mobileText && mobileText.length > 0) {
-        dispatch({ type: 'center/query' })        
-      }
+      // if (mobileText && mobileText.length > 0) {
+        dispatch({ type: 'center/query' })
+      // }
     },
     onMobileFilterVisibleChange(visible) {
       dispatch({ type: 'center/setMobileFilterVisible', payload: { mobileFilterVisible: visible } });
