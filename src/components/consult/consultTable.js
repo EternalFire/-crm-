@@ -1,3 +1,6 @@
+/*
+ * 咨询中心 数据表
+ */
 import React, { PropTypes } from 'react'
 import {Table, Icon} from 'antd'
 import {timestampToString, getTableScrollY} from '../../utils'

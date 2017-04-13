@@ -67,6 +67,9 @@ export default {
             
             dispatch({ type: 'setStartDate', payload: { startDate: startOfMonth() } });
             dispatch({ type: 'setEndDate', payload: { endDate: endOfMonth() } });
+          } else {
+            dispatch({ type: 'setStartDate', payload: { startDate: today() } });
+            dispatch({ type: 'setStartDate', payload: { endDate: tomorrow() } });
           }
 
           dispatch({ type: 'setCurrentMenuKey', payload: { currentMenuKey: [menuKey] }});

@@ -3,6 +3,7 @@
  */
 import React, { PropTypes } from 'react'
 import {Modal, Row, Col, Form, Input, Radio, Checkbox} from 'antd'
+import {maxRemarkLen, maxRemarkMessage, maxNormalLen, maxNormalMessage} from '../../utils'
 
 const FormItem = Form.Item
 const RadioGroup = Radio.Group
@@ -96,6 +97,9 @@ const EditModal = ({
                   {
                     required: true,
                     message: '姓名未填写'
+                  }, {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
                   }
                 ]
               })(<Input />)}
@@ -103,10 +107,12 @@ const EditModal = ({
             <FormItem label='性别: ' {...formItemLayout}>
               {getFieldDecorator('sex', {
                 initialValue: item.sex,
-                rules: [{
-                  required: true,
-                  message: '性别未选择'                  
-                }]
+                rules: [
+                  {
+                    required: true,
+                    message: '性别未选择'                  
+                  }
+                ]
               })(
                 <RadioGroup>
                   <Radio value="男">男</Radio>
@@ -120,7 +126,12 @@ const EditModal = ({
             <FormItem label='手机号码' {...formItemLayout}>
               {getFieldDecorator('mobile', {
                 initialValue: item.mobile,
-                rules: []
+                rules: [
+                  {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
+                  }
+                ]
               })(<Input />)}
             </FormItem>
             <FormItem {...formItemLayout} label="来源渠道">
@@ -132,7 +143,12 @@ const EditModal = ({
             <FormItem {...formItemLayout} label="备注">
               {getFieldDecorator('remark', {
                 initialValue: item.remark,
-                rules: []
+                rules: [
+                  {
+                    max: maxRemarkLen,
+                    message: maxRemarkMessage
+                  }
+                ]
               })(<Input type="textarea" rows={4} />)}
             </FormItem>
             <FormItem {...remarkFormItemLayout} label="跟进进度">

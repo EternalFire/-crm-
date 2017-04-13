@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import { Modal, Row, Col, Form, Input, Radio, Checkbox } from 'antd'
+import {maxRemarkLen, maxRemarkMessage, maxNormalLen, maxNormalMessage} from '../../utils'
 
 const FormItem = Form.Item
 const RadioGroup = Radio.Group
@@ -97,6 +98,10 @@ const CenterModal = ({
                   {
                     required: true,
                     message: '姓名未填写'
+                  },
+                  {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
                   }
                 ]
               })(<Input />)}
@@ -108,6 +113,10 @@ const CenterModal = ({
                   {
                     required: true,
                     message: '学校未填写'
+                  },
+                  {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
                   }
                 ]
               })(<Input />)}
@@ -115,7 +124,12 @@ const CenterModal = ({
             <FormItem label='专业: ' {...formItemLayout}>
               {getFieldDecorator('major', {
                 initialValue: item.major,
-                rules: []
+                rules: [
+                  {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
+                  }
+                ]
               })(<Input />)}
             </FormItem>
             <FormItem label='性别: ' {...formItemLayout}>
@@ -138,7 +152,12 @@ const CenterModal = ({
             <FormItem label='课程' {...formItemLayout}>
               {getFieldDecorator('grade', {
                 initialValue: item.grade,
-                rules: []
+                rules: [
+                  {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
+                  }
+                ]
               })(<Input />)}
             </FormItem>
           </Col>
@@ -147,19 +166,34 @@ const CenterModal = ({
             <FormItem label='手机号码' {...formItemLayout}>
               {getFieldDecorator('mobile', {
                 initialValue: item.mobile,
-                rules: []
+                rules: [
+                  {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
+                  }
+                ]
               })(<Input />)}
             </FormItem>
             <FormItem label='工作年限' {...formItemLayout}>
               {getFieldDecorator('jobYears', {
                 initialValue: item.jobYears,
-                rules: []
+                rules: [
+                  {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
+                  }
+                ]
               })(<Input />)}
             </FormItem>
             <FormItem label='岗位' {...formItemLayout}>
               {getFieldDecorator('job', {
                 initialValue: item.job,
-                rules: []
+                rules: [
+                  {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
+                  }
+                ]
               })(<Input />)}
             </FormItem>
             <FormItem label='学历' {...formItemLayout}>
@@ -180,7 +214,12 @@ const CenterModal = ({
             <FormItem {...formItemLayout} label="试听时间">
               {getFieldDecorator('tryDate', {
                 initialValue: item.tryDate,
-                rules: []
+                rules: [
+                  {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
+                  }
+                ]
               })(<Input />)}
             </FormItem>
           </Col>
@@ -190,13 +229,23 @@ const CenterModal = ({
             <FormItem {...formItemLayout} label="初试备注">
               {getFieldDecorator('remark', {
                 initialValue: item.remark,
-                rules: []
+                rules: [
+                  {
+                    max: maxRemarkLen,
+                    message: maxRemarkMessage
+                  }
+                ]
               })(<Input type="textarea" rows={4} />)}
             </FormItem>
             <FormItem {...formItemLayout} label="复试备注">
               {getFieldDecorator('fsRemark', {
                 initialValue: item.fsRemark,
-                rules: []
+                rules: [
+                  {
+                    max: maxRemarkLen,
+                    message: maxRemarkMessage
+                  }
+                ]
               })(<Input type="textarea" rows={4} />)}
             </FormItem>
             <FormItem {...remarkFormItemLayout} label="跟进进度">
