@@ -7,7 +7,7 @@ import * as center from './center'
 import * as authority from './userAuthority'
 import moment from 'moment';
 
-
+const designHeight = 795;
 const dateFormat = 'YYYY-MM-DD';
 const monthFormat = 'YYYY-MM';
 const timeFormat = 'YYYY-MM-DD HH:mm';
@@ -133,7 +133,12 @@ function checkDate(date, dateString, cb) {
   }
 }
 
+function getTableScrollY(y) {
+  return y / designHeight * document.body.clientHeight;
+}
+
 export {
+  designHeight,
   dateFormat,
   monthFormat,
   config,
@@ -153,5 +158,6 @@ export {
   endOfMonth,
   getYear,
   getMonth,
-  checkDate
+  checkDate,
+  getTableScrollY
 }

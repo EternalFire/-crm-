@@ -21,6 +21,9 @@ function Sider ({ user, siderFold, darkTheme, location, changeTheme, navOpenKeys
         {siderFold ? '' : <span>{config.logoText}</span>}
       </div>
       <Menus {...menusProps} />
+      <div className={styles.foot}>
+        {config.footerText}
+      </div>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Table, Icon, Input, Button} from 'antd'
 // import TableBodyWrapper from '../common/TableBodyWrapper'
-import {timestampToString} from '../../utils'
+import {timestampToString, getTableScrollY} from '../../utils'
 import ProgressTags from '../common/progressTags'
 
 function CenterTable ({
@@ -49,14 +49,7 @@ function CenterTable ({
       ),
       dataIndex: 'createTime',
       render(text, record, index) {
-        const createDate = timestampToString(text);
-        return (<span>{createDate}</span>);
-        // return (
-        //   <div>
-        //     {createDate}<br />
-        //     {record.followUserName}
-        //   </div>
-        // );
+        return timestampToString(text);
       },
       width: '90px',
     }, {
@@ -72,7 +65,7 @@ function CenterTable ({
     }, {
       title: '姓名',
       dataIndex: 'name',
-      width: '120px',
+      width: '80px',
       render(text, record, index) {
         return (
           <div>
@@ -108,15 +101,23 @@ function CenterTable ({
           <Button type="primary" onClick={onSearchMobile}>搜索</Button>
         </div>
       ),
-      filterIcon: <Icon type="smile-o" 
-        // style={{ color: this.state.filtered ? '#108ee9' : '#aaa' }} 
-      />,
+      // filterIcon: <Icon type="smile-o" 
+      //   style={{ color: mobileText ? '#108ee9' : '#aaa' }} 
+      // />,
       filterDropdownVisible: mobileFilterVisible,
       onFilterDropdownVisibleChange: onMobileFilterVisibleChange
-      // visible => this.setState({ filterDropdownVisible: visible }, () => this.searchInput.focus()),
     }, {
       title: '初试备注',
       dataIndex: 'remark',
+      render(text, record, index) {
+        return (
+          <div style={{
+            textAlign: 'left'
+          }}>
+            {text}
+          </div>
+        )
+      }
     }, {
       title: '课程',
       dataIndex: 'grade',
@@ -149,19 +150,19 @@ function CenterTable ({
   ];
 
   return (
-    <div>
+    // <div>
       <Table
         bordered
-        scroll={{ x: true, y: 480 }}
+        scroll={{ y: getTableScrollY(530) }}
         columns={columns}
         dataSource={dataSource}
         loading={loading}
         onChange={onPageChange}
         pagination={pagination}
-        simple
+        // simple
         rowKey={record => record._id}
       />
-    </div>
+    // </div>
   )
 }
 

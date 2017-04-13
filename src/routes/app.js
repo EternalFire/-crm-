@@ -12,8 +12,6 @@ import { Spin, Modal } from 'antd'
 import { classnames, center } from '../utils'
 import '../components/layout/common.less'
 
-const confirm = Modal.confirm;
-
 function App ({children, location, dispatch, app}) {
   const {login, loading, isLoginFail, loginButtonLoading, user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys} = app
   const loginProps = {
@@ -35,7 +33,7 @@ function App ({children, location, dispatch, app}) {
       dispatch({type: 'app/switchMenuPopver'})
     },
     logout () {
-      confirm({
+      Modal.confirm({
         title: '确定退出登陆吗?',
         onOk() {
           dispatch(routerRedux.push({ pathname: '/' })); // 修改URL
@@ -90,7 +88,9 @@ function App ({children, location, dispatch, app}) {
                 {children}
               </div>
             </div>
-            <Footer />
+            {
+              // <Footer />
+            }
           </div>
         </div>
         : <div className={styles.spin}>

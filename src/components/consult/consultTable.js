@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import {Table, Icon} from 'antd'
-import {timestampToString} from '../../utils'
+import {timestampToString, getTableScrollY} from '../../utils'
 
 function ConsultTable ({
   dataSource, 
@@ -23,6 +23,13 @@ function ConsultTable ({
         </a>
       ),
       width: '50px',
+    }, {
+      title: '分配时间',
+      dataIndex: 'createTime',
+      render(text, record, index) {
+        return timestampToString(text);
+      },
+      width: '90px',
     }, {
       title: '姓名',
       dataIndex: 'name',
@@ -47,13 +54,6 @@ function ConsultTable ({
       title: '咨询顾问',
       width: '80px',
       dataIndex: 'followUserName',
-    }, {
-      title: '分配日期',
-      dataIndex: 'createTime',
-      render(text, record, index) {
-        return (<div>{timestampToString(text)}</div>);
-      },
-      width: '90px',
     }, {
       title: '接待客服',
       dataIndex: 'workerName',
@@ -92,10 +92,10 @@ function ConsultTable ({
   ];
 
   return (
-    <div>
+    // <div>
       <Table
         bordered
-        scroll={{ y: 600 }}
+        scroll={{ y: getTableScrollY(600) }}
         columns={columns}
         dataSource={dataSource}
         loading={loading}
@@ -104,7 +104,7 @@ function ConsultTable ({
         simple
         rowKey={record => record._id}
       />
-    </div>    
+    // </div>  
   )
 }
 
