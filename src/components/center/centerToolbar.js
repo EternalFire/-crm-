@@ -1,5 +1,6 @@
 import React from 'react'
-import {Menu, Card, DatePicker} from 'antd'
+import {Menu, Card, DatePicker, Button, message} from 'antd'
+import OutputTableButton from '../common/outputTableButton'
 import {dateFormat, center} from '../../utils'
 import moment from 'moment'
 
@@ -80,13 +81,13 @@ function CenterToolbar({
       </Menu>
     );
   } else if (type === center.type.all) {
-    // TODO 搜索条件
     menuDOM = (
       <Card>
         <RangePicker format={dateFormat}
           defaultValue={[ moment(), moment() ]}
           onChange={onChangeSearchDate}
         />
+        <OutputTableButton />
       </Card>
     );
   }

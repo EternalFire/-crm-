@@ -1,6 +1,7 @@
 import React from 'react'
 import {Table, Icon, Input, Button} from 'antd'
 // import TableBodyWrapper from '../common/TableBodyWrapper'
+import TableColumnFilter from '../common/tableColumnFilter'
 import {timestampToString, getTableScrollY} from '../../utils'
 import ProgressTags from '../common/progressTags'
 
@@ -83,23 +84,13 @@ function CenterTable ({
       dataIndex: 'mobile',
       width: '100px',
       filterDropdown: (
-        <div style={{
-          padding: '8px',
-          borderRadius: '6px',
-          background: '#fff',
-          boxShadow: '0 1px 6px rgba(0, 0, 0, .2)'
-        }}>
-          <Input 
-            placeholder="输入手机号"
-            value={mobileText}
-            onChange={onInputChange}
-            onPressEnter={onSearchMobile}
-            style={{
-              width: 130
-            }}
-          />
-          <Button type="primary" onClick={onSearchMobile}>搜索</Button>
-        </div>
+        <TableColumnFilter 
+          value={mobileText}
+          placeholder="输入手机号"
+          onChange={onInputChange}
+          onPressEnter={onSearchMobile}
+          onOk={onSearchMobile}
+        />
       ),
       // filterIcon: <Icon type="smile-o" 
       //   style={{ color: mobileText ? '#108ee9' : '#aaa' }} 

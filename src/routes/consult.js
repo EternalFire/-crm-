@@ -3,6 +3,7 @@
  */
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
+import ConsultToolbar from '../components/consult/consultToolbar'
 import ConsultTable from '../components/consult/consultTable'
 import EditModal from '../components/consult/editModal'
 import MessageModal from '../components/consult/messageModal'
@@ -15,8 +16,21 @@ function Consult({dispatch, consult, loading}) {
     currentMessage,
     editModalVisible, 
     messageModalVisible, 
-    pagination
+    pagination,
+
+    mobileText, 
+    mobileFilterVisible,
+    nameText, 
+    nameFilterVisible
   } = consult; 
+
+  const consultToolbarProps = {
+    onChangeSearchDate(date, dateStr) {
+      dispatch({ type: 'consult/setStartDate', payload: { startDate: dateStr[0] }});
+      dispatch({ type: 'consult/setEndDate', payload: { endDate: dateStr[1] }});
+      dispatch({ type: 'consult/query' });
+    }
+  }
 
   const consultTableProps = {
     dataSource: data,
@@ -36,7 +50,31 @@ function Consult({dispatch, consult, loading}) {
     onPageChange(pagination, filters, sorter) {
       dispatch({ type: 'consult/setPagination', payload: { pagination } });
       dispatch({ type: 'consult/query' });
-    }
+    },
+
+    mobileText,
+    onInputMobileChange(e) {
+      dispatch({ type: 'consult/clearFilters' });
+      dispatch({ type: 'consult/setMobileText', payload: { mobileText: e.target.value } });      
+    },
+    mobileFilterVisible,
+    onMobileFilterVisibleChange(visible) {
+      dispatch({ type: 'consult/setMobileFilterVisible', payload: { mobileFilterVisible: visible } });
+    },
+    
+    onSearch() {
+      dispatch({ type: 'consult/query' })
+    },
+    
+    nameText,
+    onInputNameChange(e) {
+      dispatch({ type: 'consult/clearFilters' });
+      dispatch({ type: 'consult/setNameText', payload: { nameText: e.target.value } });      
+    }, 
+    nameFilterVisible,
+    onNameFilterVisibleChange(visible) {
+      dispatch({ type: 'consult/setNameFilterVisible', payload: { nameFilterVisible: visible } });
+    },
   }
 
   const editModalProps = {
@@ -69,6 +107,7 @@ function Consult({dispatch, consult, loading}) {
 
   return (
     <div>
+      <ConsultToolbar {...consultToolbarProps} />
       <ConsultTable {...consultTableProps} />
       <EditModalGen />
       <MessageModal {...messageModalProps} />

@@ -146,8 +146,8 @@ export async function querySuReport(params) {
 export async function queryConsult(params) {
   const {
     // center,
-    // startDate,
-    // endDate,
+    startDate,
+    endDate,
     // fsFilter,
     // ybFilter,
     // fkFilter,
@@ -155,7 +155,9 @@ export async function queryConsult(params) {
     // jbFilter,
     // user,
     currentPage, 
-    currentPageSize
+    currentPageSize,
+    nameText,
+    mobileText,
   } = params;
 
   const memsrc = 'wz';
@@ -169,6 +171,22 @@ export async function queryConsult(params) {
 
   // console.log('url is ', url);
   
+  if(startDate) {
+    url += `&startDate=${startDate}`;
+  }
+
+  if(endDate) {
+    url += `&endDate=${endDate}`;
+  }
+
+  if (nameText) {
+    url += `&name=${nameText}`
+  }
+
+  if (mobileText) {
+    url += `&mobile=${mobileText}`
+  }
+
   return request(url, {
     method: 'get'
   })
