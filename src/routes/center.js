@@ -9,7 +9,7 @@ import CenterModal from '../components/center/centerModal'
 import {center as CenterUtil, today, tomorrow, startOfMonth, endOfMonth } from '../utils'
 
 const Center = ({ location, dispatch, center, loading, user, users }) => {
-  const { name, type, dayData, monthData, allData, current, modalVisible, currentMenuKey, pagination, mobileFilterVisible, mobileText } = center;
+  const { name, type, dayData, monthData, allData, current, modalVisible, currentMenuKey, pagination, mobileFilterVisible, mobileText, startDate, endDate } = center;
 
   const tableProps = {
     users, 
@@ -19,7 +19,7 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
     }, 
     onPageChange(pagination, filters, sorter) {
       const { followUserName } = filters;
-      dispatch({ type: 'center/clearFilters' });
+      // dispatch({ type: 'center/clearFilters' });
       dispatch({ type: 'center/setUsersFilters', payload: { usersFilters: followUserName } });
       dispatch({ type: 'center/setPagination', payload: { pagination } });
       dispatch({ type: 'center/query' });
@@ -29,13 +29,13 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
     mobileFilterVisible, 
     mobileText, 
     onInputChange(e) {
-      dispatch({ type: 'center/clearFilters' });      
+      // dispatch({ type: 'center/clearFilters' });      
       dispatch({ type: 'center/setMobileText', payload: { mobileText: e.target.value } });
     },
     onSearchMobile(e) {
       // if (mobileText && mobileText.length > 0) {
         dispatch({ type: 'center/query' })
-      // }
+      // } 
     },
     onMobileFilterVisibleChange(visible) {
       dispatch({ type: 'center/setMobileFilterVisible', payload: { mobileFilterVisible: visible } });
@@ -111,19 +111,21 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
 
     onChangeDayMenu(e) {
       dispatch({ type: 'center/setCurrentMenuKey', payload: { currentMenuKey: [e.key] }});
-      dispatch({ type: 'center/resetPagination' });      
+      dispatch({ type: 'center/resetPagination' });
       dispatch({ type: 'center/query' });
     },    
     onChangeMonthMenu(e) {
       dispatch({ type: 'center/setCurrentMenuKey', payload: { currentMenuKey: [e.key] }});
-      dispatch({ type: 'center/resetPagination' });      
+      dispatch({ type: 'center/resetPagination' });
       dispatch({ type: 'center/query' });
     },
     onChangeSearchDate(date, dateStr) {
       dispatch({ type: 'center/setStartDate', payload: { startDate: dateStr[0] }});
       dispatch({ type: 'center/setEndDate', payload: { endDate: dateStr[1] }});
       dispatch({ type: 'center/query' });
-    }
+    },
+    startDate,
+    endDate
   }
 
   const centerModalProps = {

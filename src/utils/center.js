@@ -94,6 +94,10 @@ const isConsult = (type) => {
   return type && type === 'consult';
 }
 
+const isReport = (type) => {
+  return type && type === 'report';
+}
+
 export {
   guangzhou,
   chongqing,
@@ -114,5 +118,6 @@ export {
   parsePath,
   isMng,
   isInterview,
-  isConsult
+  isConsult,
+  isReport
 }
