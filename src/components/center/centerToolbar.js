@@ -20,7 +20,9 @@ function CenterToolbar({
   onMonthYBMenu,
   onMonthJBMenu,  
   
-  onChangeSearchDate
+  onChangeSearchDate,
+  startDate = moment(),
+  endDate = moment(),
 }) {
   let menuDOM;
 
@@ -84,7 +86,7 @@ function CenterToolbar({
     menuDOM = (
       <Card>
         <RangePicker format={dateFormat}
-          defaultValue={[ moment(), moment() ]}
+          value={[ moment(startDate, dateFormat), moment(endDate, dateFormat) ]}
           onChange={onChangeSearchDate}
         />
         <OutputTableButton />
