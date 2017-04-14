@@ -46,7 +46,7 @@ export default {
       total: null
     },
     modalVisible: false,
-    currentMenuKey: ['dayAllMenu'],    
+    currentMenuKey: ['dayAllMenu'], 
   },
   subscriptions: {
     setup ({dispatch, history}) {
@@ -59,12 +59,10 @@ export default {
           let menuKey = '';
           if (type === center.type.day) {
             menuKey = 'dayAllMenu';
-
             dispatch({ type: 'setStartDate', payload: { startDate: today() } });
             dispatch({ type: 'setEndDate', payload: { endDate: tomorrow() } });
           } else if (type === center.type.month) {
             menuKey = 'monthAllMenu';
-            
             dispatch({ type: 'setStartDate', payload: { startDate: startOfMonth() } });
             dispatch({ type: 'setEndDate', payload: { endDate: endOfMonth() } });
           } else {
@@ -73,6 +71,7 @@ export default {
           }
 
           dispatch({ type: 'setCurrentMenuKey', payload: { currentMenuKey: [menuKey] }});
+          dispatch({ type: 'resetPagination' });          
           dispatch({ type: 'query' });
 
           // 获取咨询师
@@ -263,7 +262,7 @@ export default {
     },
     resetPagination (state, action) {
       return {
-        ...state, pagination: { current: 1 }
+        ...state, pagination: { ...state.pagination, current: 1 }
       }
     },
     setCurrentMenuKey (state, action) {

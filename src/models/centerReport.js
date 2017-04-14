@@ -18,10 +18,13 @@ export default {
   subscriptions: {
     setup ({dispatch, history}) {
       history.listen(location => {
-        let {name} = center.parsePath(location.pathname);
-        dispatch({ type: 'setCenter', payload: { name } });
-        dispatch({ type: 'queryUserReport' });
-        dispatch({ type: 'queryMonthlyReport' });
+        let {name, type} = center.parsePath(location.pathname);
+
+        if (center.isReport(type)) {          
+          dispatch({ type: 'setCenter', payload: { name } });
+          dispatch({ type: 'queryUserReport' });
+          dispatch({ type: 'queryMonthlyReport' });
+        }
       });
     }
   }, 

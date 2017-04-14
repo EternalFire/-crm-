@@ -89,6 +89,15 @@ const isInterview = (name) => {
   return getCenters().some(e => (e === name));
 }
 
+// 网络咨询
+const isConsult = (type) => {
+  return type && type === 'consult';
+}
+
+const isReport = (type) => {
+  return type && type === 'report';
+}
+
 export {
   guangzhou,
   chongqing,
@@ -108,5 +117,7 @@ export {
   parseMenuKey,
   parsePath,
   isMng,
-  isInterview
+  isInterview,
+  isConsult,
+  isReport
 }

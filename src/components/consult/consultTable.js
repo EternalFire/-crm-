@@ -4,7 +4,7 @@
 import React, { PropTypes } from 'react'
 import {Table, Icon} from 'antd'
 import TableColumnFilter from '../common/tableColumnFilter'
-import {timestampToString, getTableScrollY} from '../../utils'
+import {timestampToString, getTableScrollY, activeFilterColor, inactiveFilterColor } from '../../utils'
 
 function ConsultTable ({
   dataSource, 
@@ -58,6 +58,7 @@ function ConsultTable ({
           onOk={onSearch}
         />
       ),
+      filterIcon: <Icon type="smile-o" style={{ color: nameText.length > 0 ? activeFilterColor : inactiveFilterColor }} />,
       filterDropdownVisible: nameFilterVisible,
       onFilterDropdownVisibleChange: onNameFilterVisibleChange
     }, {
@@ -73,6 +74,7 @@ function ConsultTable ({
           onOk={onSearch}
         />
       ),
+      filterIcon: <Icon type="mobile" style={{ color: mobileText.length > 0 ? activeFilterColor : inactiveFilterColor }} />,
       filterDropdownVisible: mobileFilterVisible,
       onFilterDropdownVisibleChange: onMobileFilterVisibleChange      
     }, {
@@ -116,6 +118,15 @@ function ConsultTable ({
     }, {
       title: '备注',
       dataIndex: 'remark',
+      render(text, record, index) {
+        return (
+          <div style={{
+            textAlign: 'left'
+          }}>
+            {text}
+          </div>
+        )
+      }      
     },
     /*
     {

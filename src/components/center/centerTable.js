@@ -2,7 +2,7 @@ import React from 'react'
 import {Table, Icon, Input, Button} from 'antd'
 // import TableBodyWrapper from '../common/TableBodyWrapper'
 import TableColumnFilter from '../common/tableColumnFilter'
-import {timestampToString, getTableScrollY} from '../../utils'
+import {timestampToString, getTableScrollY, activeFilterColor, inactiveFilterColor} from '../../utils'
 import ProgressTags from '../common/progressTags'
 
 function CenterTable ({
@@ -58,7 +58,7 @@ function CenterTable ({
       dataIndex: 'followUserName',
       width: '80px',
       filters: usersFilters, 
-      filterMultiple: false
+      filterMultiple: false // 单选
     },{
       title: '岗位',
       dataIndex: 'job',
@@ -85,16 +85,14 @@ function CenterTable ({
       width: '100px',
       filterDropdown: (
         <TableColumnFilter 
-          value={mobileText}
-          placeholder="输入手机号"
-          onChange={onInputChange}
-          onPressEnter={onSearchMobile}
-          onOk={onSearchMobile}
+          value={mobileText} 
+          placeholder="输入手机号" 
+          onChange={onInputChange} 
+          onPressEnter={onSearchMobile} 
+          onOk={onSearchMobile} 
         />
       ),
-      // filterIcon: <Icon type="smile-o" 
-      //   style={{ color: mobileText ? '#108ee9' : '#aaa' }} 
-      // />,
+      filterIcon: <Icon type="mobile" style={{ color: mobileText.length > 0 ? activeFilterColor : inactiveFilterColor }} />, 
       filterDropdownVisible: mobileFilterVisible,
       onFilterDropdownVisibleChange: onMobileFilterVisibleChange
     }, {

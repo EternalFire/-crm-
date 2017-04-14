@@ -37,7 +37,11 @@ export default {
   subscriptions: {
     setup ({dispatch, history}) {
       history.listen(location => {
-        dispatch({ type: 'query' })
+        let {name, type} = center.parsePath(location.pathname);
+        
+        if (center.isConsult(type)) {
+          dispatch({ type: 'query' })
+        }
       });
     }
   }, 

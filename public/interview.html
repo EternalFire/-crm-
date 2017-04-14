@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  </head>
+  <body style="padding-bottom: 50px; padding-top: 30px;">
+    <div class="container">
+      <div class="page-header">
+        <h3>面试签到表</h3>
+      </div>
+      <div class="form-group">
+        <label>姓名</label>
+        <input class="form-control" id="name" name="name" type="text">
+      </div>
+      <div class="form-group">
+        <label>性别</label>
+      </div>
+      <div class="form-group">
+        <label class="radio-inline">
+          <input name="sex" type="radio" value="男"> 男
+        </label>
+        <label class="radio-inline">
+          <input name="sex" type="radio" value="女"> 女
+        </label>
+      </div>
+      <div class="form-group">
+        <label>手机号码</label>
+        <input class="form-control" id="mobile" name="mobile" type="text">
+      </div>
+      <div class="form-group">
+        <label>应聘岗位</label>
+        <input class="form-control" id="job" name="job" type="text">
+      </div>
+      <div class="form-group">
+        <label>专业</label>
+        <input class="form-control" id="major" name="major" type="text">
+      </div>
+      <div class="form-group">
+        <label>毕业学校</label>
+        <input class="form-control" id="university" name="university" type="text">
+      </div>
+      <div class="form-group">
+        <label>学历</label>
+      </div>
+      <div class="form-group">
+        <label class="radio-inline">
+          <input name="education" type="radio" value="大专"> 大专
+        </label>
+        <label class="radio-inline">
+          <input name="education" type="radio" value="本科"> 本科
+        </label>
+        <label class="radio-inline">
+          <input name="education" type="radio" value="硕士及以上"> 硕士及以上
+        </label>
+      </div>
+      <div class="form-group">
+        <label>工作年限</label>
+        <input class="form-control" id="jobYears" name="jobYears" type="text">
+      </div>
+      <div class="form-group">
+        <label>渠道来源</label>
+      </div>
+      <div class="form-group">
+        <label class="radio-inline">
+          <input name="memsrc" type="radio" value="智联招聘"> 智联招聘
+        </label>
+        <label class="radio-inline">
+          <input name="memsrc" type="radio" value="前程无忧"> 前程无忧
+        </label>
+        <label class="radio-inline">
+          <input name="memsrc" type="radio" value="58"> 58
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="radio-inline">
+          <input name="memsrc" type="radio" value="赶集"> 赶集
+        </label>
+        <label class="radio-inline">
+          <input name="memsrc" type="radio" value="人才市场"> 人才市场
+        </label>
+      </div>
+      <div class="form-group">
+        <label>邀约人</label>
+      </div>
+      <div class="form-group">
+        <label class="radio-inline">
+          <input name="invite" type="radio" value="刘小姐"> 刘小姐
+        </label>
+        <label class="radio-inline">
+          <input name="invite" type="radio" value="林小姐"> 林小姐
+        </label>
+        <label class="radio-inline">
+          <input name="invite" type="radio" value="宋小姐"> 宋小姐
+        </label>
+      </div>
+      <div id="opt_div">
+        <button class="btn btn-success form-control" type="button" onclick="submit()">保存</button>
+      </div>
+    </div>
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script>
+function submit() {
+  $('#opt_div').html('<span style="color: red;">正在保存...</span>');
+
+  $.ajax({
+    url: '/itv_customers',
+    method: 'post',
+    dataType: 'json',
+    cache: false,
+    data: {
+      name: $('#name').val(),
+      sex: $('input[name="sex"]:checked').val(),
+      mobile: $('#mobile').val(),
+      education: $('input[name="education"]:checked').val(),
+      memsrc: $('input[name="memsrc"]:checked').val(),
+      invite: $('input[name="invite"]:checked').val(),
+      major: $('#major').val(),
+      job: $('#job').val(),
+      jobYears: $('#jobYears').val(),
+      university: $('#university').val(),
+      center: 'gz' // 广州中心
+    },
+    success: function(data) {
+      $('.container').html('<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> 保存完成，请稍后！</div>');
+    },
+    error: function(xhr, status, err) {
+      $('.container').html('<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> 保存完成，请稍后！</div>');
+    }
+  });
+
+}
+</script>
+  <body>
+</html>

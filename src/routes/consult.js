@@ -54,7 +54,7 @@ function Consult({dispatch, consult, loading}) {
 
     mobileText,
     onInputMobileChange(e) {
-      dispatch({ type: 'consult/clearFilters' });
+      // dispatch({ type: 'consult/clearFilters' });
       dispatch({ type: 'consult/setMobileText', payload: { mobileText: e.target.value } });      
     },
     mobileFilterVisible,
@@ -68,7 +68,7 @@ function Consult({dispatch, consult, loading}) {
     
     nameText,
     onInputNameChange(e) {
-      dispatch({ type: 'consult/clearFilters' });
+      // dispatch({ type: 'consult/clearFilters' });
       dispatch({ type: 'consult/setNameText', payload: { nameText: e.target.value } });      
     }, 
     nameFilterVisible,
@@ -82,11 +82,11 @@ function Consult({dispatch, consult, loading}) {
     visible: editModalVisible,
     item: current, 
     onOk(formData) {
-      dispatch({type: 'consult/update', payload: { current: formData }});
-      dispatch({type: 'consult/hideEditModal'});
+      dispatch({ type: 'consult/update', payload: { current: formData } });
+      dispatch({ type: 'consult/hideEditModal' });
     }, 
     onCancel() {
-      dispatch({type: 'consult/hideEditModal'});
+      dispatch({ type: 'consult/hideEditModal' });
     }, 
   }
 
@@ -96,10 +96,10 @@ function Consult({dispatch, consult, loading}) {
     messages: currentMessage,
     loading,
     onOk() {
-      dispatch({type: 'consult/hideMessageModal'});
+      dispatch({ type: 'consult/hideMessageModal' });
     },
     onCancel() {
-      dispatch({type: 'consult/hideMessageModal'});
+      dispatch({ type: 'consult/hideMessageModal' });
     }
   }
 

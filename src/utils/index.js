@@ -20,6 +20,10 @@ const maxRemarkMessage = `备注已超过${maxRemarkLen}字`;
 const maxNormalLen = 50;
 const maxNormalMessage = `已超过${maxNormalLen}字`;
 
+// 筛选图标的颜色
+const activeFilterColor = '#108ee9';
+const inactiveFilterColor = '#aaa';
+
 // 连字符转驼峰
 String.prototype.hyphenToHump = function () {
   return this.replace(/-(\w)/g, function () {
@@ -172,5 +176,8 @@ export {
   maxRemarkLen,
   maxRemarkMessage,
   maxNormalLen,
-  maxNormalMessage
+  maxNormalMessage,
+
+  activeFilterColor,
+  inactiveFilterColor
 }
