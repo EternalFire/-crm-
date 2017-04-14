@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'dva'
 import {Modal} from 'antd'
-import { center, checkDate } from '../utils'
+import { center, authority, checkDate } from '../utils'
 import QR from '../components/interview/qr'
 import InterviewTable from '../components/interview/interviewTable'
 import InterviewToolbar from '../components/interview/interviewToolbar'
 import EditModal from '../components/interview/editModal'
 import UsersModal from '../components/interview/usersModal'
+import { routerRedux } from 'dva/router';
 
 const Confirm = Modal.confirm;
 
@@ -21,7 +22,7 @@ const Interview = ({ dispatch, interview, app, loading }) => {
     usersModalVisible
   } = interview
 
-  const {users} = app
+  const {users, user} = app
 
   const qrProps = {
     center: name,
@@ -68,6 +69,11 @@ const Interview = ({ dispatch, interview, app, loading }) => {
   }
 
   const renderQR = () => {
+    if (!authority.checkCenter(name, 'currentType', user)) {
+      dispatch(routerRedux.push({ pathname: '/' }));
+      return null;
+    }
+
     if (type === center.interviewType.qr) {
       return (<QR {...qrProps} />)
     }

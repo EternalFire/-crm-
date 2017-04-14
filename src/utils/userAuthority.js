@@ -46,6 +46,13 @@ const isNanchangWorker = (center, type) => isNanchang(center) && isWorker(type);
 // 南昌分中心咨询经理
 const isNanchangManager = (center, type) => isNanchang(center) && isManager(type);
 
+// 检测用户所属中心
+function checkCenter(name, type, user) {
+  return name && type && 
+    user && 
+    (user.center === name || isAdmin(user.center))
+  ;
+}
 
 export {
   isWorker,
@@ -67,4 +74,6 @@ export {
 
   isNanchangWorker,
   isNanchangManager,
+
+  checkCenter
 };

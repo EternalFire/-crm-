@@ -2,15 +2,8 @@
  * 分中心的咨询中心
  */
 import { queryMng, editCustomerMng } from '../services/crm';
-import { checkResponse, center, today, tomorrow, startOfMonth, endOfMonth } from '../utils';
+import { checkResponse, center, authority, today, tomorrow, startOfMonth, endOfMonth } from '../utils';
 import { routerRedux } from 'dva/router';
-
-function checkCenter(name, type, user) {
-  return name && type && 
-    user && 
-    (user.center === name || center.isAdmin(user.center))
-  ;
-}
 
 export default {
   namespace: 'center',
@@ -93,7 +86,7 @@ export default {
 
       const currentType = yield select(({ center }) => ( center.type ));
 
-      if (!checkCenter(params.center, currentType, params.user)) {
+      if (!authority.checkCenter(params.center, currentType, params.user)) {
         yield put(routerRedux.push({ pathname: '/' }));
         return
       }

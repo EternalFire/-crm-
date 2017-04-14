@@ -2,7 +2,8 @@
  * 分中心的数据分析
  */
 import {queryCenterUserReport, queryCenterMonthlyReport} from '../services/crm'
-import {checkResponse, center, today, getYear, getMonth} from '../utils'
+import {checkResponse, center, authority, today, getYear, getMonth} from '../utils'
+import { routerRedux } from 'dva/router';
 
 export default {
   namespace: 'centerReport',
@@ -31,8 +32,16 @@ export default {
   effects: {
     *queryUserReport({ payload }, { select, call, put }) {
       const { name, userDate } = yield select(({ centerReport }) => (centerReport))
+      const { user } = yield select(({ app }) => (app));
 
-      if (!name) { return }
+      if (!name) { 
+        return 
+      }
+
+      if (!authority.checkCenter(name, 'currentType', user)) {
+        yield put(routerRedux.push({ pathname: '/' }));
+        return
+      }
 
       const data = yield call(queryCenterUserReport, { center: name, date: userDate })
       
@@ -40,8 +49,16 @@ export default {
     },
     *queryMonthlyReport({ payload }, { select, call, put }) {
       const { name, monthDate } = yield select(({ centerReport }) => (centerReport))
+      const { user } = yield select(({ app }) => (app));
 
-      if (!name) { return }
+      if (!name) { 
+        return 
+      }
+
+      if (!authority.checkCenter(name, 'currentType', user)) {
+        yield put(routerRedux.push({ pathname: '/' }));
+        return
+      }      
 
       const year = getYear(monthDate),
         month = getMonth(monthDate)
