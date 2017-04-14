@@ -6,7 +6,8 @@
 import {
   queryCustomerFrontDesk, editCustomerFrontDesk, alignCustomerFrontDesk, deleteCustomerFrontDesk
 } from '../services/crm'
-import {checkResponse, center, today} from '../utils'
+import {checkResponse, center, authority, today} from '../utils'
+import { routerRedux } from 'dva/router';
 
 export default {
   namespace: 'interview',
@@ -47,6 +48,12 @@ export default {
 
       if (!name) { 
         return 
+      }
+      
+      const { user } = yield select(({ app }) => (app));
+      if (!authority.checkCenter(name, 'currentType', user)) {
+        yield put(routerRedux.push({ pathname: '/' }));
+        return
       }
 
       const data = yield call(queryCustomerFrontDesk, { date, center: name })

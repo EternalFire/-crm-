@@ -2,11 +2,13 @@
  * 咨询中心
  */
 import {queryConsult, queryConsultMessage, editCustomerConsult} from '../services/crm'
-import {checkResponse, center, today} from '../utils'
+import {checkResponse, center, authority, today} from '../utils'
+import { routerRedux } from 'dva/router';
 
 export default {
   namespace: 'consult', 
   state: {
+    name: null,    
     data: [],
     current: {},
     currentMessage: [],
@@ -40,6 +42,7 @@ export default {
         let {name, type} = center.parsePath(location.pathname);
         
         if (center.isConsult(type)) {
+          dispatch({ type: 'setCenter', payload: { name } })
           dispatch({ type: 'query' })
         }
       });
@@ -54,8 +57,16 @@ export default {
         endDate: consult.endDate,
         nameText: consult.nameText,
         mobileText: consult.mobileText,
+        name: consult.name
       }));
 
+      const { user } = yield select(({ app }) => (app));      
+
+      if (!authority.checkCenter(params.name, 'currentType', user)) {
+        yield put(routerRedux.push({ pathname: '/' }));
+        return
+      }
+      
       const data = yield call(queryConsult, params)
 
       if (checkResponse(data)) {
@@ -143,7 +154,7 @@ export default {
       return {
         ...state, messageModalVisible: true
       }
-    },
+    }, 
     hideMessageModal (state, action) {
       return {
         ...state, 
@@ -153,26 +164,29 @@ export default {
     }, 
     setPagination (state, action) {
       return { ...state, ...action.payload }
-    },
+    }, 
     setCurrent (state, action) {
       return { ...state, ...action.payload }
-    },
+    }, 
     setNameText (state, action) {
       return { ...state, ...action.payload }
-    },
+    }, 
     setNameFilterVisible (state, action) {
       return { ...state, ...action.payload }
-    },
+    }, 
     setStartDate (state, action) {
       return { ...state, ...action.payload }
-    },
+    }, 
     setEndDate (state, action) {
       return { ...state, ...action.payload }
     }, 
     setMobileText (state, action) {
       return { ...state, ...action.payload }
-    },
+    }, 
     setMobileFilterVisible (state, action) {
+      return { ...state, ...action.payload }
+    }, 
+    setCenter (state, action) {
       return { ...state, ...action.payload }
     }, 
   }
