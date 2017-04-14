@@ -53,14 +53,14 @@ export default {
           if (type === center.type.day) {
             menuKey = 'dayAllMenu';
             dispatch({ type: 'setStartDate', payload: { startDate: today() } });
-            dispatch({ type: 'setEndDate', payload: { endDate: tomorrow() } });
+            dispatch({ type: 'setEndDate', payload: { endDate: today() } });
           } else if (type === center.type.month) {
             menuKey = 'monthAllMenu';
             dispatch({ type: 'setStartDate', payload: { startDate: startOfMonth() } });
             dispatch({ type: 'setEndDate', payload: { endDate: endOfMonth() } });
           } else {
             dispatch({ type: 'setStartDate', payload: { startDate: today() } });
-            dispatch({ type: 'setStartDate', payload: { endDate: tomorrow() } });
+            dispatch({ type: 'setStartDate', payload: { endDate: today() } });
           }
 
           dispatch({ type: 'setCurrentMenuKey', payload: { currentMenuKey: [menuKey] }});

@@ -79,17 +79,17 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
       dispatch({ type: 'center/setybFilter', payload: { ybFilter: false }});
       dispatch({ type: 'center/setjbFilter', payload: { jbFilter: false }});
       dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
-      dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
+      dispatch({ type: 'center/setEndDate', payload: { endDate: today() }});
     },
     onDayYBMenu(e) {
       dispatch({ type: 'center/setybFilter', payload: { ybFilter: true }});      
       dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
-      dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
+      dispatch({ type: 'center/setEndDate', payload: { endDate: today() }});
     },
     onDayJBMenu(e) {
       dispatch({ type: 'center/setjbFilter', payload: { jbFilter: true }});
       dispatch({ type: 'center/setStartDate', payload: { startDate: today() }});
-      dispatch({ type: 'center/setEndDate', payload: { endDate: tomorrow() }});
+      dispatch({ type: 'center/setEndDate', payload: { endDate: today() }});
     },
 
     onMonthAllMenu(e) {

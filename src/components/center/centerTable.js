@@ -92,7 +92,7 @@ function CenterTable ({
           onOk={onSearchMobile} 
         />
       ),
-      filterIcon: <Icon type="mobile" style={{ color: mobileText.length > 0 ? activeFilterColor : inactiveFilterColor }} />, 
+      filterIcon: <Icon type="search" style={{ color: mobileText.length > 0 ? activeFilterColor : inactiveFilterColor }} />, 
       filterDropdownVisible: mobileFilterVisible,
       onFilterDropdownVisibleChange: onMobileFilterVisibleChange
     }, {

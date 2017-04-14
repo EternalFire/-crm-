@@ -58,7 +58,7 @@ function ConsultTable ({
           onOk={onSearch}
         />
       ),
-      filterIcon: <Icon type="smile-o" style={{ color: nameText.length > 0 ? activeFilterColor : inactiveFilterColor }} />,
+      filterIcon: <Icon type="search" style={{ color: nameText.length > 0 ? activeFilterColor : inactiveFilterColor }} />,
       filterDropdownVisible: nameFilterVisible,
       onFilterDropdownVisibleChange: onNameFilterVisibleChange
     }, {
@@ -74,7 +74,7 @@ function ConsultTable ({
           onOk={onSearch}
         />
       ),
-      filterIcon: <Icon type="mobile" style={{ color: mobileText.length > 0 ? activeFilterColor : inactiveFilterColor }} />,
+      filterIcon: <Icon type="search" style={{ color: mobileText.length > 0 ? activeFilterColor : inactiveFilterColor }} />,
       filterDropdownVisible: mobileFilterVisible,
       onFilterDropdownVisibleChange: onMobileFilterVisibleChange      
     }, {
