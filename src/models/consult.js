@@ -43,6 +43,7 @@ export default {
         
         if (center.isConsult(type)) {
           dispatch({ type: 'setCenter', payload: { name } })
+          dispatch({ type: 'resetPagination' })
           dispatch({ type: 'query' })
         }
       });
@@ -189,5 +190,10 @@ export default {
     setCenter (state, action) {
       return { ...state, ...action.payload }
     }, 
+    resetPagination (state, action) {
+      return {
+        ...state, pagination: { ...state.pagination, current: 1 }
+      }
+    },    
   }
 }
