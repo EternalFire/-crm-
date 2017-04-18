@@ -13,7 +13,7 @@ const monthFormat = 'YYYY-MM';
 const timeFormat = 'YYYY-MM-DD HH:mm';
 
 // 表单填写字数限制
-const maxRemarkLen = 500;
+const maxRemarkLen = 1500;
 const maxRemarkMessage = `备注已超过${maxRemarkLen}字`;
 
 // 一般字数限制
