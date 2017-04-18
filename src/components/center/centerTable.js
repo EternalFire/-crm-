@@ -98,6 +98,7 @@ function CenterTable ({
     }, {
       title: '初试备注',
       dataIndex: 'remark',
+      width: '200px',
       render(text, record, index) {
         return (
           <div style={{
