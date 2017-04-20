@@ -44,6 +44,8 @@ export default {
         if (center.isConsult(type)) {
           dispatch({ type: 'setCenter', payload: { name } })
           dispatch({ type: 'resetPagination' })
+          dispatch({ type: 'setStartDate', payload: { startDate: today() } });
+          dispatch({ type: 'setEndDate', payload: { endDate: today() } });
           dispatch({ type: 'query' })
         }
       });

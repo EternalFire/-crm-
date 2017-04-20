@@ -63,6 +63,9 @@ function Consult({dispatch, consult, loading}) {
     },
     
     onSearch() {
+      // 按列条件查询, 复位分页页码
+      dispatch({ type: 'consult/resetPagination' })
+      
       dispatch({ type: 'consult/query' })
     },
     
