@@ -1,5 +1,5 @@
 /*
- * 咨询中心
+ * 网络咨询
  */
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'

@@ -1,8 +1,11 @@
+/**
+ * 社招面试 数据表
+ */
 import React from 'react'
 import {Table, Icon, Button} from 'antd'
 import TableBodyWrapper from '../common/TableBodyWrapper'
 import ProgressTags from '../common/progressTags'
-import {timestampToString, getTableScrollY} from '../../utils'
+import {timestampToObject, getTableScrollY} from '../../utils'
 
 const InterviewTable = ({
   dataSource, 
@@ -47,7 +50,15 @@ const InterviewTable = ({
     }, {
       title: '创建时间',
       dataIndex: 'createTime',
-      render: text => timestampToString(text),
+      render: text => {
+        let {date, time} = timestampToObject(text);
+        return (
+          <div>
+            <div>{date}</div>
+            <div>{time}</div>
+          </div>
+        )
+      },
       width: '90px',
     }, {
       title: '咨询师',
@@ -114,6 +125,7 @@ const InterviewTable = ({
     // <div>
       <Table
         bordered
+        style={{ marginTop: 15 }}        
         scroll={{ y: getTableScrollY(580) }}
         columns={columns}
         dataSource={dataSource}

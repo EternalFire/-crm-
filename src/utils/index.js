@@ -11,6 +11,7 @@ const designHeight = 795;
 const dateFormat = 'YYYY-MM-DD';
 const monthFormat = 'YYYY-MM';
 const timeFormat = 'YYYY-MM-DD HH:mm';
+const hourAndMinuteFormat = 'HH:mm';
 
 // 表单填写字数限制
 const maxRemarkLen = 1500;
@@ -108,6 +109,12 @@ function timestampToString(timeText) {
   return moment.unix(timeText / 1000).format(timeFormat)
 }
 
+function timestampToObject(timeText) {  
+  let date = moment(timeText).format(dateFormat)
+  let time = moment(timeText).format(hourAndMinuteFormat)
+  return { date, time };
+}
+
 function today() {
   return moment().format(dateFormat)
 }
@@ -161,7 +168,8 @@ export {
   checkResponse,
   getCookie,
   delCookie,
-  timestampToString,
+  timestampToString, 
+  timestampToObject, 
   center,
   authority,
   today,

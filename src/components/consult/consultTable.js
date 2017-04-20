@@ -1,10 +1,10 @@
 /*
- * 咨询中心 数据表
+ * 网络咨询 数据表
  */
 import React, { PropTypes } from 'react'
 import {Table, Icon} from 'antd'
 import TableColumnFilter from '../common/tableColumnFilter'
-import {timestampToString, getTableScrollY, activeFilterColor, inactiveFilterColor } from '../../utils'
+import {timestampToObject, getTableScrollY, activeFilterColor, inactiveFilterColor } from '../../utils'
 
 function ConsultTable ({
   dataSource, 
@@ -41,8 +41,14 @@ function ConsultTable ({
     }, {
       title: '分配时间',
       dataIndex: 'createTime',
-      render(text, record, index) {
-        return timestampToString(text);
+      render: text => {
+        let {date, time} = timestampToObject(text);
+        return (
+          <div>
+            <div>{date}</div>
+            <div>{time}</div>
+          </div>
+        )
       },
       width: '90px',
     }, {
@@ -144,6 +150,7 @@ function ConsultTable ({
     // <div>
       <Table
         bordered
+        style={{ marginTop: 15 }}        
         scroll={{ y: getTableScrollY(600) }}
         columns={columns}
         dataSource={dataSource}

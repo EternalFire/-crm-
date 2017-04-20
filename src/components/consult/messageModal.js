@@ -1,5 +1,5 @@
 /*
- * 咨询中心 聊天信息
+ * 网络咨询 聊天信息
  */
 import React, { PropTypes } from 'react'
 import {Modal, Form} from 'antd'
