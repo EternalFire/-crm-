@@ -79,14 +79,14 @@ function Menus ({ user, siderFold, darkTheme, location, isNavbar, handleClickNav
   )
 }
 
-Menus.propTypes = {
-  siderFold: PropTypes.bool,
-  darkTheme: PropTypes.bool,
-  location: PropTypes.object,
-  isNavbar: PropTypes.bool,
-  handleClickNavMenu: PropTypes.func,
-  navOpenKeys: PropTypes.array,
-  changeOpenKeys: PropTypes.func
-}
+// Menus.propTypes = {
+//   siderFold: PropTypes.bool,
+//   darkTheme: PropTypes.bool,
+//   location: PropTypes.object,
+//   isNavbar: PropTypes.bool,
+//   handleClickNavMenu: PropTypes.func,
+//   navOpenKeys: PropTypes.array,
+//   changeOpenKeys: PropTypes.func
+// }
 
 export default Menus

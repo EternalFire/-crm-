@@ -114,11 +114,11 @@ function App ({children, location, dispatch, app}) {
   )
 }
 
-App.propTypes = {
-  children: PropTypes.element.isRequired,
-  location: PropTypes.object,
-  dispatch: PropTypes.func,
-  app: PropTypes.object
-}
+// App.propTypes = {
+//   children: PropTypes.element.isRequired,
+//   location: PropTypes.object,
+//   dispatch: PropTypes.func,
+//   app: PropTypes.object
+// }
 
 export default connect(({app}) => ({app}))(App)

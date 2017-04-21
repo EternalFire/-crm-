@@ -51,17 +51,17 @@ function Header ({user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
   )
 }
 
-Header.propTypes = {
-  user: PropTypes.object,
-  logout: PropTypes.func,
-  switchSider: PropTypes.func,
-  siderFold: PropTypes.bool,
-  isNavbar: PropTypes.bool,
-  menuPopoverVisible: PropTypes.bool,
-  location: PropTypes.object,
-  switchMenuPopover: PropTypes.func,
-  navOpenKeys: PropTypes.array,
-  changeOpenKeys: PropTypes.func
-}
+// Header.propTypes = {
+//   user: PropTypes.object,
+//   logout: PropTypes.func,
+//   switchSider: PropTypes.func,
+//   siderFold: PropTypes.bool,
+//   isNavbar: PropTypes.bool,
+//   menuPopoverVisible: PropTypes.bool,
+//   location: PropTypes.object,
+//   switchMenuPopover: PropTypes.func,
+//   navOpenKeys: PropTypes.array,
+//   changeOpenKeys: PropTypes.func
+// }
 
 export default Header

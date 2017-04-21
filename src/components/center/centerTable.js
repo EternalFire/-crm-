@@ -10,6 +10,7 @@ import ProgressTags from '../common/progressTags'
 
 function CenterTable ({
   users, 
+  usersFiltered, 
   dataSource, 
   loading, 
   onEditItem, 
@@ -67,7 +68,8 @@ function CenterTable ({
       dataIndex: 'followUserName',
       width: '80px',
       filters: usersFilters, 
-      filterMultiple: false // 单选
+      filterMultiple: false, // 单选
+      filteredValue: usersFiltered
     },{
       title: '岗位',
       dataIndex: 'job',

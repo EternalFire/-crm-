@@ -28,14 +28,14 @@ function Sider ({ user, siderFold, darkTheme, location, changeTheme, navOpenKeys
   )
 }
 
-Sider.propTypes = {
-  siderFold: PropTypes.bool,
-  darkTheme: PropTypes.bool,
-  location: PropTypes.object,
-  changeTheme: PropTypes.func,
-  navOpenKeys: PropTypes.array,
-  changeOpenKeys: PropTypes.func
-}
+// Sider.propTypes = {
+//   siderFold: PropTypes.bool,
+//   darkTheme: PropTypes.bool,
+//   location: PropTypes.object,
+//   changeTheme: PropTypes.func,
+//   navOpenKeys: PropTypes.array,
+//   changeOpenKeys: PropTypes.func
+// }
 
 export default Sider
 

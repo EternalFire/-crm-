@@ -69,10 +69,10 @@ const login = ({
   )
 }
 
-login.propTypes = {
-  form: PropTypes.object,
-  loginButtonLoading: PropTypes.bool,
-  onOk: PropTypes.func
-}
+// login.propTypes = {
+//   form: PropTypes.object,
+//   loginButtonLoading: PropTypes.bool,
+//   onOk: PropTypes.func
+// }
 
 export default Form.create()(login)

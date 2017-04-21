@@ -67,7 +67,7 @@ const EditModal = ({
 
   return (
     <Modal {...modalProps}>
-      <Form vertical>
+      <Form layout="vertical">
         <Row gutter={16}>
           <Col span={8}>姓名</Col>
           <Col span={16}>{item.name}</Col>
