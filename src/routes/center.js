@@ -9,10 +9,11 @@ import CenterModal from '../components/center/centerModal'
 import {center as CenterUtil, today, tomorrow, startOfMonth, endOfMonth } from '../utils'
 
 const Center = ({ location, dispatch, center, loading, user, users }) => {
-  const { name, type, dayData, monthData, allData, current, modalVisible, currentMenuKey, pagination, mobileFilterVisible, mobileText, startDate, endDate } = center;
+  const { name, type, dayData, monthData, allData, current, modalVisible, currentMenuKey, pagination, mobileFilterVisible, mobileText, startDate, endDate, usersFilters } = center;
 
   const tableProps = {
     users, 
+    usersFiltered: usersFilters,
     onEditItem(record) {
       dispatch({ type: 'center/setCurrent', payload: { current: record } });
       dispatch({ type: 'center/setModalVisible', payload: { visible: true } });

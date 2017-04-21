@@ -64,7 +64,8 @@ export default {
           }
 
           dispatch({ type: 'setCurrentMenuKey', payload: { currentMenuKey: [menuKey] }});
-          dispatch({ type: 'resetPagination' });          
+          dispatch({ type: 'resetPagination' });
+          dispatch({ type: 'clearFilters' });
           dispatch({ type: 'query' });
 
           // 获取咨询师
