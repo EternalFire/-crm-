@@ -55,8 +55,8 @@ function Bread ({ location }) {
   )
 }
 
-Bread.propTypes = {
-  location: PropTypes.object
-}
+// Bread.propTypes = {
+//   location: PropTypes.object
+// }
 
 export default Bread

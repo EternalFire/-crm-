@@ -36,7 +36,7 @@ const modal = ({
 
   return (
     <Modal {...modalProps}>
-      <Form vertical>
+      <Form layout="vertical">
         {
           users.map((u, i) => (
             <div key={`follow${i}`} className="radio">

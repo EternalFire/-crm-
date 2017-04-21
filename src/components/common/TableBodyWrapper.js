@@ -57,10 +57,10 @@ const TableBodyWrapper = ({ body, page = 1, current }) => {
   )
 }
 
-TableBodyWrapper.propTypes = {
-  body: PropTypes.element,
-  page: PropTypes.any,
-  current: PropTypes.number.isRequired
-}
+// TableBodyWrapper.propTypes = {
+//   body: PropTypes.element,
+//   page: PropTypes.any,
+//   current: PropTypes.number.isRequired
+// }
 
 export default TableBodyWrapper

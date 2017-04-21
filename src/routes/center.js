@@ -154,9 +154,9 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
   )
 }
 
-Center.propTypes = {
-  center: PropTypes.object
-}
+// Center.propTypes = {
+//   center: PropTypes.object
+// }
 
 function mapStateToProps(state) {
   const { center, loading, app } = state  

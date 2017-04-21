@@ -35,9 +35,9 @@ function AdminReport({dispatch, admin, loading}) {
   )
 }
 
-AdminReport.propTypes = {
-  admin: PropTypes.object
-}
+// AdminReport.propTypes = {
+//   admin: PropTypes.object
+// }
 
 export default connect(
   ({ admin, loading }) => ({ admin, loading: loading.global })

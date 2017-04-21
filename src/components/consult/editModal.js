@@ -87,7 +87,7 @@ const EditModal = ({
 
   return (
     <Modal {...modalProps}>
-      <Form vertical>
+      <Form layout="vertical">
         <Row>
           <Col span={12}>
             <FormItem label='姓名: ' {...formItemLayout}>

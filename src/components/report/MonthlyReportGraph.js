@@ -61,7 +61,7 @@ const getValues = (data, index) => {
 // 简历上门  市场上门 预报量 转缴量 放款量
 // data index:
 //    0       1       2     3    4
-const AmountGraph = React.createClass({
+class AmountGraph extends React.Component{
   render() {
     const { data } = this.props;
     const config = {
@@ -123,11 +123,11 @@ const AmountGraph = React.createClass({
       </div>
     );
   }
-});
+};
 
 // 预报率(%) 转缴率(%) 放款率(%)
 //    5       6       7
-const RateGraph = React.createClass({
+class RateGraph extends React.Component {
   render() {
     const { data } = this.props;
     const config = {
@@ -183,10 +183,9 @@ const RateGraph = React.createClass({
       </div>
     );
   }
-});
+};
 
-
-export default React.createClass({
+export default class MonthlyReport extends React.Component {
   render() {
     const { data: momthReportData } = this.props;    
 
@@ -201,4 +200,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+};

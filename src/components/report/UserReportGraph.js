@@ -9,7 +9,7 @@ import HighCharts from 'react-highcharts';
 
 // 日初试 日复试 日预报 日转缴 日放款
 // cs fs yb zj fk
-const DayAmountGraph = React.createClass({
+class DayAmountGraph extends React.Component {
   render() {
     const { data } = this.props;
     const config = {
@@ -71,11 +71,11 @@ const DayAmountGraph = React.createClass({
       </div>
     );
   }
-});
+};
 
 // 月初试 月复试 总预报 总转缴 总放款
 // csOfM fsOfM ybOfM zjOfM fkOfM
-const MonthAmountGraph = React.createClass({
+class MonthAmountGraph extends React.Component {
   render() {
     const { data } = this.props;
 
@@ -138,11 +138,11 @@ const MonthAmountGraph = React.createClass({
       </div>
     );
   }
-});
+};
 
 // 总预报率  总预报转缴费率 总放款率
 // ybRateOfM zjRateOfM fkRateOfM
-const RateGraph = React.createClass({
+class RateGraph extends React.Component {
   render() {
     const { data } = this.props;
     const config = {
@@ -198,9 +198,9 @@ const RateGraph = React.createClass({
       </div>
     );
   }
-});
+};
 
-export default React.createClass({
+export default class UserReport extends React.Component {
   render() {
     const {
       data: usersReportData,
@@ -220,4 +220,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+};
