@@ -1,8 +1,11 @@
+/**
+ * 咨询中心 数据表
+ */
 import React from 'react'
 import {Table, Icon, Input, Button} from 'antd'
 // import TableBodyWrapper from '../common/TableBodyWrapper'
 import TableColumnFilter from '../common/tableColumnFilter'
-import {timestampToString, getTableScrollY, activeFilterColor, inactiveFilterColor} from '../../utils'
+import {timestampToObject, getTableScrollY, activeFilterColor, inactiveFilterColor} from '../../utils'
 import ProgressTags from '../common/progressTags'
 
 function CenterTable ({
@@ -49,8 +52,14 @@ function CenterTable ({
         </div>
       ),
       dataIndex: 'createTime',
-      render(text, record, index) {
-        return timestampToString(text);
+      render: text => {
+        let {date, time} = timestampToObject(text);
+        return (
+          <div>
+            <div>{date}</div>
+            <div>{time}</div>
+          </div>
+        )
       },
       width: '90px',
     }, {
@@ -98,6 +107,7 @@ function CenterTable ({
     }, {
       title: '初试备注',
       dataIndex: 'remark',
+      width: '200px',
       render(text, record, index) {
         return (
           <div style={{
@@ -142,6 +152,7 @@ function CenterTable ({
     // <div>
       <Table
         bordered
+        style={{ marginTop: 15 }}
         scroll={{ y: getTableScrollY(530) }}
         columns={columns}
         dataSource={dataSource}

@@ -1,5 +1,5 @@
 /*
- * 咨询中心
+ * 网络咨询
  */
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
@@ -8,6 +8,8 @@ import ConsultTable from '../components/consult/consultTable'
 import EditModal from '../components/consult/editModal'
 import MessageModal from '../components/consult/messageModal'
 import {Modal} from 'antd'
+
+const Confirm = Modal.confirm;
 
 function Consult({dispatch, consult, loading}) {
   const {
@@ -40,6 +42,15 @@ function Consult({dispatch, consult, loading}) {
       dispatch({ type: 'consult/setCurrent', payload: { current: record } });
       dispatch({ type: 'consult/showEditModal' });
     }, 
+    onDeleteItem(record) {
+      Confirm({
+        title: `确定要删除 ${record.name} ?`,
+        onOk() {
+          dispatch({type: 'consult/deleteCustomer', payload: { current: record }})
+        },
+        onCancel() {},
+      });
+    }, 
     onShowMessage(record) {
       if (record.guest_id) {
         dispatch({ type: 'consult/queryMessage', payload: { guest_id: record.guest_id } });
@@ -63,6 +74,9 @@ function Consult({dispatch, consult, loading}) {
     },
     
     onSearch() {
+      // 按列条件查询, 复位分页页码
+      dispatch({ type: 'consult/resetPagination' })
+      
       dispatch({ type: 'consult/query' })
     },
     

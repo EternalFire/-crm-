@@ -34,6 +34,7 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
     },
     onSearchMobile(e) {
       // if (mobileText && mobileText.length > 0) {
+        dispatch({ type: 'center/resetPagination' });        
         dispatch({ type: 'center/query' })
       // } 
     },

@@ -34,11 +34,11 @@ export default {
             dispatch({ type: 'setCenter', payload: { name, type } })
           }
           if (type === center.interviewType.align) {
+            dispatch({ type: 'setDate', payload: { date: today() } })
             dispatch({ type: 'queryFrontDesk' })
             dispatch({ type: 'app/queryUsers', payload: {center: name} })
           }
         }
-
       });
     }
   },

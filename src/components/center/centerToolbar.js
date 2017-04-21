@@ -1,3 +1,6 @@
+/**
+ * 网络中心 工具栏
+ */
 import React from 'react'
 import {Menu, Card, DatePicker, Button, message} from 'antd'
 import OutputTableButton from '../common/outputTableButton'

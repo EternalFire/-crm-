@@ -1,5 +1,5 @@
 /*
- * 咨询中心 编辑用户信息
+ * 网络咨询 编辑用户信息
  */
 import React, { PropTypes } from 'react'
 import {Modal, Row, Col, Form, Input, Radio, Checkbox} from 'antd'

@@ -6,7 +6,7 @@ function OutputTableButton({
   return (
     <Button onClick={() => {
       message.info('近期推出');
-    }}>导出</Button>
+    }}>导出Excel</Button>
   )
 }
 

@@ -1,7 +1,7 @@
 /*
  * 咨询中心
  */
-import {queryConsult, queryConsultMessage, editCustomerConsult} from '../services/crm'
+import {queryConsult, queryConsultMessage, editCustomerConsult, deleteCustomerFrontDesk as deleteCustomer} from '../services/crm'
 import {checkResponse, center, authority, today} from '../utils'
 import { routerRedux } from 'dva/router';
 
@@ -44,6 +44,8 @@ export default {
         if (center.isConsult(type)) {
           dispatch({ type: 'setCenter', payload: { name } })
           dispatch({ type: 'resetPagination' })
+          dispatch({ type: 'setStartDate', payload: { startDate: today() } });
+          dispatch({ type: 'setEndDate', payload: { endDate: today() } });
           dispatch({ type: 'query' })
         }
       });
@@ -121,7 +123,16 @@ export default {
     *clearFilters({ payload }, { select, call, put }) {
       yield put({ type: 'setMobileText', payload: { mobileText: '' } });
       yield put({ type: 'setNameText', payload: { nameText: '' } });
-    }
+    },
+    *deleteCustomer({ payload }, { select, call, put }) {
+      const params = payload.current
+      params['customerId'] = params._id      
+
+      const data = yield call(deleteCustomer, params);
+      if (checkResponse(data)) {
+        yield put({ type: 'query' })
+      }
+    }    
   }, 
   reducers: {
     querySuccess(state, action) {

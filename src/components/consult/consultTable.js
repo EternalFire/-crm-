@@ -1,10 +1,10 @@
 /*
- * 咨询中心 数据表
+ * 网络咨询 数据表
  */
 import React, { PropTypes } from 'react'
 import {Table, Icon} from 'antd'
 import TableColumnFilter from '../common/tableColumnFilter'
-import {timestampToString, getTableScrollY, activeFilterColor, inactiveFilterColor } from '../../utils'
+import {timestampToObject, getTableScrollY, activeFilterColor, inactiveFilterColor } from '../../utils'
 
 function ConsultTable ({
   dataSource, 
@@ -12,6 +12,7 @@ function ConsultTable ({
   onPageChange, 
   pagination, 
   onEditItem,
+  onDeleteItem,
   onShowMessage,
 
   mobileText,
@@ -29,20 +30,38 @@ function ConsultTable ({
       title: '操作',
       dataIndex: 'op',
       render: (text, record, index) => (
-        <a href="javascript:void(0)" onClick={() => {          
-          if (onEditItem) {
-            onEditItem(record)
-          }
-        }}>
-          <Icon type="edit" />
-        </a>
+        <div>
+          <a href="javascript:void(0)" onClick={() => {          
+            if (onEditItem) {
+              onEditItem(record)
+            }
+          }}>
+            <Icon type="edit" />
+          </a>
+          <a href="javascript:void(0)" 
+            onClick={() => {
+              if (onDeleteItem) {
+                onDeleteItem(record, index)
+              }
+            }}
+            style={{ marginLeft: '20px' }}
+          >
+            <Icon type="delete" />
+          </a>          
+        </div>
       ),
-      width: '50px',
+      width: '90px',
     }, {
       title: '分配时间',
       dataIndex: 'createTime',
-      render(text, record, index) {
-        return timestampToString(text);
+      render: text => {
+        let {date, time} = timestampToObject(text);
+        return (
+          <div>
+            <div>{date}</div>
+            <div>{time}</div>
+          </div>
+        )
       },
       width: '90px',
     }, {
@@ -118,6 +137,7 @@ function ConsultTable ({
     }, {
       title: '备注',
       dataIndex: 'remark',
+      width: '200px',
       render(text, record, index) {
         return (
           <div style={{
@@ -143,6 +163,7 @@ function ConsultTable ({
     // <div>
       <Table
         bordered
+        style={{ marginTop: 15 }}        
         scroll={{ y: getTableScrollY(600) }}
         columns={columns}
         dataSource={dataSource}
