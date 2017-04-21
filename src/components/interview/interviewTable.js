@@ -42,7 +42,7 @@ const InterviewTable = ({
           </a>
         </div>
       ),
-      width: '80px',
+      width: '90px',
     }, {
       title: '序号',
       dataIndex: 'no',

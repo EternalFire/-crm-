@@ -12,6 +12,7 @@ function ConsultTable ({
   onPageChange, 
   pagination, 
   onEditItem,
+  onDeleteItem,
   onShowMessage,
 
   mobileText,
@@ -29,15 +30,27 @@ function ConsultTable ({
       title: '操作',
       dataIndex: 'op',
       render: (text, record, index) => (
-        <a href="javascript:void(0)" onClick={() => {          
-          if (onEditItem) {
-            onEditItem(record)
-          }
-        }}>
-          <Icon type="edit" />
-        </a>
+        <div>
+          <a href="javascript:void(0)" onClick={() => {          
+            if (onEditItem) {
+              onEditItem(record)
+            }
+          }}>
+            <Icon type="edit" />
+          </a>
+          <a href="javascript:void(0)" 
+            onClick={() => {
+              if (onDeleteItem) {
+                onDeleteItem(record, index)
+              }
+            }}
+            style={{ marginLeft: '20px' }}
+          >
+            <Icon type="delete" />
+          </a>          
+        </div>
       ),
-      width: '50px',
+      width: '90px',
     }, {
       title: '分配时间',
       dataIndex: 'createTime',

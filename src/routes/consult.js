@@ -9,6 +9,8 @@ import EditModal from '../components/consult/editModal'
 import MessageModal from '../components/consult/messageModal'
 import {Modal} from 'antd'
 
+const Confirm = Modal.confirm;
+
 function Consult({dispatch, consult, loading}) {
   const {
     data, 
@@ -39,6 +41,15 @@ function Consult({dispatch, consult, loading}) {
     onEditItem(record) {
       dispatch({ type: 'consult/setCurrent', payload: { current: record } });
       dispatch({ type: 'consult/showEditModal' });
+    }, 
+    onDeleteItem(record) {
+      Confirm({
+        title: `确定要删除 ${record.name} ?`,
+        onOk() {
+          dispatch({type: 'consult/deleteCustomer', payload: { current: record }})
+        },
+        onCancel() {},
+      });
     }, 
     onShowMessage(record) {
       if (record.guest_id) {
