@@ -54,6 +54,14 @@ function checkCenter(name, type, user) {
   ;
 }
 
+function getTypeName(type) {
+  if (isWorker(type))             return '咨询顾问';
+  if (isManager(type))            return '咨询经理';
+  if (isFront(type))              return '前台';
+  if (isNetCustomerService(type)) return '网络咨询客服';
+  if (isGeneralManager(type))     return '总经理';
+}
+
 export {
   isWorker,
   isManager,
@@ -75,5 +83,6 @@ export {
   isNanchangWorker,
   isNanchangManager,
 
-  checkCenter
+  checkCenter,
+  getTypeName
 };

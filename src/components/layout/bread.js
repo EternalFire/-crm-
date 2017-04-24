@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { Breadcrumb, Icon } from 'antd'
 import styles from './main.less'
 import { menu } from '../../utils'

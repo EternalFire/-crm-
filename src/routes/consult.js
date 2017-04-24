@@ -1,7 +1,7 @@
 /*
  * 网络咨询
  */
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { connect } from 'dva'
 import ConsultToolbar from '../components/consult/consultToolbar'
 import ConsultTable from '../components/consult/consultTable'

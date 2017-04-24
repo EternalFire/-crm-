@@ -1,7 +1,7 @@
 /*
- * 总部
+ * 总部 - 数据分析
  */
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { connect } from 'dva'
 import AdminReportComponent from '../components/report/adminReport'
 import AdminReportTool from '../components/report/adminReportTool'
