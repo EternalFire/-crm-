@@ -41,7 +41,10 @@ const Center = ({ location, dispatch, center, loading, user, users }) => {
     },
     onMobileFilterVisibleChange(visible) {
       dispatch({ type: 'center/setMobileFilterVisible', payload: { mobileFilterVisible: visible } });
-    }
+    },
+    onEmptyMobile() {
+      dispatch({ type: 'center/setMobileText', payload: { mobileText: '' } });
+    },    
   }
 
   const renderDayTable = () => {

@@ -11,7 +11,7 @@ import {Modal} from 'antd'
 
 const Confirm = Modal.confirm;
 
-function Consult({dispatch, consult, loading}) {
+function Consult({dispatch, consult, users, loading}) {
   const {
     data, 
     current, 
@@ -23,7 +23,8 @@ function Consult({dispatch, consult, loading}) {
     mobileText, 
     mobileFilterVisible,
     nameText, 
-    nameFilterVisible
+    nameFilterVisible,
+    usersFilters
   } = consult; 
 
   const consultToolbarProps = {
@@ -36,6 +37,8 @@ function Consult({dispatch, consult, loading}) {
 
   const consultTableProps = {
     dataSource: data,
+    users, 
+    usersFiltered: usersFilters,    
     loading,
     pagination, 
     onEditItem(record) {
@@ -59,6 +62,8 @@ function Consult({dispatch, consult, loading}) {
       dispatch({ type: 'consult/showMessageModal' });
     }, 
     onPageChange(pagination, filters, sorter) {
+      const { followUserName } = filters;
+      dispatch({ type: 'consult/setUsersFilters', payload: followUserName });
       dispatch({ type: 'consult/setPagination', payload: { pagination } });
       dispatch({ type: 'consult/query' });
     },
@@ -71,6 +76,9 @@ function Consult({dispatch, consult, loading}) {
     mobileFilterVisible,
     onMobileFilterVisibleChange(visible) {
       dispatch({ type: 'consult/setMobileFilterVisible', payload: { mobileFilterVisible: visible } });
+    },
+    onEmptyMobile() {
+      dispatch({ type: 'consult/setMobileText', payload: { mobileText: '' } });
     },
     
     onSearch() {
@@ -89,6 +97,9 @@ function Consult({dispatch, consult, loading}) {
     onNameFilterVisibleChange(visible) {
       dispatch({ type: 'consult/setNameFilterVisible', payload: { nameFilterVisible: visible } });
     },
+    onEmptyName() {
+      dispatch({ type: 'consult/setNameText', payload: { nameText: '' } });
+    }
   }
 
   const editModalProps = {
@@ -129,7 +140,8 @@ function Consult({dispatch, consult, loading}) {
   );
 }
 
-export default connect(({consult, loading}) => ({
-  consult,
+export default connect(({consult, app, loading}) => ({
+  consult, 
+  users: app.users, 
   loading: loading.global
 }))(Consult)

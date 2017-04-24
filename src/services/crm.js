@@ -158,6 +158,7 @@ export async function queryConsult(params) {
     currentPageSize,
     nameText,
     mobileText,
+    userFilterID
   } = params;
 
   const memsrc = 'wz';
@@ -185,6 +186,10 @@ export async function queryConsult(params) {
 
   if (mobileText) {
     url += `&mobile=${mobileText}`
+  }
+
+  if (userFilterID) {
+    url += '&followUserId=' + userFilterID;
   }
 
   return request(url, {
