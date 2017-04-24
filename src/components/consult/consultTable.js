@@ -7,6 +7,8 @@ import TableColumnFilter from '../common/tableColumnFilter'
 import {timestampToObject, getTableScrollY, activeFilterColor, inactiveFilterColor } from '../../utils'
 
 function ConsultTable ({
+  users, 
+  usersFiltered, 
   dataSource, 
   loading, 
   onPageChange, 
@@ -26,6 +28,16 @@ function ConsultTable ({
   nameFilterVisible,
   onNameFilterVisibleChange,
 }) {
+  let usersFilters = [];
+  if (users) {
+    usersFilters = users.map(e => {
+      return {
+        text: e.name,
+        value: e._id
+      };
+    });
+  }
+
   const columns = [{
       title: '操作',
       dataIndex: 'op',
@@ -109,9 +121,12 @@ function ConsultTable ({
       dataIndex: 'keyword',
       width: '80px',
     }, {
-      title: '咨询顾问',
+      title: '咨询师',
       width: '80px',
       dataIndex: 'followUserName',
+      filters: usersFilters, 
+      filterMultiple: false, // 单选
+      filteredValue: usersFiltered
     }, {
       title: '接待客服',
       dataIndex: 'workerName',

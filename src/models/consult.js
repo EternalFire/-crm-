@@ -1,5 +1,5 @@
 /*
- * 咨询中心
+ * 网络咨询
  */
 import {queryConsult, queryConsultMessage, editCustomerConsult, deleteCustomerFrontDesk as deleteCustomer} from '../services/crm'
 import {checkResponse, center, authority, today} from '../utils'
@@ -14,14 +14,6 @@ export default {
     currentMessage: [],
     // date: '2017-02-28',
 
-    pagination: {
-      // showSizeChanger: true,
-      // showQuickJumper: true,
-      showTotal: total => `共 ${total} 条`,
-      current: 1,
-      pageSize: 20,
-      total: null
-    },
 
     editModalVisible: false,
     messageModalVisible: false,
@@ -34,7 +26,18 @@ export default {
     endDate: today(),
 
     mobileText: '',
-    mobileFilterVisible: false
+    mobileFilterVisible: false,
+
+    usersFilters: [],
+    
+    pagination: {
+      // showSizeChanger: true,
+      // showQuickJumper: true,
+      showTotal: total => `共 ${total} 条`,
+      current: 1,
+      pageSize: 20,
+      total: null
+    },
   }, 
   subscriptions: {
     setup ({dispatch, history}) {
@@ -42,11 +45,13 @@ export default {
         let {name, type} = center.parsePath(location.pathname);
         
         if (center.isConsult(type)) {
-          dispatch({ type: 'setCenter', payload: { name } })
-          dispatch({ type: 'resetPagination' })
+          dispatch({ type: 'setCenter', payload: { name } });
+          dispatch({ type: 'resetPagination' });
           dispatch({ type: 'setStartDate', payload: { startDate: today() } });
           dispatch({ type: 'setEndDate', payload: { endDate: today() } });
-          dispatch({ type: 'query' })
+          dispatch({ type: 'query' });
+
+          dispatch({ type: 'app/queryUsers', payload: { center: name } });
         }
       });
     }
@@ -60,7 +65,8 @@ export default {
         endDate: consult.endDate,
         nameText: consult.nameText,
         mobileText: consult.mobileText,
-        name: consult.name
+        name: consult.name,
+        userFilterID: consult.usersFilters[0]
       }));
 
       const { user } = yield select(({ app }) => (app));      
@@ -123,6 +129,7 @@ export default {
     *clearFilters({ payload }, { select, call, put }) {
       yield put({ type: 'setMobileText', payload: { mobileText: '' } });
       yield put({ type: 'setNameText', payload: { nameText: '' } });
+      yield put({ type: 'setUsersFilters', payload: [] })    
     },
     *deleteCustomer({ payload }, { select, call, put }) {
       const params = payload.current
@@ -205,6 +212,9 @@ export default {
       return {
         ...state, pagination: { ...state.pagination, current: 1 }
       }
-    },    
+    }, 
+    setUsersFilters (state, action) {
+      return { ...state, usersFilters: action.payload }
+    }   
   }
 }
