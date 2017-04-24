@@ -21,12 +21,15 @@ function ConsultTable ({
   onInputMobileChange,
   mobileFilterVisible,
   onMobileFilterVisibleChange,
+  onEmptyMobile,
+
   onSearch,
 
   nameText,
   onInputNameChange, 
   nameFilterVisible,
-  onNameFilterVisibleChange,
+  onNameFilterVisibleChange, 
+  onEmptyName
 }) {
   let usersFilters = [];
   if (users) {
@@ -82,11 +85,12 @@ function ConsultTable ({
       width: '80px',
       filterDropdown: (
         <TableColumnFilter 
-          value={nameText}
+          value={nameText} 
           placeholder="输入姓名"
-          onChange={onInputNameChange}
-          onPressEnter={onSearch}
-          onOk={onSearch}
+          onChange={onInputNameChange} 
+          onPressEnter={onSearch} 
+          onOk={onSearch} 
+          onEmpty={onEmptyName}
         />
       ),
       filterIcon: <Icon type="search" style={{ color: nameText.length > 0 ? activeFilterColor : inactiveFilterColor }} />,
@@ -103,6 +107,7 @@ function ConsultTable ({
           onChange={onInputMobileChange}
           onPressEnter={onSearch}
           onOk={onSearch}
+          onEmpty={onEmptyMobile}
         />
       ),
       filterIcon: <Icon type="search" style={{ color: mobileText.length > 0 ? activeFilterColor : inactiveFilterColor }} />,
@@ -175,20 +180,18 @@ function ConsultTable ({
   ];
 
   return (
-    // <div>
-      <Table
-        bordered
-        style={{ marginTop: 15 }}        
-        scroll={{ y: getTableScrollY(600) }}
-        columns={columns}
-        dataSource={dataSource}
-        loading={loading}
-        onChange={onPageChange}
-        pagination={pagination}
-        simple
-        rowKey={record => record._id}
-      />
-    // </div>  
+    <Table
+      bordered
+      style={{ marginTop: 15 }}        
+      scroll={{ y: getTableScrollY(600) }}
+      columns={columns}
+      dataSource={dataSource}
+      loading={loading}
+      onChange={onPageChange}
+      pagination={pagination}
+      simple
+      rowKey={record => record._id}
+    />
   )
 }
 

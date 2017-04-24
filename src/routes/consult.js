@@ -77,6 +77,9 @@ function Consult({dispatch, consult, users, loading}) {
     onMobileFilterVisibleChange(visible) {
       dispatch({ type: 'consult/setMobileFilterVisible', payload: { mobileFilterVisible: visible } });
     },
+    onEmptyMobile() {
+      dispatch({ type: 'consult/setMobileText', payload: { mobileText: '' } });
+    },
     
     onSearch() {
       // 按列条件查询, 复位分页页码
@@ -94,6 +97,9 @@ function Consult({dispatch, consult, users, loading}) {
     onNameFilterVisibleChange(visible) {
       dispatch({ type: 'consult/setNameFilterVisible', payload: { nameFilterVisible: visible } });
     },
+    onEmptyName() {
+      dispatch({ type: 'consult/setNameText', payload: { nameText: '' } });
+    }
   }
 
   const editModalProps = {

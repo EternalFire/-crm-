@@ -21,7 +21,8 @@ function CenterTable ({
   onInputChange, 
   onSearchMobile, 
   mobileText,
-  onMobileFilterVisibleChange
+  onMobileFilterVisibleChange,
+  onEmptyMobile
 }) {
   const handleOp = (record) => {
     onEditItem(record)
@@ -101,6 +102,7 @@ function CenterTable ({
           onChange={onInputChange} 
           onPressEnter={onSearchMobile} 
           onOk={onSearchMobile} 
+          onEmpty={onEmptyMobile}
         />
       ),
       filterIcon: <Icon type="search" style={{ color: mobileText.length > 0 ? activeFilterColor : inactiveFilterColor }} />, 

@@ -1,28 +1,41 @@
+/**
+ * 表格列筛选框
+ */
 import React from 'react';
-import {Input, Button} from 'antd';
+import {Input, Button, Icon} from 'antd';
+import styles from './tableColumnFilter.css'
 
 function TableColumnFilter({
   value,
   placeholder,
   onChange,
   onPressEnter,
-  onOk
+  onOk,
+  onEmpty
 }) {
+  let inputNode;
+
+  const handleEmpty = () => {
+    if (onEmpty) {
+      onEmpty()
+    }
+
+    inputNode.focus();
+  };
+
   return (
-    <div style={{
-      padding: '8px',
-      borderRadius: '6px',
-      background: '#fff',
-      boxShadow: '0 1px 6px rgba(0, 0, 0, .2)'
-    }}>
+    <div className={styles.box}>
       <Input 
         value={value}
         placeholder={placeholder}
         onChange={onChange}
         onPressEnter={onOk}
+        suffix={value ? <Icon className={styles.empty} type="close-circle" onClick={handleEmpty} /> : null}
         style={{
-          width: 130
+          width: 140,
+          margin: 2
         }}
+        ref={node => inputNode = node}
       />
       <Button type="primary" onClick={onOk}>确定</Button>
     </div>    
