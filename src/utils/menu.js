@@ -94,9 +94,14 @@ function generateAdminMenu() {
     icon: 'appstore',
     child: [
       {
-        key: admin + '-report',
-        name: '数据分析',
+        key: admin + '-report', 
+        name: '数据分析', 
         icon: 'line-chart'
+      },
+      {
+        key: admin + '-user',
+        name: '用户管理',
+        icon: 'user'
       }
     ]
   };

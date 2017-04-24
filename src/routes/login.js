@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
 import { Button, Row, Form, Input } from 'antd'
 import { config, maxNormalLen, maxNormalMessage } from '../utils'
 import styles from './login.less'

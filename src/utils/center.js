@@ -41,6 +41,11 @@ const getCenterName = (center) => {
 };
 
 const getCenters = () => [guangzhou, chongqing, changsha, nanchang];
+const allCenters = () => {
+  let centers = getCenters();
+  centers.push(admin);
+  return centers;
+};
 
 // 报表类型
 const day = 'day';
@@ -98,6 +103,10 @@ const isReport = (type) => {
   return type && type === 'report';
 }
 
+const isUser = (type) => {
+  return type && type === 'user';
+}
+
 export {
   guangzhou,
   chongqing,
@@ -111,6 +120,7 @@ export {
   isAdmin,
   getCenterName,
   getCenters,
+  allCenters,
   type,
   interviewType,
   analysisType,
@@ -119,5 +129,6 @@ export {
   isMng,
   isInterview,
   isConsult,
-  isReport
+  isReport,
+  isUser
 }

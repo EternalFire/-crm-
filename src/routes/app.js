@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { connect } from 'dva'
 import { routerRedux } from 'dva/router';
 import Login from './login'

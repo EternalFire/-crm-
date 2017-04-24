@@ -1,7 +1,7 @@
 /*
  * 咨询中心
  */
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { connect } from 'dva'
 import CenterTable from '../components/center/centerTable'
 import CenterToolbar from '../components/center/centerToolbar'

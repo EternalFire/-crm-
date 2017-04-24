@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import {Table, Icon, Button} from 'antd'
-import TableBodyWrapper from '../common/TableBodyWrapper'
+// import TableBodyWrapper from '../common/TableBodyWrapper'
 import ProgressTags from '../common/progressTags'
 import {timestampToObject, getTableScrollY} from '../../utils'
 
@@ -122,20 +122,18 @@ const InterviewTable = ({
   ];
 
   return (
-    // <div>
-      <Table
-        bordered
-        style={{ marginTop: 15 }}        
-        scroll={{ y: getTableScrollY(580) }}
-        columns={columns}
-        dataSource={dataSource}
-        loading={loading}
-        // onChange={onPageChange}
-        pagination={pagination}
-        simple
-        rowKey={record => record._id}
-      />
-    // </div>
+    <Table
+      bordered
+      style={{ marginTop: 15 }}        
+      scroll={{ y: getTableScrollY(580) }}
+      columns={columns}
+      dataSource={dataSource}
+      loading={loading}
+      // onChange={onPageChange}
+      pagination={pagination}
+      simple
+      rowKey={record => record._id}
+    />  
   )
 }
 

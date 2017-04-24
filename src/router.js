@@ -92,6 +92,16 @@ export default function ({history, app}) {
           }
         },
         {
+          path: 'admin/admin-user',
+          name: 'admin/admin-user',
+          getComponent(nextState, cb) {
+            require.ensure([], require => {
+              registerModel(app, require('./models/admin'))
+              cb(null, require('./routes/user'))
+            }, 'adminUser')
+          }
+        }, 
+        {
           path: '*',
           name: 'error',
           getComponent (nextState, cb) {
