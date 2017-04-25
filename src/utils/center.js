@@ -2,7 +2,6 @@
  * 各中心
  *
  */
-
 const guangzhou = 'gz';
 const chongqing = 'cq';
 const changsha = 'cs';

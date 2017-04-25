@@ -20,7 +20,8 @@ export default {
     darkTheme: true,
     isNavbar: document.body.clientWidth < 769,
     navOpenKeys: JSON.parse(localStorage.getItem('navOpenKeys') || '[]'),
-    openKey: ''
+    openKey: '',
+    userInfoModalVisible: false
   },
   subscriptions: {
     setup ({history, dispatch}) {
@@ -206,11 +207,9 @@ export default {
         openKey
       }
     },
-    setUsers (state, action) {
-      return {
-        ...state,
-        ...action.payload
-      }
-    }
+    setUsers (state, action) { return {...state,...action.payload} },
+    showUserInfoModal (state, action) { return {...state, userInfoModalVisible: true} },
+    hideUserInfoModal (state, action) { return {...state, userInfoModalVisible: false} },
+    updateUser (state, action) { return {...state, user: action.payload} }
   }
 }

@@ -12,6 +12,10 @@ function UserTable({
   onEditItem,
   onDeleteItem,  
 }) {
+  let data = dataSource.map((e, i) => {
+    e.seq = i + 1;
+    return e;
+  });
 
   const columns = [{
     title: '操作',
@@ -42,6 +46,10 @@ function UserTable({
     ),
     width: '90px'
   }, {
+    title: '序号',
+    dataIndex: 'seq', 
+    width: '30px'
+  }, {
     title: '姓名',
     dataIndex: 'name',  
     width: '90px'
@@ -50,7 +58,7 @@ function UserTable({
     dataIndex: 'email',
     width: '90px'    
   }, {
-    title: '类型',
+    title: '职位',
     dataIndex: 'type',
     width: '90px',
     render: (text, record, index) => (
@@ -59,14 +67,14 @@ function UserTable({
       </div>
     )
   }, {
-    title: '中心',
+    title: '所属中心',
     dataIndex: 'center',
     width: '90px',
     render: (text, record, index) => (
       <div>
         {center.getCenterName(text)}
       </div>
-    )    
+    ) 
   }];
 
   return (
@@ -75,12 +83,12 @@ function UserTable({
       style={{ marginTop: 15 }}        
       scroll={{ y: getTableScrollY(580) }}
       columns={columns}
-      dataSource={dataSource}
+      dataSource={data}
       loading={loading}
       // onChange={onPageChange}
       pagination={pagination}
       simple
-      rowKey={record => record._id}
+      rowKey={record => record.seq}
     />  
   );
 }

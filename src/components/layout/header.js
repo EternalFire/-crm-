@@ -5,8 +5,24 @@ import styles from './main.less'
 
 const SubMenu = Menu.SubMenu
 
-function Header ({user, logout, switchSider, siderFold, isNavbar, menuPopoverVisible, location, switchMenuPopover, navOpenKeys, changeOpenKeys}) {
-  let handleClickMenu = e => e.key === 'logout' && logout()
+function Header ({
+  user, 
+  logout, 
+  updateInfo, 
+  switchSider, 
+  siderFold, 
+  isNavbar, 
+  menuPopoverVisible, 
+  location, 
+  switchMenuPopover, 
+  navOpenKeys, 
+  changeOpenKeys
+}) {
+  let handleClickMenu = (e) => {
+    e.key === 'logout' && logout();
+    e.key === 'info' && updateInfo();
+  };
+
   const menusProps = {
     siderFold: false,
     darkTheme: false,
@@ -42,6 +58,9 @@ function Header ({user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
         }} title={
           <span><Icon type='user' />{user.name}</span>
         } >
+          <Menu.Item key='info'>
+            <a>用户信息</a>
+          </Menu.Item>        
           <Menu.Item key='logout'>
             <a>安全退出</a>
           </Menu.Item>

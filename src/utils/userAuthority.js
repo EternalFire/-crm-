@@ -4,20 +4,26 @@
 import {isGuangzhou,isChongqing,isChangsha,isNanchang,isAdmin} from './center'
 
 // 职位
+const worker = 0;
+const manager = 1;
+const front = 10;
+const net = 20;
+const generalManager = 99;
+
 // 咨询顾问
-const isWorker = type => type === 0;
+const isWorker = type => type === worker;
 
 // 咨询经理
-const isManager = type => type === 1;
+const isManager = type => type === manager;
 
 // 分中心前台
-const isFront = type => type === 10;
+const isFront = type => type === front;
 
 // 网咨客服
-const isNetCustomerService = type => type === 20;
+const isNetCustomerService = type => type === net;
 
 // 总经理
-const isGeneralManager = type => type === 99;
+const isGeneralManager = type => type === generalManager;
 
 // 管理员
 const isAdministrator = (center, type) => isAdmin(center) && isGeneralManager(type);
@@ -60,6 +66,11 @@ function getTypeName(type) {
   if (isFront(type))              return '前台';
   if (isNetCustomerService(type)) return '网络咨询客服';
   if (isGeneralManager(type))     return '总经理';
+  return '';
+}
+
+function getTypes() {
+  return [worker, manager, front, net, generalManager];
 }
 
 export {
@@ -84,5 +95,6 @@ export {
   isNanchangManager,
 
   checkCenter,
-  getTypeName
+  getTypeName,
+  getTypes
 };

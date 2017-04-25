@@ -100,7 +100,7 @@ function generateAdminMenu() {
       },
       {
         key: admin + '-user',
-        name: '用户管理',
+        name: '用户权限',
         icon: 'user'
       }
     ]

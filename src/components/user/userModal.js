@@ -1,10 +1,12 @@
 /**
- * 用户信息
+ * 编辑用户权限
  */
 import React from 'react'
-import { Modal, Row, Col, Form, Input } from 'antd'
+import { Modal, Row, Col, Form, Input, Select } from 'antd'
+import {maxNormalLen, maxNormalMessage, authority, center} from '../../utils'
 
 const FormItem = Form.Item;
+const Option = Select.Option;
 
 function UserModal({
   visible,
@@ -23,9 +25,15 @@ function UserModal({
       if (errors) {
         return
       }
+
+      let newData = getFieldsValue();
+      if (newData.type) {
+        newData.type = parseInt(newData.type)
+      }
+
       const data = {
-        ...getFieldsValue(),
-        _id: item._id
+        ...item, 
+        ...newData,
       }
       onOk(data)
     })
@@ -36,7 +44,7 @@ function UserModal({
   };
 
   const modalProps = {
-    title: "编辑CRM系统用户信息",
+    title: "权限信息",
     visible,
     onOk: handleOk,
     onCancel
@@ -47,17 +55,98 @@ function UserModal({
       <Form layout="vertical">
         <FormItem
           {...formItemLayout}
-          label="E-mail"
+          label="姓名"
+        >
+          {item.name}
+        </FormItem>
+
+        {
+          // <FormItem
+          //   {...formItemLayout}
+          //   label="邮箱"
+          //   hasFeedback
+          // >
+          //   {getFieldDecorator('email', {
+          //     initialValue: item.email, 
+          //     rules: [{
+          //       type: 'email', message: '邮箱格式错误',
+          //     }, {
+          //       required: true, message: '邮箱未填写',
+          //     }, {
+          //       max: maxNormalLen,
+          //       message: maxNormalMessage 
+          //     }],
+          //   })(
+          //     <Input />
+          //   )}
+          // </FormItem>
+        }
+
+        {
+          // <FormItem
+          //   {...formItemLayout}
+          //   label="原密码"
+          //   hasFeedback
+          // >
+          //   {getFieldDecorator('pwd', {
+          //     initialValue: '', 
+          //     rules: [{
+          //       type: 'number', message: '密码格式错误',
+          //     }, {
+          //       required: true, message: '密码未填写',
+          //     }, {
+          //       max: maxNormalLen,
+          //       message: maxNormalMessage 
+          //     }],
+          //   })(
+          //     <Input />
+          //   )}
+          // </FormItem>
+        }
+
+        <FormItem
+          {...formItemLayout}
+          label="职位"
           hasFeedback
         >
-          {getFieldDecorator('email', {
+          {getFieldDecorator('type', {
+            initialValue: `${item.type}`, 
             rules: [{
-              type: 'email', message: 'The input is not valid E-mail!',
-            }, {
-              required: true, message: 'Please input your E-mail!',
+              required: true, message: '职位未选择',
             }],
           })(
-            <Input />
+            <Select>
+              {authority.getTypes().map((e, i) => {
+                return (
+                  <Option key={i} value={`${e}`}>
+                    {authority.getTypeName(e)}
+                  </Option>
+                );
+              })}
+            </Select>
+          )}
+        </FormItem>
+
+        <FormItem
+          {...formItemLayout}
+          label="所属中心"
+          hasFeedback
+        >
+          {getFieldDecorator('center', {
+            initialValue: item.center, 
+            rules: [{
+              required: true, message: '中心未选择',
+            }],
+          })(
+            <Select>
+              {center.allCenters().map((e, i) => {
+                return (
+                  <Option key={i} value={e}>
+                    {center.getCenterName(e)}
+                  </Option>
+                );
+              })}
+            </Select>
           )}
         </FormItem>
 

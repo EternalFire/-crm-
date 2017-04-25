@@ -7,13 +7,14 @@ import Header from '../components/layout/header'
 // <Bread location={location} />
 import Footer from '../components/layout/footer'
 import Sider from '../components/layout/sider'
+import UserInfoModal from '../components/user/userInfoModal'
 import styles from '../components/layout/main.less'
 import { Spin, Modal } from 'antd'
 import { classnames, center } from '../utils'
 import '../components/layout/common.less'
 
 function App ({children, location, dispatch, app}) {
-  const {login, loading, isLoginFail, loginButtonLoading, user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys} = app
+  const {login, loading, isLoginFail, loginButtonLoading, user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys, userInfoModalVisible} = app
   const loginProps = {
     loading,
     loginButtonLoading,
@@ -41,6 +42,9 @@ function App ({children, location, dispatch, app}) {
         },
         onCancel() {}
       });
+    },
+    updateInfo() {
+      dispatch({ type: 'app/showUserInfoModal' });
     },
     switchSider () {
       dispatch({type: 'app/switchSider'})
@@ -74,6 +78,22 @@ function App ({children, location, dispatch, app}) {
     }
   }
 
+  const userInfoModalProps = {
+    item: user,
+    visible: userInfoModalVisible, 
+    onOk(formData) {
+      console.log('formData => ', formData);
+
+      dispatch({ type: 'admin/updateUser', payload: formData });
+      dispatch({ type: 'app/updateUser', payload: formData });
+      dispatch({ type: 'app/hideUserInfoModal' });
+    },
+    onCancel() {
+      dispatch({ type: 'app/hideUserInfoModal' });      
+    }    
+  };
+  const UserInfoModalGen = () => <UserInfoModal {...userInfoModalProps} />
+
   return (
     <div>
       {login ? 
@@ -98,7 +118,8 @@ function App ({children, location, dispatch, app}) {
               <Login {...loginProps} />
             </Spin>
           </div>
-      }      
+      }
+      
       <Modal title="提示" 
         onOk={() => {
           clearLoginFail()
@@ -110,6 +131,8 @@ function App ({children, location, dispatch, app}) {
       >
         登录失败
       </Modal>
+
+      <UserInfoModalGen />
     </div>
   )
 }

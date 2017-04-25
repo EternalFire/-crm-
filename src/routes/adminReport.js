@@ -3,10 +3,18 @@
  */
 import React from 'react'
 import { connect } from 'dva'
+import { routerRedux } from 'dva/router'
 import AdminReportComponent from '../components/report/adminReport'
 import AdminReportTool from '../components/report/adminReportTool'
+import {center, authority} from '../utils'
 
-function AdminReport({dispatch, admin, loading}) {
+function AdminReport({dispatch, admin, loading, user}) {
+  // 权限判断
+  if (!authority.checkCenter(center.admin, 'currentType', user)) {
+    dispatch(routerRedux.push({ pathname: '/' }));
+    return (<div></div>);
+  }
+
   const {sureportData, date} = admin;
 
   const adminReportProps = {
@@ -40,5 +48,5 @@ function AdminReport({dispatch, admin, loading}) {
 // }
 
 export default connect(
-  ({ admin, loading }) => ({ admin, loading: loading.global })
+  ({ admin, loading, app }) => ({ admin, loading: loading.global, user: app.user })
 )(AdminReport)
