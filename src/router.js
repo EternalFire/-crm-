@@ -6,8 +6,8 @@ import {center} from './utils'
 const cached = {}
 const registerModel = (app, model) => {
   if (!cached[model.namespace]) {
-    app.model(model)
-    cached[model.namespace] = 1
+    cached[model.namespace] = 1; // 先标记
+    app.model(model);
   }
 }
 

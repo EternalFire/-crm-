@@ -2,6 +2,8 @@
  * 权限管理
  */
 import {isGuangzhou,isChongqing,isChangsha,isNanchang,isAdmin} from './center'
+import { routerRedux } from 'dva/router';
+import { message } from 'antd';
 
 // 职位
 const worker = 0;
@@ -73,6 +75,35 @@ function getTypes() {
   return [worker, manager, front, net, generalManager];
 }
 
+const rules = [
+  {
+    actionType: '',
+    checkFunc: true
+  }
+];
+function check() {
+  return ({getState, dispatch}) => next => action => {  
+    let prevState = getState();
+    const { user } = prevState.app;
+
+    // // 例子
+    // if (action.type === 'centerReport/queryUserReport') {
+    //   // 跳至首页
+    //   dispatch(routerRedux.push({ pathname: '/' }));
+
+    //   // 中断后续的action
+    //   let e = new Error('X');
+    //   message.error(`权限不足`);
+    //   throw e;
+    // }
+
+    let returnedValue = next(action);
+    let nextState = getState();
+
+    return returnedValue;
+  }
+}
+
 export {
   isWorker,
   isManager,
@@ -96,5 +127,6 @@ export {
 
   checkCenter,
   getTypeName,
-  getTypes
+  getTypes,
+  check
 };
