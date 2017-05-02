@@ -1,9 +1,9 @@
 import dva from 'dva'
-import { browserHistory, useRouterHistory } from 'dva/router'
+import { browserHistory, useRouterHistory, routerRedux } from 'dva/router'
 import { createHashHistory } from 'history';
 import createLoading from 'dva-loading';
 import { message } from 'antd';
-
+import { authority } from './utils'
 
 // 1. Initialize
 const app = dva({
@@ -16,8 +16,11 @@ const app = dva({
     } else if (error.message) {
       message.error(`错误信息: ${error.message}`, 5);
     }
-  }
-})
+  },
+  onAction: [
+    authority.check()
+  ],
+});
 
 app.use(createLoading());
 

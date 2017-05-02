@@ -113,6 +113,10 @@ export default {
       yield put({
         type: 'handleSwitchMenuPopver'
       })
+    },
+    *updateUser ({ payload }, { select, call, put }) {
+      // todo
+      yield put({ type: 'updateUserLocal', payload })
     }
   },
   reducers: {
@@ -210,6 +214,6 @@ export default {
     setUsers (state, action) { return {...state,...action.payload} },
     showUserInfoModal (state, action) { return {...state, userInfoModalVisible: true} },
     hideUserInfoModal (state, action) { return {...state, userInfoModalVisible: false} },
-    updateUser (state, action) { return {...state, user: action.payload} }
+    updateUserLocal (state, action) { return {...state, user: action.payload} }
   }
 }

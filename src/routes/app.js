@@ -82,7 +82,7 @@ function App ({children, location, dispatch, app}) {
     item: user,
     visible: userInfoModalVisible, 
     onOk(formData) {
-      console.log('formData => ', formData);
+      // console.log('formData => ', formData);
 
       dispatch({ type: 'admin/updateUser', payload: formData });
       dispatch({ type: 'app/updateUser', payload: formData });
