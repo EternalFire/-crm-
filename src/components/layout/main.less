@@ -236,6 +236,16 @@
         :global .ant-table-pagination {
           margin: 2em 0 2em 2em !important;
         }
+
+        :global .ant-table-thead th {
+          position: -webkit-sticky;
+          position: sticky;
+          top: -1px;
+        }
+
+        :global .ant-table, :global .ant-table table {
+          overflow: visible;
+        }
       }
     }
   }

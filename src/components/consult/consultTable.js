@@ -41,6 +41,7 @@ function ConsultTable ({
     });
   }
 
+  // 分配时间  姓名  手机号  类别  咨询师  关键字  接待客服  备注  性别  班型  专业  学历  学校  所在地  信息来源
   const columns = [{
       title: '操作',
       dataIndex: 'op',
@@ -118,20 +119,10 @@ function ConsultTable ({
       filterDropdownVisible: mobileFilterVisible,
       onFilterDropdownVisibleChange: onMobileFilterVisibleChange      
     }, {
-      title: '所在地区',
-      dataIndex: 'area',
-      // width: '110px',
-      width: '11em',
-    }, {
-      title: '信息来源',
-      dataIndex: 'searchPlatform',
+      title: '类别',
+      dataIndex: 'flag',
       // width: '80px',
       width: '8em',      
-    }, {
-      title: '关键字',
-      dataIndex: 'keyword',
-      // width: '80px',
-      width: '8em',
     }, {
       title: '咨询师',
       // width: '80px',
@@ -140,6 +131,11 @@ function ConsultTable ({
       filters: usersFilters, 
       filterMultiple: false, // 单选
       filteredValue: usersFiltered
+    }, {
+      title: '关键字',
+      dataIndex: 'keyword',
+      // width: '80px',
+      width: '8em',
     }, {
       title: '接待客服',
       dataIndex: 'workerName',
@@ -160,11 +156,6 @@ function ConsultTable ({
         );
       },
     }, {
-      title: '类别',
-      dataIndex: 'flag',
-      // width: '80px',
-      width: '8em',      
-    }, {
       title: '备注',
       dataIndex: 'remark',
       // width: '200px',
@@ -178,7 +169,39 @@ function ConsultTable ({
           </div>
         )
       }      
-    },
+    }, 
+    {
+      title: '性别',
+      dataIndex: 'sex',
+      width: '6em'
+    }, {
+      title: '班型',
+      dataIndex: 'grade',
+      width: '10em'
+    }, {
+      title: '专业',
+      dataIndex: 'major',
+      width: '10em'
+    }, {
+      title: '学历',
+      dataIndex: 'education',
+      width: '10em'
+    }, {
+      title: '学校',
+      dataIndex: 'university',
+      width: '10em'
+    }, 
+    {
+      title: '所在地区',
+      dataIndex: 'area',
+      // width: '110px',
+      width: '11em',
+    }, {
+      title: '信息来源',
+      dataIndex: 'searchPlatform',
+      // width: '80px',
+      width: '8em',      
+    }, 
     /*
     {
       title: '创建时间',
