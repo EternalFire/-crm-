@@ -65,7 +65,8 @@ function ConsultTable ({
           </a>          
         </div>
       ),
-      width: '90px',
+      // width: '90px',
+      width: '6em'      
     }, {
       title: '分配时间',
       dataIndex: 'createTime',
@@ -78,11 +79,13 @@ function ConsultTable ({
           </div>
         )
       },
-      width: '90px',
+      // width: '90px',
+      width: '13em'      
     }, {
       title: '姓名',
       dataIndex: 'name',
-      width: '80px',
+      // width: '80px',
+      width: '8em',      
       filterDropdown: (
         <TableColumnFilter 
           value={nameText} 
@@ -99,7 +102,8 @@ function ConsultTable ({
     }, {
       title: '手机号码',
       dataIndex: 'mobile',
-      width: '110px',
+      // width: '110px',
+      width: '12em', 
       filterDropdown: (
         <TableColumnFilter 
           value={mobileText}
@@ -116,18 +120,22 @@ function ConsultTable ({
     }, {
       title: '所在地区',
       dataIndex: 'area',
-      width: '110px',
+      // width: '110px',
+      width: '11em',
     }, {
       title: '信息来源',
       dataIndex: 'searchPlatform',
-      width: '80px',
+      // width: '80px',
+      width: '8em',      
     }, {
       title: '关键字',
       dataIndex: 'keyword',
-      width: '80px',
+      // width: '80px',
+      width: '8em',
     }, {
       title: '咨询师',
-      width: '80px',
+      // width: '80px',
+      width: '8em',      
       dataIndex: 'followUserName',
       filters: usersFilters, 
       filterMultiple: false, // 单选
@@ -135,7 +143,8 @@ function ConsultTable ({
     }, {
       title: '接待客服',
       dataIndex: 'workerName',
-      width: '80px',
+      // width: '80px',
+      width: '8em',
       render: (text, record, index) => {
         return (
           <div>
@@ -153,11 +162,13 @@ function ConsultTable ({
     }, {
       title: '类别',
       dataIndex: 'flag',
-      width: '80px',
+      // width: '80px',
+      width: '8em',      
     }, {
       title: '备注',
       dataIndex: 'remark',
-      width: '200px',
+      // width: '200px',
+      width: '50em',      
       render(text, record, index) {
         return (
           <div style={{
@@ -183,7 +194,7 @@ function ConsultTable ({
     <Table
       bordered
       style={{ marginTop: 15 }}        
-      scroll={{ y: getTableScrollY(600) }}
+      // scroll={{ y: getTableScrollY(600) }}
       columns={columns}
       dataSource={dataSource}
       loading={loading}
