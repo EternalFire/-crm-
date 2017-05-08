@@ -18,7 +18,7 @@ function Sider ({ user, siderFold, darkTheme, location, changeTheme, navOpenKeys
     <div>
       <div className={styles.logo}>
         <img src={config.logoSrc} />
-        {siderFold ? '' : <span>{config.logoText}</span>}
+        {siderFold ? '' : <span>{`${config.logoText} `} <small>{config.version}</small> </span>}
       </div>
       <Menus {...menusProps} />
       <div className={styles.foot}>
