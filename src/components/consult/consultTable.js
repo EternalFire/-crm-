@@ -104,7 +104,7 @@ function ConsultTable ({
       title: '手机号码',
       dataIndex: 'mobile',
       // width: '110px',
-      width: '12em', 
+      width: '13em', 
       filterDropdown: (
         <TableColumnFilter 
           value={mobileText}
