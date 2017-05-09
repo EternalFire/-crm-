@@ -14,7 +14,6 @@ export default {
     currentMessage: [],
     // date: '2017-02-28',
 
-
     editModalVisible: false,
     messageModalVisible: false,
 
@@ -30,6 +29,23 @@ export default {
 
     usersFilters: [],
     
+    colOP: true,
+    colCreateTime: true,
+    colName: true,
+    colMobile: true,
+    colFlag: true,
+    colFollowUserName: true,
+    colKeyword: true,
+    colWorkerName: true,
+    colRemark: true,
+    colSex: true,
+    colGrade: true,
+    colMajor: true,
+    colEducation: true,
+    colUniversity: true,
+    colArea: true,
+    colSearchPlatform: true,
+
     pagination: {
       // showSizeChanger: true,
       // showQuickJumper: true,
@@ -215,6 +231,9 @@ export default {
     }, 
     setUsersFilters (state, action) {
       return { ...state, usersFilters: action.payload }
-    }   
+    },
+    setColVisible (state, action) {
+      return { ...state, ...action.payload }
+    }
   }
 }

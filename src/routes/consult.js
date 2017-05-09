@@ -24,7 +24,24 @@ function Consult({dispatch, consult, users, loading}) {
     mobileFilterVisible,
     nameText, 
     nameFilterVisible,
-    usersFilters
+    usersFilters,
+
+    colOP,
+    colCreateTime,
+    colName,
+    colMobile,
+    colFlag,
+    colFollowUserName,
+    colKeyword,
+    colWorkerName,
+    colRemark,
+    colSex,
+    colGrade,
+    colMajor,
+    colEducation,
+    colUniversity,
+    colArea,
+    colSearchPlatform
   } = consult; 
 
   const consultToolbarProps = {
@@ -32,7 +49,29 @@ function Consult({dispatch, consult, users, loading}) {
       dispatch({ type: 'consult/setStartDate', payload: { startDate: dateStr[0] }});
       dispatch({ type: 'consult/setEndDate', payload: { endDate: dateStr[1] }});
       dispatch({ type: 'consult/query' });
-    }
+    },
+    onChangeColVisible(prop, checked) {
+      let payload = {};
+      payload[prop] = checked;
+      dispatch({ type: 'consult/setColVisible', payload });
+    },
+
+    colOP,
+    colCreateTime,
+    colName,
+    colMobile,
+    colFlag,
+    colFollowUserName,
+    colKeyword,
+    colWorkerName,
+    colRemark,
+    colSex,
+    colGrade,
+    colMajor,
+    colEducation,
+    colUniversity,
+    colArea,
+    colSearchPlatform    
   }
 
   const consultTableProps = {
@@ -99,7 +138,24 @@ function Consult({dispatch, consult, users, loading}) {
     },
     onEmptyName() {
       dispatch({ type: 'consult/setNameText', payload: { nameText: '' } });
-    }
+    },
+
+    colOP,
+    colCreateTime,
+    colName,
+    colMobile,
+    colFlag,
+    colFollowUserName,
+    colKeyword,
+    colWorkerName,
+    colRemark,
+    colSex,
+    colGrade,
+    colMajor,
+    colEducation,
+    colUniversity,
+    colArea,
+    colSearchPlatform
   }
 
   const editModalProps = {
