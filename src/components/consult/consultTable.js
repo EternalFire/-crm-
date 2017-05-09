@@ -67,7 +67,7 @@ function ConsultTable ({
         </div>
       ),
       // width: '90px',
-      width: '6em'      
+      width: '7em'      
     }, {
       title: '分配时间',
       dataIndex: 'createTime',

@@ -2,12 +2,13 @@
  * 网络咨询 编辑用户信息
  */
 import React, { PropTypes } from 'react'
-import {Modal, Row, Col, Form, Input, Radio, Checkbox} from 'antd'
+import {Modal, Row, Col, Form, Input, Radio, Checkbox, Select } from 'antd'
 import {maxRemarkLen, maxRemarkMessage, maxNormalLen, maxNormalMessage} from '../../utils'
 
 const FormItem = Form.Item
 const RadioGroup = Radio.Group
 const CheckboxGroup = Checkbox.Group
+const Option = Select.Option;
 
 const EditModal = ({
   title,
@@ -57,10 +58,15 @@ const EditModal = ({
     wrapperCol: { span: 14 },
   };
 
+  const textareaFormItemLayout = {
+    labelCol: { span: 3 },
+    wrapperCol: { span: 19 },
+  }
+
   const remarkFormItemLayout = {
     labelCol: { span: 3 },
     wrapperCol: { span: 19 },
-  };
+  };  
   
   const plainOptions = [
     { label: '复试', value: 'fs' },
@@ -120,6 +126,29 @@ const EditModal = ({
                 </RadioGroup>
               )}
             </FormItem>
+            <FormItem label='班型' {...formItemLayout}>
+              {getFieldDecorator('grade', {
+                initialValue: item.grade,
+                rules: [
+                  {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
+                  }
+                ]
+              })(<Input />)}
+            </FormItem>
+            <FormItem label='学历' {...formItemLayout}>
+              {getFieldDecorator('education', {
+                initialValue: item.education,
+                rules: []
+              })(
+                <Select>
+                  <Option value="大专">大专</Option>
+                  <Option value="本科">本科</Option>
+                  <Option value="硕士及以上">硕士及以上</Option>
+                </Select>
+              )}
+            </FormItem>
           </Col>
           
           <Col span={12}>
@@ -133,14 +162,37 @@ const EditModal = ({
                   }
                 ]
               })(<Input />)}
-            </FormItem>
+            </FormItem>   
             <FormItem {...formItemLayout} label="来源渠道">
               {item.memsrc}
+            </FormItem>                   
+            <FormItem label='专业: ' {...formItemLayout}>
+              {getFieldDecorator('major', {
+                initialValue: item.major,
+                rules: [
+                  {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
+                  }
+                ]
+              })(<Input />)}
+            </FormItem>
+            <FormItem label='学校: ' {...formItemLayout}>
+              {getFieldDecorator('university', {
+                initialValue: item.university,
+                rules: [                  
+                  {
+                    max: maxNormalLen,
+                    message: maxNormalMessage
+                  }
+                ]
+              })(<Input />)}
             </FormItem>
           </Col>
-
+        </Row>
+        <Row>
           <Col span={24}>
-            <FormItem {...formItemLayout} label="备注">
+            <FormItem {...textareaFormItemLayout} label="备注">
               {getFieldDecorator('remark', {
                 initialValue: item.remark,
                 rules: [
@@ -149,13 +201,13 @@ const EditModal = ({
                     message: maxRemarkMessage
                   }
                 ]
-              })(<Input type="textarea" rows={4} />)}
+              })(<Input type="textarea" rows={5} />)}
             </FormItem>
             <FormItem {...remarkFormItemLayout} label="跟进进度">
               <CheckboxGroup options={plainOptions} onChange={handleChangeStat} />
             </FormItem>
           </Col>        
-        </Row>        
+        </Row>
       </Form>
     </Modal>
   )
