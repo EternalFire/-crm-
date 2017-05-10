@@ -20,21 +20,26 @@ function Header ({user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
   
   return (
     <div className={styles.header}>
-      {isNavbar
-        ? <Popover placement='bottomLeft' 
-            onVisibleChange={switchMenuPopover} 
-            visible={menuPopoverVisible} 
-            overlayClassName={styles.popovermenu} 
-            trigger='click' 
-            content={<Menus {...menusProps} />}
-          >
-            <div className={styles.siderbutton}>
-              <Icon type='bars' />
-            </div>
-          </Popover>
-        : <div className={styles.siderbutton} onClick={switchSider}>
-            <Icon type={siderFold ? 'menu-unfold' : 'menu-fold'} />
-          </div>}
+      {
+        // isNavbar
+        // ? <Popover placement='bottomLeft' 
+        //     onVisibleChange={switchMenuPopover} 
+        //     visible={menuPopoverVisible} 
+        //     overlayClassName={styles.popovermenu} 
+        //     trigger='click' 
+        //     content={<Menus {...menusProps} />}
+        //   >
+        //     {
+        //     // <div className={styles.siderbutton}>
+        //     //   <Icon type='bars' />
+        //     // </div>
+        //     }
+        //   </Popover>
+        // : ''
+        //   // <div className={styles.siderbutton} onClick={switchSider}>
+        //   //   <Icon type={siderFold ? 'menu-unfold' : 'menu-fold'} />
+        //   // </div>
+      }
 
       <Menu className='header-menu' mode='horizontal' onClick={handleClickMenu}>
         <SubMenu style={{

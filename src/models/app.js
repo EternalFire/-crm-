@@ -15,7 +15,7 @@ export default {
     loginButtonLoading: false,
     menuPopoverVisible: false,
     // siderFold: localStorage.getItem('antdAdminSiderFold') === 'true',
-    siderFold: false,
+    siderFold: true,
     // darkTheme: localStorage.getItem('antdAdminDarkTheme') !== 'false',
     darkTheme: true,
     isNavbar: document.body.clientWidth < 769,
