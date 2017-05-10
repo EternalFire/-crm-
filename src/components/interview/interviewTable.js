@@ -125,7 +125,7 @@ const InterviewTable = ({
     <Table
       bordered
       style={{ marginTop: 15 }}        
-      scroll={{ y: getTableScrollY(580) }}
+      // scroll={{ y: getTableScrollY(580) }}
       columns={columns}
       dataSource={dataSource}
       loading={loading}
@@ -133,7 +133,7 @@ const InterviewTable = ({
       pagination={pagination}
       simple
       rowKey={record => record._id}
-    />  
+    />
   )
 }
 

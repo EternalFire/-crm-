@@ -4,6 +4,7 @@
 import React, { PropTypes } from 'react'
 import {Modal, Form} from 'antd'
 import SpinWrapper from '../common/spinWrapper'
+import styles from './messageModal.css'
 
 const MessageModal = ({
   title, 
@@ -18,20 +19,30 @@ const MessageModal = ({
     visible,
     onOk,
     onCancel,
-    width: 600
+    width: 600,
+    style: { top: 20 },
+    maskClosable: false
   };
 
   function renderMessages() {
     return messages.map((d, i) => {
       if (d.content.msg_type == 'p') {
         return (
-          <p key={i} style={{ textAlign: 'right', paddingLeft: '40px' }}>
-            {d.content.msg}
-          </p>
+          <div className={styles.messageBox}>
+            <p key={i} className={styles.answer}>
+              {d.content.msg}
+            </p>
+          </div>
         );
       }
       else {
-        return (<p key={i}>{d.content.msg}</p>);
+        return (
+          <div className={styles.messageBox}>
+            <p key={i} className={styles.question}>
+              {d.content.msg}
+            </p>
+          </div>
+        );
       }
     })
   }

@@ -103,7 +103,8 @@
       span {
         vertical-align: text-bottom;
         font-size: 16px;
-        text-transform: uppercase;
+        // text-transform: uppercase;
+        text-transform: none;
         display: inline-block;
       }
 
@@ -213,6 +214,7 @@
   .main {
     margin-left: 224px;
     overflow: auto;
+    min-width: 1380px;
     height: 100vh;
     transition: @transition-ease-out;
 
@@ -233,6 +235,18 @@
         // 分页显示在左侧
         :global .ant-table-pagination {
           margin: 2em 0 2em 2em !important;
+        }
+
+        :global .ant-table-thead th {
+          position: -webkit-sticky;
+          position: sticky;
+          top: -1px;
+          z-index: 2;
+          background-color: white;
+        }
+
+        :global .ant-table, :global .ant-table table {
+          overflow: visible;
         }
       }
     }

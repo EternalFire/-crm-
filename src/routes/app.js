@@ -75,6 +75,9 @@ function App ({children, location, dispatch, app}) {
     changeOpenKeys (openKeys) {      
       localStorage.setItem('navOpenKeys', JSON.stringify(openKeys))
       dispatch({ type: 'app/handleNavOpenKeys', payload: { navOpenKeys: openKeys } })
+    },
+    onClickLogo () {
+      dispatch(routerRedux.push({ pathname: '/' }));
     }
   }
 
