@@ -16,6 +16,9 @@ import {
 
 import * as Authority from './userAuthority'
 
+import { Menu, Icon } from 'antd'
+
+
 /*
   XX中心
     社招面试
@@ -107,6 +110,30 @@ function generateAdminMenu() {
   };
 }
 
+function generateAboutMenu() {
+  return {
+    key: 'about',
+    name: '关于',
+    icon: 'info-circle'
+  }
+}
+
+function generateUser(user) {
+  return {
+    key: 'user',
+    name: user.name,
+    icon: 'user',
+    child: [
+      {
+        key: 'logout',
+        render: () => {
+          return (<a>安全退出</a>)
+        }
+      }
+    ]
+  }
+}
+
 // const menus = [
 //   generateCenterMenu(guangzhou, getCenterName(guangzhou)),
 //   generateCenterMenu(chongqing, getCenterName(chongqing)),
@@ -143,6 +170,8 @@ function generateMenus(user) {
   let isAdmin_ = Authority.isAdministrator(user.center, user.type);
   let menus = []
 
+  menus.push(generateUser(user))
+
   if (isAdmin_ || isGuangzhou(user.center)) {
     menus.push(generateCenterMenu(guangzhou, getCenterName(guangzhou)));
   }
@@ -162,6 +191,8 @@ function generateMenus(user) {
   if (isAdmin_) {
     menus.push(generateAdminMenu());
   }
+
+  menus.push(generateAboutMenu());
   return menus;
 };
 
