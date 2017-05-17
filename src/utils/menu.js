@@ -129,6 +129,12 @@ function generateUser(user) {
         render: () => {
           return (<a>安全退出</a>)
         }
+      }, 
+      {
+        key: 'info',
+        render: () => { 
+          return (<a>用户信息</a>) 
+        }
       }
     ]
   }

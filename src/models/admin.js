@@ -102,18 +102,18 @@ export default {
       }
     },
     *updateUser({ payload }, { select, call, put }) {
-      // todo
+      // todo call
       
       yield put({ type: 'updateUserLocal', payload })
       yield put({ type: 'sortUsers' })
     },
     *deleteUser({ payload }, { select, call, put }) {    
-      // todo
+      // todo call
       
       yield put({ type: 'deleteUserLocal', payload })
     },
     *addUser({ payload }, { select, call, put }) {
-      // todo
+      // todo call
       
       yield put({ type: 'addUsersLocal', payload: [payload] });
       yield put({ type: 'sortUsers' })
