@@ -1,7 +1,7 @@
 /*
  * 总部
  */
-import {querySuReport, queryUserWithCenter} from '../services/crm'
+import {querySuReport, queryUserWithCenter, updateUserWithId, deleteUserWithId} from '../services/crm'
 import {checkResponse, today, center} from '../utils'
 
 export default {
@@ -102,21 +102,27 @@ export default {
       }
     },
     *updateUser({ payload }, { select, call, put }) {
-      // todo call
-      
-      yield put({ type: 'updateUserLocal', payload })
-      yield put({ type: 'sortUsers' })
+      const data = yield call(updateUserWithId, payload);
+
+      if (checkResponse(data)) {
+        yield put({ type: 'updateUserLocal', payload })
+        yield put({ type: 'sortUsers' })
+      }
     },
     *deleteUser({ payload }, { select, call, put }) {    
-      // todo call
-      
-      yield put({ type: 'deleteUserLocal', payload })
+      const data = yield call(deleteUserWithId, payload);
+
+      if (checkResponse(data)) {      
+        yield put({ type: 'deleteUserLocal', payload });
+      }
     },
-    *addUser({ payload }, { select, call, put }) {
-      // todo call
-      
-      yield put({ type: 'addUsersLocal', payload: [payload] });
-      yield put({ type: 'sortUsers' })
+    *addUser({ payload }, { select, call, put }) {      
+      const data = yield call(updateUserWithId, payload);
+
+      if (checkResponse(data)) {
+        yield put({ type: 'addUsersLocal', payload: [payload] });
+        yield put({ type: 'sortUsers' });
+      }
     }
   },
   reducers: {

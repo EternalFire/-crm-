@@ -214,3 +214,18 @@ export async function editCustomerConsult(params) {
   })
 }
 // 网络咨询, end
+
+// 更新用户
+export async function updateUserWithId(user) {
+  return request(`/users/${user._id}`, {
+    method: 'put',
+    data: user
+  })
+}
+
+// 删除用户
+export async function deleteUserWithId(user) {  
+  return request(`/users/${user._id}`, {
+    method: 'delete',
+  })
+}
