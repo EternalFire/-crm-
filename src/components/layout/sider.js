@@ -4,7 +4,7 @@ import styles from './main.less'
 import { config } from '../../utils'
 import Menus from './menu'
 
-function Sider ({ user, siderFold, darkTheme, location, changeTheme, navOpenKeys, changeOpenKeys, switchMenuPopover }) {
+function Sider ({ user, siderFold, darkTheme, location, changeTheme, navOpenKeys, changeOpenKeys, switchMenuPopover, onClickLogo, switchSider }) {
   const menusProps = {
     user,
     siderFold,
@@ -15,12 +15,17 @@ function Sider ({ user, siderFold, darkTheme, location, changeTheme, navOpenKeys
     handleClickNavMenu: switchMenuPopover,    
   }
   return (
-    <div>
-      <div className={styles.logo}>
+    <div className={styles.container}>
+      <div className={styles.logo} onClick={switchSider}>
         <img src={config.logoSrc} />
-        {siderFold ? '' : <span>{config.logoText}</span>}
+        {siderFold ? '' : <span>{`${config.logoText} `} <small>{config.version}</small> </span>}
       </div>
       <Menus {...menusProps} />
+      {
+      // <div className={styles.siderbutton} onClick={switchSider}>
+      //   <Icon type={siderFold ? 'menu-unfold' : 'menu-fold'} />
+      // </div>
+      }
       <div className={styles.foot}>
         {config.footerText}
       </div>

@@ -13,19 +13,19 @@ const net = 20;
 const generalManager = 99;
 
 // 咨询顾问
-const isWorker = type => type === worker;
+const isWorker = type => type === worker || parseInt(type) === worker;
 
 // 咨询经理
-const isManager = type => type === manager;
+const isManager = type => type === manager || parseInt(type) === manager;
 
 // 分中心前台
-const isFront = type => type === front;
+const isFront = type => type === front || parseInt(type) === front;
 
 // 网咨客服
-const isNetCustomerService = type => type === net;
+const isNetCustomerService = type => type === net || parseInt(type) === net;
 
 // 总经理
-const isGeneralManager = type => type === generalManager;
+const isGeneralManager = type => type === generalManager || parseInt(type) === generalManager;
 
 // 管理员
 const isAdministrator = (center, type) => isAdmin(center) && isGeneralManager(type);

@@ -63,7 +63,7 @@ function UserTable({
     width: '90px',
     render: (text, record, index) => (
       <div>
-        {authority.getTypeName(text)}
+        {authority.getTypeName(parseInt(text))}
       </div>
     )
   }, {
@@ -81,7 +81,7 @@ function UserTable({
     <Table
       bordered
       style={{ marginTop: 15 }}        
-      scroll={{ y: getTableScrollY(580) }}
+      // scroll={{ y: getTableScrollY(580) }}
       columns={columns}
       dataSource={data}
       loading={loading}

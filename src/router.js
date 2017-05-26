@@ -102,6 +102,15 @@ export default function ({history, app}) {
           }
         }, 
         {
+          path: 'about',
+          name: 'about',
+          getIndexRoute (nextState, cb) {
+            require.ensure([], require => {
+              cb(null, {component: require('./routes/homePage')})
+            })
+          },
+        },
+        {
           path: '*',
           name: 'error',
           getComponent (nextState, cb) {

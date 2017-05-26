@@ -46,7 +46,8 @@ function CenterTable ({
           <Icon type="edit" />
         </a>
       ),
-      width: '50px',
+      // width: '50px',
+      width: '2em'
     }, {
       title: (
         <div>
@@ -63,22 +64,26 @@ function CenterTable ({
           </div>
         )
       },
-      width: '90px',
+      // width: '90px',
+      width: '13em'
     }, {
       title: '咨询师',
       dataIndex: 'followUserName',
-      width: '80px',
+      // width: '80px',
+      width: '8em',
       filters: usersFilters, 
       filterMultiple: false, // 单选
       filteredValue: usersFiltered
     },{
       title: '岗位',
       dataIndex: 'job',
-      width: '100px',
+      // width: '100px',
+      width: '8em', 
     }, {
       title: '姓名',
       dataIndex: 'name',
-      width: '80px',
+      // width: '80px',
+      width: '7em', 
       render(text, record, index) {
         return (
           <div>
@@ -90,11 +95,13 @@ function CenterTable ({
     }, {
       title: '性别',
       dataIndex: 'sex',
-      width: '50px',
+      // width: '50px',
+      width: '6em'
     }, {
       title: '手机号码',
       dataIndex: 'mobile',
-      width: '100px',
+      // width: '100px',
+      width: '12em', 
       filterDropdown: (
         <TableColumnFilter 
           value={mobileText} 
@@ -111,7 +118,8 @@ function CenterTable ({
     }, {
       title: '初试备注',
       dataIndex: 'remark',
-      width: '200px',
+      // width: '240px',
+      width: '50em',
       render(text, record, index) {
         return (
           <div style={{
@@ -124,31 +132,38 @@ function CenterTable ({
     }, {
       title: '课程',
       dataIndex: 'grade',
-      width: '80px',
+      // width: '80px',
+      width: '10em'
     }, {
       title: '学历',
       dataIndex: 'education',
-      width: '50px',
+      // width: '50px',
+      width: '6em'
     }, {
       title: '专业',
       dataIndex: 'major',
-      width: '100px',
+      // width: '100px',
+      width: '10em'
     }, {
       title: '学校',
       dataIndex: 'university',
-      width: '100px',
+      // width: '100px',
+      width: '10em'
     }, {
       title: '工作年限',
       dataIndex: 'jobYears',
-      width: '80px',
+      // width: '80px',
+      width: '10em'
     }, {
       title: '渠道来源',
       dataIndex: 'memsrc',
-      width: '80px',
+      // width: '80px',
+      width: '10em'
     }, {
       title: '邀约人',
       dataIndex: 'invite',
-      width: '60px',
+      // width: '60px',
+      width: '6em'
     }
   ];
 
@@ -157,7 +172,7 @@ function CenterTable ({
       <Table
         bordered
         style={{ marginTop: 15 }}
-        scroll={{ y: getTableScrollY(530) }}
+        // scroll={{ y: getTableScrollY(530) }}
         columns={columns}
         dataSource={dataSource}
         loading={loading}

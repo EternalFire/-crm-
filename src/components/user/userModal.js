@@ -119,7 +119,7 @@ function UserModal({
               {authority.getTypes().map((e, i) => {
                 return (
                   <Option key={i} value={`${e}`}>
-                    {authority.getTypeName(e)}
+                    {authority.getTypeName(parseInt(e))}
                   </Option>
                 );
               })}

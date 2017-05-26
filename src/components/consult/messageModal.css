@@ -1,0 +1,20 @@
+.question {
+  max-width: 40%;
+  float: left;
+  background-color: lightblue;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.answer {
+  max-width: 40%;
+  float: right;
+  background-color: lightgreen;  
+  border-radius: 15px;  
+  padding: 10px;
+}
+
+.messageBox {  
+  overflow: hidden;
+  margin: 8px;
+}

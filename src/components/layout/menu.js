@@ -7,30 +7,37 @@ let menu = [];
 let topMenus = [];
 let ancestorKeys = {};
 
-function initMenu(user) {
-  if (user) {    
+function initMenu(user) {  
+  if (user) {
     menu = MenuConfig.generateMenus(user)    
     ancestorKeys = MenuConfig.generateAncestorKeys(menu);    
     topMenus = menu.map(item => item.key);
   }
 }
 
-const getMenus = function (menuArray, siderFold, parentPath) {
+const getMenus = function (menuArray, siderFold, parentPath, user) {
   parentPath = parentPath || '/'
   return menuArray.map(item => {
     if (item.child) {
       return (
         <Menu.SubMenu key={item.key} title={<span>{item.icon ? <Icon type={item.icon} /> : ''}{siderFold && topMenus.indexOf(item.key) >= 0 ? '' : item.name}</span>}>
-          {getMenus(item.child, siderFold, parentPath + item.key + '/')}
+          {getMenus(item.child, siderFold, parentPath + item.key + '/', user)}
         </Menu.SubMenu>
       )
     } else {
       return (
         <Menu.Item key={item.key}>
-          <Link to={parentPath + item.key}>
-            {item.icon ? <Icon type={item.icon} /> : ''}
-            {siderFold && topMenus.indexOf(item.key) >= 0 ? '' : item.name}
-          </Link>
+          {
+            item.render ? 
+              item.render()
+            :
+              (
+                <Link to={parentPath + item.key}>
+                  {item.icon ? <Icon type={item.icon} /> : ''}
+                  {siderFold && topMenus.indexOf(item.key) >= 0 ? '' : item.name}
+                </Link>
+              )
+          }
         </Menu.Item>
       )
     }
@@ -40,7 +47,7 @@ const getMenus = function (menuArray, siderFold, parentPath) {
 function Menus ({ user, siderFold, darkTheme, location, isNavbar, handleClickNavMenu, navOpenKeys, changeOpenKeys }) {  
   initMenu(user);
   
-  const menuItems = getMenus(menu, siderFold)
+  const menuItems = getMenus(menu, siderFold, null, user)
 
   const onOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find(key => !(navOpenKeys.indexOf(key) > -1))

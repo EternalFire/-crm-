@@ -23,36 +23,51 @@ function App ({children, location, dispatch, app}) {
     }
   }
 
-  const headerProps = {
-    user,
-    siderFold,
-    location,
-    isNavbar,
-    menuPopoverVisible,
-    navOpenKeys,
-    switchMenuPopover () {
-      dispatch({type: 'app/switchMenuPopver'})
-    },
-    logout () {
-      Modal.confirm({
-        title: '确定退出登陆吗?',
-        onOk() {
-          dispatch(routerRedux.push({ pathname: '/' })); // 修改URL
-          dispatch({ type: 'app/logout' })
-        },
-        onCancel() {}
-      });
-    },
-    updateInfo() {
-      dispatch({ type: 'app/showUserInfoModal' });
-    },
-    switchSider () {
-      dispatch({type: 'app/switchSider'})
-    },
-    changeOpenKeys (openKeys) {
-      localStorage.setItem('navOpenKeys', JSON.stringify(openKeys))
-      dispatch({ type: 'app/handleNavOpenKeys', payload: { navOpenKeys: openKeys } })
-    }
+  // const headerProps = {
+  //   user,
+  //   siderFold,
+  //   location,
+  //   isNavbar,
+  //   menuPopoverVisible,
+  //   navOpenKeys,
+  //   switchMenuPopover () {
+  //     dispatch({type: 'app/switchMenuPopver'})
+  //   },
+  //   logout () {
+  //     Modal.confirm({
+  //       title: '确定退出登陆吗?',
+  //       onOk() {
+  //         dispatch(routerRedux.push({ pathname: '/' })); // 修改URL
+  //         dispatch({ type: 'app/logout' })
+  //       },
+  //       onCancel() {}
+  //     });
+  //   },
+  //   updateInfo() {
+  //     dispatch({ type: 'app/showUserInfoModal' });
+  //   },
+  //   switchSider () {
+  //     dispatch({type: 'app/switchSider'})
+  //   },
+  //   changeOpenKeys (openKeys) {
+  //     localStorage.setItem('navOpenKeys', JSON.stringify(openKeys))
+  //     dispatch({ type: 'app/handleNavOpenKeys', payload: { navOpenKeys: openKeys } })
+  //   }
+  // }
+
+  function logout () {
+    Modal.confirm({
+      title: '确定退出登陆吗?',
+      onOk() {
+        dispatch(routerRedux.push({ pathname: '/' })); // 修改URL
+        dispatch({ type: 'app/logout' })
+      },
+      onCancel() {}
+    });
+  }
+
+  function updateInfo() {
+    dispatch({ type: 'app/showUserInfoModal' });
   }
 
   function clearLoginFail() {
@@ -67,6 +82,9 @@ function App ({children, location, dispatch, app}) {
     navOpenKeys,
     // 点击菜单回调
     switchMenuPopover (e) {
+      e.key === 'logout' && logout();
+      e.key === 'info' && updateInfo();
+
       dispatch({ type: 'app/handleClickMenu', payload: { openKey: e.key } })
     },
     changeTheme () {
@@ -75,6 +93,12 @@ function App ({children, location, dispatch, app}) {
     changeOpenKeys (openKeys) {      
       localStorage.setItem('navOpenKeys', JSON.stringify(openKeys))
       dispatch({ type: 'app/handleNavOpenKeys', payload: { navOpenKeys: openKeys } })
+    },
+    onClickLogo () {
+      dispatch(routerRedux.push({ pathname: '/' }));
+    },
+    switchSider () {
+      dispatch({type: 'app/switchSider'})
     }
   }
 
@@ -96,13 +120,16 @@ function App ({children, location, dispatch, app}) {
 
   return (
     <div>
-      {login ? 
+      {
+        login ? 
         <div className={classnames(styles.layout, {[styles.fold]: isNavbar ? false : siderFold}, {[styles.withnavbar]: isNavbar})}>
           {!isNavbar ? <aside className={classnames(styles.sider, {[styles.light]: !darkTheme})}>
             <Sider {...siderProps} />
           </aside> : ''}
           <div className={styles.main}>
-            <Header {...headerProps} />            
+            {
+              // <Header {...headerProps} />
+            }
             <div className={styles.container}>
               <div className={styles.content}>
                 {children}
@@ -119,7 +146,7 @@ function App ({children, location, dispatch, app}) {
             </Spin>
           </div>
       }
-      
+
       <Modal title="提示" 
         onOk={() => {
           clearLoginFail()
